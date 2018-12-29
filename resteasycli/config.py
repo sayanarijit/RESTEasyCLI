@@ -1,5 +1,5 @@
 class Config(object):
-    VERSION = 'v0.1.0'
+    VERSION = 'v0.1.1'
     DESCRIPTION = 'Handy REST API client on your terminal'
     SUPPORTED_EXTENSIONS = ['json', 'yml', 'yaml']
     SEARCH_PATHS = ['.', '~/.recli', '/etc/recli']
