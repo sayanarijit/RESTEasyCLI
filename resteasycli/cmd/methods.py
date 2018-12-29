@@ -50,7 +50,7 @@ class GenericRequest(Command, ABC):
         return endpoint.do(self.METHOD, kwargs=self.parse_kwargs(args.kwargs))
     
     def take_action(self, args):
-        sys.stdout.write(json.dumps(self.do(args), indent=4))
+        sys.stdout.write(json.dumps(self.do(args), indent=4)+'\n')
 
 class GET(GenericRequest):
     '''Do GET request'''
@@ -91,7 +91,7 @@ class SHOW(GenericRequest, ShowOne):
     '''SHOW a particular result'''
 
     METHOD = 'GET'
-    
+
     def take_action(self, args):
         data = self.do(args)
         if len(data) == 0:
