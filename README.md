@@ -2,7 +2,7 @@
 
 Handy REST API client on your terminal
 
-[![asciicast](https://asciinema.org/a/218991.svg)](https://asciinema.org/a/218991)
+[![asciicast](https://asciinema.org/a/218994.svg)](https://asciinema.org/a/218994)
 
 [![PyPI version](https://img.shields.io/pypi/v/RESTEasyCLI.svg)](https://pypi.org/project/RESTEasyCLI)
 [![Build Status](https://travis-ci.org/rapidstack/RESTEasyCLI.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCLI)
