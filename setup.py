@@ -2,7 +2,7 @@ from os import path
 from codecs import open
 from setuptools import setup, find_packages
 
-PROJECT = 'resteasycli'
+PROJECT = 'RESTEasyCLI'
 VERSION = '0.0.1'  # Also resteasycli.config.Config, README.md
 
 

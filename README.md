@@ -1,11 +1,11 @@
-# RESTEasyCli
+# RESTEasyCLI
 
 Handy REST API client on your terminal
 
-[![PyPI version](https://img.shields.io/pypi/v/RESTEasyCli.svg)](https://pypi.org/project/RESTEasyCli)
-[![Build Status](https://travis-ci.org/rapidstack/RESTEasyCli.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCli)
+[![PyPI version](https://img.shields.io/pypi/v/RESTEasyCLI.svg)](https://pypi.org/project/RESTEasyCLI)
+[![Build Status](https://travis-ci.org/rapidstack/RESTEasyCLI.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCLI)
 
-- [RESTEasyCli](#resteasycli)
+- [RESTEasyCLI](#resteasycli)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Help menu](#help-menu)
@@ -18,11 +18,11 @@ Handy REST API client on your terminal
 ## Installation
 
 ```bash
-pip install resteasycli
+pip install RESTEasyCLI
 
 # OR
 
-pipenv install resteasycli
+pipenv install RESTEasyCLI
 ```
 
 ## Usage
