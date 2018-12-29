@@ -4,7 +4,6 @@ Handy REST API client on your terminal
 
 [![PyPI version](https://img.shields.io/pypi/v/RESTEasyCli.svg)](https://pypi.org/project/RESTEasyCli)
 [![Build Status](https://travis-ci.org/rapidstack/RESTEasyCli.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCli)
-[![Join the chat at https://gitter.im/rapidstack/RESTEasyCli](https://badges.gitter.im/rapidstack/RESTEasyCli.svg)](https://gitter.im/rapidstack/RESTEasyCli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 - [RESTEasyCli](#resteasycli)
   - [Installation](#installation)

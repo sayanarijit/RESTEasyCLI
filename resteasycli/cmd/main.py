@@ -7,7 +7,7 @@ from resteasycli import exceptions
 
 
 class CLIApp(App):
-
+    '''The main CLI app'''
     def __init__(self):
         super(CLIApp, self).__init__(
             description=Config.DESCRIPTION,
