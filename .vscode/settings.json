@@ -1,0 +1,13 @@
+{
+    "python.pythonPath": "/home/sayan/.local/share/virtualenvs/RESTEasyCLI-bbcMns7L/bin/python",
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        "./test/units/*",
+        "-p",
+        "*_test.py"
+    ],
+    "python.unitTest.pyTestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.unittestEnabled": true
+}
