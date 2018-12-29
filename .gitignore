@@ -102,3 +102,6 @@ ENV/
 site.yml
 site.yaml
 site.json
+
+# IDE
+.vscode/
