@@ -7,7 +7,7 @@ python:
 install:
     - pip install -r requirements.txt
     - python setup.py install
-    - recli init
+    - recli init -f
 script:
     - python tests/units/lib/abstract_finder_test.py
     - python tests/units/lib/abstract_reader_test.py

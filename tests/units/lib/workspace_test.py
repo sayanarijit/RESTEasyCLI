@@ -45,7 +45,7 @@ class WorkspaceTest(unittest.TestCase):
                         'headers_values': {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            'Custom-header': 'demo1'
+                            'Custom-Header': 'demo1'
                         },
                         'headers_action': 'update',
                         'auth': None,

@@ -1,6 +1,5 @@
 import sys
 import json
-from abc import ABC
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from cliff.command import Command
@@ -9,7 +8,7 @@ from resteasycli.objects import workspace
 from resteasycli.exceptions import InvalidEndpointException
 
 
-class GenericRequest(Command, ABC):
+class GenericRequest(Command):
     '''Generic interface for API requests'''
     def get_parser(self, prog_name):
         parser = super(GenericRequest, self).get_parser(prog_name)
