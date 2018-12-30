@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 PROJECT = 'RESTEasyCLI'
-VERSION = '0.1.2'  # Also resteasycli.config.Config, README.md
+VERSION = '0.2.0'  # Also resteasycli.config.Config, README.md
 
 
 here = path.abspath(path.dirname(__file__))
@@ -64,13 +64,22 @@ setup(
         ],
         'cliff.recli': [
             'init = resteasycli.cmd.initialize:Init',
-            'get = resteasycli.cmd.methods:GET',
-            'post = resteasycli.cmd.methods:POST',
-            'put = resteasycli.cmd.methods:PUT',
-            'patch = resteasycli.cmd.methods:PATCH',
-            'delete = resteasycli.cmd.methods:DELETE',
-            'list = resteasycli.cmd.methods:LIST',
-            'show = resteasycli.cmd.methods:SHOW'
+
+            'get = resteasycli.cmd.requests:GET',
+            'post = resteasycli.cmd.requests:POST',
+            'put = resteasycli.cmd.requests:PUT',
+            'patch = resteasycli.cmd.requests:PATCH',
+            'delete = resteasycli.cmd.requests:DELETE',
+            'list = resteasycli.cmd.requests:List',
+            'show = resteasycli.cmd.requests:Show',
+            'redo = resteasycli.cmd.requests:ReDoQueryFromSavedRequests',
+            'redo-list = resteasycli.cmd.requests:ReDoListFromSavedRequest',
+            'redo-show = resteasycli.cmd.requests:ReDoShowFromSavedRequest',
+
+            'list-sites = resteasycli.cmd.workspace:ListSites',
+            'list-endpoints = resteasycli.cmd.workspace:ListEndpoints',
+            'list-saved = resteasycli.cmd.workspace:ListSavedRequests',
+            'show-saved = resteasycli.cmd.workspace:ShowSavedRequest'
         ]
     },
     keywords='REST API client CLI tool'
