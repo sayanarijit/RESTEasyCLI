@@ -1,9 +1,9 @@
 # RESTEasyCLI
 
+Handy REST API client on your terminal
+
 [![PyPI version](https://img.shields.io/pypi/v/RESTEasyCLI.svg)](https://pypi.org/project/RESTEasyCLI)
 [![Build Status](https://travis-ci.org/rapidstack/RESTEasyCLI.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCLI)
-
-Handy REST API client on your terminal
 
 [![asciicast](https://asciinema.org/a/219065.svg)](https://asciinema.org/a/219065)
 
