@@ -1,5 +1,5 @@
 from cliff.command import Command
-from resteasycli.lib.initializer import initialize
+from resteasycli.lib.workspace import WorkspaceTemplates
 
 
 class Init(Command):
@@ -11,4 +11,4 @@ class Init(Command):
         return parser
 
     def take_action(self, args):
-        initialize(force=args.force)
+        WorkspaceTemplates.initialize(force=args.force)

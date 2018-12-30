@@ -1,0 +1,3 @@
+recli help
+recli init
+recli init -f

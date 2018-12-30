@@ -1,6 +1,0 @@
-recli get github_jobs/positions --kwargs description=python full_time=1 --timeout=10
-recli show testing/todos/1 --kwargs title=abcd
-recli init
-recli list-sites
-recli list-endpoints github_jobs
-recli list-methods github_jobs/positions

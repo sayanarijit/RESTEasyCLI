@@ -98,10 +98,22 @@ ENV/
 # mypy
 .mypy_cache/
 
-# sites
-site.yml
-site.yaml
-site.json
+# workspace files
+sites.yml
+sites.yaml
+sites.json
+
+saved.yml
+saved.yaml
+saved.json
+
+auth.yml
+auth.yaml
+auth.json
+
+headers.yml
+headers.yaml
+headers.json
 
 # IDE
 .vscode/

@@ -1,9 +1,11 @@
 import sys
-
 from cliff.app import App
+from cliff.complete import CompleteCommand
 from cliff.commandmanager import CommandManager
-from resteasycli.config import Config
+from resteasy import HTTPError, InvalidResponseError
+
 from resteasycli import exceptions
+from resteasycli.config import Config
 
 
 class CLIApp(App):
@@ -15,6 +17,9 @@ class CLIApp(App):
             command_manager=CommandManager('cliff.recli'),
             deferred_help=True,
         )
+        # TODO: Add auto completion the best way
+        # self.command_manager.add_command(
+        #     'complete', CompleteCommand)
 
     def initialize_app(self, argv):
         self.LOG.debug('initializing app')
@@ -32,15 +37,13 @@ def main(argv=sys.argv[1:]):
     app = CLIApp()
     try:
         return app.run(argv)
-    except exceptions.MethodNotAllowedException as e:
+    except (HTTPError, InvalidResponseError,
+            exceptions.MethodNotAllowedException,
+            exceptions.FileNotFoundException,
+            exceptions.FileExtensionNotSupportedException,
+            exceptions.InvalidEndpointException) as e:
         sys.stderr.write('error:'+str(e)+'\n')
-    except exceptions.FileNotFoundException as e:
-        sys.stderr.write('error:'+str(e)+'\n')
-    except exceptions.FileExtensionNotSupportedException as e:
-        sys.stderr.write('error:'+str(e)+'\n')
-    except exceptions.InvalidEndpointException as e:
-        sys.stderr.write('error:'+str(e)+'\n')
-        
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))

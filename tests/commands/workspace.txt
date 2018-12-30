@@ -1,0 +1,4 @@
+recli list-sites
+recli list-endpoints
+recli list-saved
+recli show-saved remind_shopping
