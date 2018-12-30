@@ -11,6 +11,11 @@ install:
 script:
     - python tests/units/lib/abstract_finder_test.py
     - python tests/units/lib/abstract_reader_test.py
+    - python tests/units/lib/auth_test.py
     - python tests/units/lib/endpoint_test.py
+    - python tests/units/lib/headers_test.py
+    - python tests/units/lib/saved_resuest_test.py
+    - python tests/units/lib/site_test.py
     - python tests/units/lib/workspace_test.py
-    - python tests/e2e/execute_all_commands.py
+
+    - python tests/e2e/execute_all_commands.py > /dev/null
