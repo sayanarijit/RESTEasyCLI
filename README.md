@@ -83,8 +83,12 @@ recli redo remind_shopping
 recli redo-list remind_shopping -m GET -k
 ```
 
-### Most importantly fake a retuest
+### Most importantly fake a request
 
 ```bash
 recli redo-show remind_shopping -m GET -k --fake
+
+# It can be used with -s to save the request for later use without doing it
+
+recli redo-show remind_shopping -m GET -k --fake -s get_todos
 ```
