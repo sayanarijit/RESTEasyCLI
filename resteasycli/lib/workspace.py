@@ -7,6 +7,7 @@ from resteasycli.lib.auth import Auth
 from resteasycli.lib.headers import Headers
 from resteasycli.lib.endpoint import Endpoint
 from resteasycli.lib.abstract_reader import Reader
+from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
 
@@ -22,7 +23,7 @@ sites:
         timeout: 10
         methods:
           - GET
- 
+
   testing:
     base_url: https://jsonplaceholder.typicode.com
     endpoints:
@@ -57,7 +58,7 @@ headers:
       Content-Type: application/json
       Accept: application/json
       Custom-Header: demo1
-  
+
   demo_headers2:
     action: only
     values:
@@ -88,7 +89,8 @@ saved_requests:
 '''
 
 class WorkspaceTemplates(object):
-    
+    '''Default templates and initializer for workspace'''
+
     TEMPLATE = {
       'sites': {'filename': Config.SITES_TEMPLATE_FILENAME,
                 'content': SITES_TEMPLATE_CONTENT},
@@ -113,10 +115,16 @@ class Workspace(object):
     def __init__(self, logger):
         self.finder = Finder(logger=logger)
         self.reader = Reader(logger=logger)
+        self.writer = Writer(logger=logger)
         self.logger = logger
         self.load_files()
     
+    def reload(self):
+        '''Reload workspace changes'''
+        self.load_files()
+
     def load_files(self):
+        '''Load files from current workspace'''
         self.logger.debug('Finding available files in workplace')
         self.sites_file = self.finder.find(names=['sites'])
         self.auth_file = self.finder.find(names=['auth'])
@@ -176,15 +184,15 @@ class Workspace(object):
     def get_site(self, site_id):
         '''Returns initialized site obect'''
         return Site(site_id=site_id, workspace=self)
-    
+
     def get_auth(self, auth_id):
         '''Returns initialized auth obect'''
         return Auth(auth_id=auth_id, workspace=self)
-    
+
     def get_headers(self, headers_id):
         '''Returns initialized headers obect'''
         return Headers(headers_id=headers_id, workspace=self)
-    
+
     def get_saved_request(self, request_id):
         '''Returns initialized request obect'''
         return SavedRequest(request_id=request_id, workspace=self)

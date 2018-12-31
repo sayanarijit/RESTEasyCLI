@@ -13,6 +13,7 @@ twine = "*"
 resteasy = {version = "*",editable = true}
 pyyaml = "*"
 cliff = "*"
+pidlock = "*"
 
 [requires]
 python_version = "3.5"

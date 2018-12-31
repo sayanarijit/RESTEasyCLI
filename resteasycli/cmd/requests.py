@@ -5,7 +5,75 @@ from cliff.lister import Lister
 from cliff.command import Command
 
 from resteasycli.objects import workspace
+from resteasycli.lib.request import Request
 from resteasycli.exceptions import InvalidEndpointException
+
+
+class AbstractRequest(Command):
+    '''The abctract request class for all requests'''
+
+    def get_parser(self, prog_name):
+        parser = super(GenericRequest, self).get_parser(prog_name)
+        parser.add_argument('-m', '--method', help='override query method')
+        parser.add_argument('-k', '--kwargs', type=str, nargs='*',
+                            help='set kwargs by removing old one')
+        parser.add_argument('-u', '--update_kwargs', type=str, nargs='*',
+                            help='update only mentioned key-value pairs')
+        parser.add_argument(
+            '-a', '--auth', help='use alternate authentication from file')
+        parser.add_argument('-H', '--headers',
+                            help='use alternate set of headers from file')
+        parser.add_argument(
+            '-s', '--slug', help='add a slug to existing endpoint')
+        parser.add_argument('-t', '--timeout', type=int)
+        parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
+                            action='store_true')
+        parser.add_argument('-s', '--save_as',
+                            help='save the request for later use. can be used with --fake option')
+        return parser
+
+    @staticmethod
+    def parse_kwargs(lst):
+        if lst is None:
+            return {}
+        return {x.split('=', 1)[0]: x.split('=', 1)[1] for x in lst}
+    
+    def get_request(self, method, site_id, endpoint_id, args):
+        '''build and get the request object'''
+        # if args.request_id not in workspace.saved_requests:
+        #     raise RuntimeError(
+        #         'error: {}: request ID not found'.format(args.request_id))
+
+        request = Request(workspace=workspace, method=args.method)
+
+        if args.method is not None:
+            request.set_method(args.method)
+
+        if args.timeout is not None:
+            request.set_timeout(args.timeout)
+
+        if args.kwargs is not None:
+            request.set_kwargs(self.parse_kwargs(args.kwargs))
+
+        if args.update_kwargs is not None:
+            request.update_kwargs(self.parse_kwargs(args.update_kwargs))
+
+        if args.auth_id is not None:
+            request.set_auth(args.auth_id)
+
+        if args.headers_id is not None:
+            request.set_headers(args.headers_id)
+
+        if args.slug is not None:
+            request.add_slug(args.slug)
+
+        if args.fake:
+            request.set_debug(True)
+
+        if args.save_as is not None:
+            request.save(request_id=args.save_as)
+
+        return request
 
 
 class GenericRequest(Command):
@@ -14,9 +82,12 @@ class GenericRequest(Command):
         parser = super(GenericRequest, self).get_parser(prog_name)
         parser.add_argument('site_endpoint',
                             help='format: $site/$endpoint or $site_id/$endpoint_id/$slug')
-        parser.add_argument('-k', '--kwargs', type=str, nargs='*')
+        parser.add_argument('-k', '--kwargs', type=str, nargs='*', help='request parameters/payload')
         parser.add_argument('-t', '--timeout', type=int)
-        parser.add_argument('-F', '--fake', action='store_true')
+        parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
+                action='store_true')
+        parser.add_argument('-s', '--save_as',
+                help='save the request for later use. can be used with --fake option')
         return parser
 
     @staticmethod
@@ -35,10 +106,11 @@ class GenericRequest(Command):
             raise InvalidEndpointException(
                 'error: {}: correct format of endpoint is: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug'.format(args.site_endpoint))
         
-        endpoint = workspace.get_site(site_id).get_endpoint(endpoint_id, slug=slug)
+        request = Request(workspace=workspace, method=self.METHOD,
+                site_id=site_id, endpoint_id=endpoint_id)
 
         if args.timeout is not None:
-            endpoint.api.timeout = args.timeout
+            request.set_timeout(args.timeout)
 
         if args.fake:
             endpoint.api.debug = True
@@ -114,11 +186,14 @@ class ReDoQueryFromSavedRequests(GenericRequest):
                             help='set kwargs by removing old one')
         parser.add_argument('-u', '--update_kwargs', type=str, nargs='*',
                             help='update only mentioned key-value pairs')
-        parser.add_argument('-a', '--auth_id', help='use alternate authentication from file')
-        parser.add_argument('-x', '--headers_id', help='use alternate set of headers from file')
+        parser.add_argument('-a', '--auth', help='use alternate authentication from file')
+        parser.add_argument('-H', '--headers', help='use alternate set of headers from file')
         parser.add_argument('-s', '--slug', help='add a slug to existing endpoint')
         parser.add_argument('-t', '--timeout', type=int)
-        parser.add_argument('-F', '--fake', action='store_true')
+        parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
+                            action='store_true')
+        parser.add_argument('-s', '--save_as',
+                            help='save the request for later use. can be used with --fake option')
         return parser
 
     def do(self, args):
@@ -150,6 +225,9 @@ class ReDoQueryFromSavedRequests(GenericRequest):
         
         if args.fake:
             request.set_debug(True)
+        
+        if args.save_as is not None:
+            request.save(request_id=args.save_as)
         
         return request.do()
 

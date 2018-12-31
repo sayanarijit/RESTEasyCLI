@@ -99,6 +99,10 @@ ENV/
 .mypy_cache/
 
 # workspace files
+*.yml.lock
+*.yaml.lock
+*.json.lock
+
 sites.yml
 sites.yaml
 sites.json
