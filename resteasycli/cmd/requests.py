@@ -78,6 +78,17 @@ class GenericRequest(Command):
     def get_request(self, method, site_id, endpoint_id, args):
         '''get the request object'''
 
+        if site_id not in workspace.sites:
+            raise EntryNotFoundException('{}: site not found'.format(site_id))
+
+        site = workspace.get_site(site_id)
+
+        if endpoint_id not in site.endpoints:
+            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
+
+        if method not in site.get_endpoint(endpoint_id).allowed_methods and not args.fake:
+            raise MethodNotAllowedException('{}: method not allowed on this endpoint'.format(method))
+
         request = Request(workspace=workspace, method=method,
                 site_id=site_id, endpoint_id=endpoint_id)
 
@@ -126,7 +137,7 @@ class UnSavedRequest(GenericRequest):
     def get_parser(self, prog_name):
         parser = super(UnSavedRequest, self).get_parser(prog_name)
         parser.add_argument('site_endpoint',
-                            help='format: $site/$endpoint or $site_id/$endpoint_id/$slug')
+                            help='format: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug')
         return parser
 
     def get_request(self, method, args):
