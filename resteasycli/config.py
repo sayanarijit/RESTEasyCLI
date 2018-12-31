@@ -5,6 +5,7 @@ class Config(object):
     DESCRIPTION = 'Handy REST API client on your terminal'
     SUPPORTED_EXTENSIONS = os.environ.get(
         'RECLI_SUPPORTED_EXTENSIONS', 'json,yml,yaml').split(',')
+    DEFAULT_FILE_EXTENSION = os.environ.get('RECLI_DEFAULT_FILE_EXTENSION', 'yml')
     SEARCH_PATHS = os.environ.get(
         'RECLI_SEARCH_PATHS', '.,~/.recli,/etc/recli').split(',')
     DEFAULT_ALLOWED_METHODS = os.environ.get(

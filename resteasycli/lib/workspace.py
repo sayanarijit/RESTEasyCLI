@@ -92,13 +92,13 @@ class WorkspaceTemplates(object):
     '''Default templates and initializer for workspace'''
 
     TEMPLATE = {
-      'sites': {'filename': Config.SITES_TEMPLATE_FILENAME,
+      'sites': {'filename': '{}.{}'.format(Config.SITES_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
                 'content': SITES_TEMPLATE_CONTENT},
-      'auth': {'filename': Config.AUTH_TEMPLATE_FILENAME,
+      'auth': {'filename': '{}.{}'.format(Config.AUTH_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
                'content': AUTH_TEMPLATE_CONTENT},
-      'headers': {'filename': Config.HEADERS_TEMPLATE_FILENAME,
+      'headers': {'filename': '{}.{}'.format(Config.HEADERS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
                   'content': HEADERS_TEMPLATE_CONTENT},
-      'saved_requests': {'filename': Config.SAVED_REQUESTS_TEMPLATE_FILENAME,
+      'saved_requests': {'filename': '{}.{}'.format(Config.SAVED_REQUESTS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
                          'content': SAVED_REQUESTS_TEMPLATE_CONTENT}
     }
 
