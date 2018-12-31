@@ -73,13 +73,22 @@ setup(
             'list = resteasycli.cmd.requests:UnSavedList',
             'show = resteasycli.cmd.requests:UnSavedShow',
             'redo = resteasycli.cmd.requests:SavedRedo',
+            'do = resteasycli.cmd.requests:SavedRedo',
             'redo-list = resteasycli.cmd.requests:SavedList',
+            'dolst = resteasycli.cmd.requests:SavedList',
             'redo-show = resteasycli.cmd.requests:SavedShow',
+            'doshw = resteasycli.cmd.requests:SavedShow',
 
             'list-sites = resteasycli.cmd.workspace:ListSites',
+            'show-site = resteasycli.cmd.workspace:ShowSite',
             'list-endpoints = resteasycli.cmd.workspace:ListEndpoints',
+            'show-endpoint = resteasycli.cmd.workspace:ShowEndpoint',
             'list-saved = resteasycli.cmd.workspace:ListSavedRequests',
-            'show-saved = resteasycli.cmd.workspace:ShowSavedRequest'
+            'show-saved = resteasycli.cmd.workspace:ShowSavedRequest',
+            'list-headers = resteasycli.cmd.workspace:ListHeaders',
+            'show-headers = resteasycli.cmd.workspace:ShowHeaders',
+            'list-auth = resteasycli.cmd.workspace:ListAuth',
+            'show-auth = resteasycli.cmd.workspace:ShowAuth',
         ]
     },
     keywords='REST API client CLI tool'

@@ -13,3 +13,6 @@ class Headers(object):
             session.headers = self.values
         elif self.action == 'update':
             session.headers.update(self.values)
+
+    def dict(self):
+        return {'action': self.action, 'values': self.values}

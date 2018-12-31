@@ -8,4 +8,4 @@ class SavedRequest(Request):
         Request.__init__(self, workspace=workspace, site_id=data['site'],
                 endpoint_id=data['endpoint'], **data)
         self.request_id = request_id
-        
+

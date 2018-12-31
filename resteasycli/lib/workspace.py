@@ -129,13 +129,13 @@ class Workspace(object):
 
     def load_files(self):
         '''Load files from current workspace'''
-        self.logger.debug('Finding available files in workplace')
-        self.sites_file = self.finder.find(names=['sites'])
-        self.auth_file = self.finder.find(names=['auth'])
-        self.headers_file = self.finder.find(names=['headers'])
-        self.saved_requests_file = self.finder.find(names=['saved'])
+        self.logger.debug('finding available files in workplace')
+        self.sites_file = self.finder.find(names=[Config.SITES_TEMPLATE_FILENAME])
+        self.auth_file = self.finder.find(names=[Config.AUTH_TEMPLATE_FILENAME])
+        self.headers_file = self.finder.find(names=[Config.HEADERS_TEMPLATE_FILENAME])
+        self.saved_requests_file = self.finder.find(names=[Config.SAVED_REQUESTS_TEMPLATE_FILENAME])
 
-        self.logger.debug('Reading found files')
+        self.logger.debug('reading found files')
         self.reader.load_reader_by_extension(self.sites_file.extension)
         self.sites = self.reader.read(self.sites_file.path)['sites']
 
@@ -152,38 +152,6 @@ class Workspace(object):
                 self.saved_requests_file.extension)
         self.saved_requests = self.reader.read(
             self.saved_requests_file.path)['saved_requests']
-
-    def list_sites(self):
-        '''List available sites in current workspace'''
-        return {k: v['base_url'] for k,v in self.sites.items()}
-
-    def list_endpoints(self):
-        '''List available endpoints in current workspace'''
-        result = {}
-        for site, values in self.sites.items():
-            base_url = values['base_url']
-            for endpoint, values in values['endpoints'].items():
-                result['{}/{}'.format(site, endpoint)] = '{}/{}'.format(base_url, values['route'])
-        return result
-
-    def list_saved_requests(self):
-        '''List available saved requests in current workspace'''
-        result = {}
-        for saved, v in self.saved_requests.items():
-            h = self.headers[v['headers']] if 'headers' in v else {'values': {}, 'action': None}
-            result[saved] = {
-                'method': v['method'],
-                'site_endpoint': '{}/{}'.format(v['site'], v['endpoint']),
-                'endpoint_url': '{}/{}'.format(
-                    self.sites[v['site']]['base_url'],
-                    self.sites[v['site']]['endpoints'][v['endpoint']]['route']),
-                'headers': v.get('headers', None),
-                'headers_action': h['action'],
-                'headers_values': h['values'],
-                'auth': v.get('auth', None),
-                'kwargs': v.get('kwargs', {})
-            }
-        return result
 
     def get_site(self, site_id):
         '''Returns initialized site obect'''

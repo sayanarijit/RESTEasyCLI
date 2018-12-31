@@ -23,6 +23,7 @@ class Endpoint(object):
         self.timeout_applied = None
         self.verify_applied = None
         self.allowed_methods = Config.DEFAULT_ALLOWED_METHODS
+        self.allowed_methods_applied = None
         self.api = APIEndpoint(endpoint=('{}/{}'.format(site.base_url, data['route'])),
                 session=site.session,
                 timeout=site.timeout, debug=site.debug)
@@ -52,3 +53,18 @@ class Endpoint(object):
             raise MethodNotAllowedException('allowed methods are: ' + (', '.join(self.allowed_methods)))
 
         return self.api.do(method, kwargs)
+
+    def dict(self):
+        '''Return information about itself in dict format'''
+        data = {'endpoint_url': self.api.endpoint}
+        if self.auth_applied is not None:
+            data.update({'auth': self.auth_applied.auth_id})
+        if self.headers_applied is not None:
+            data.update({'headers': self.headers_applied.headers_id})
+        if self.timeout_applied is not None:
+            data.update({'timeout': self.timeout_applied})
+        if self.verify_applied is not None:
+            data.update({'verify': self.verify_applied})
+        if self.allowed_methods_applied is not None:
+            data.update({'allowed_methods': self.allowed_methods_applied})
+        return data

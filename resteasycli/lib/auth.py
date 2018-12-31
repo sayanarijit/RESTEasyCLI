@@ -15,3 +15,6 @@ class Auth(object):
         elif self.type == 'token':
             session.headers.update(
                     {self.credentials['header']: self.credentials['value']})
+
+    def dict(self):
+        return {'type': self.type, 'credentials': self.credentials}

@@ -8,7 +8,7 @@ class FileInfo(object):
         self.name = name
         self.extension = extension
         self.path = path
-    
+
     def __repr__(self):
         return 'FileInfo({})'.format(self.path)
 
@@ -30,6 +30,7 @@ class Finder(object):
                     self.logger.debug('Searching for endpoints file: ' + fullpath)
                     if not os.path.exists(fullpath):
                         continue
-                    self.logger.debug('Found endpoints file: ' + fullpath)
+                    self.logger.debug('found file: ' + fullpath)
                     return FileInfo(name=fn, extension=fe, path=fullpath)
-        raise FileNotFoundException('endpoints file not found in any of: ' + (', '.join(self.SEARCH_PATHS)))
+        raise FileNotFoundException('{}: file not found in any of: {}'.format(
+                ('|'.join(names)), ((', '.join(self.SEARCH_PATHS)))))

@@ -38,3 +38,21 @@ class Site(RESTEasy):
     def get_endpoint(self, endpoint_id, slug=None):
         '''Return an initialized endpoint object'''
         return Endpoint(endpoint_id=endpoint_id, site=self, slug=slug)
+
+    def dict(self):
+        '''Return information about itself in dict format'''
+        data = {
+            'endpoints': list(self.endpoints.keys()),
+            'base_url': self.base_url
+        }
+        if self.auth_applied is not None:
+            data.update({'auth': self.auth_applied.auth_id})
+        if self.headers_applied is not None:
+            data.update({'headers': self.headers_applied.headers_id})
+        if self.timeout_applied is not None:
+            data.update({'timeout': self.timeout_applied})
+        if self.verify_applied is not None:
+            data.update({'verify': self.verify_applied})
+        if self.allowed_methods_applied is not None:
+            data.update({'allowed_methods': self.allowed_methods_applied})
+        return data

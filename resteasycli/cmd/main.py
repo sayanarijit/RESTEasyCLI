@@ -38,10 +38,12 @@ def main(argv=sys.argv[1:]):
     try:
         return app.run(argv)
     except (HTTPError, InvalidResponseError,
+            exceptions.EntryNotFoundException,
+            exceptions.InvalidCommandException,
             exceptions.MethodNotAllowedException,
             exceptions.FileNotFoundException,
             exceptions.FileExtensionNotSupportedException) as e:
-        sys.stderr.write('error:'+str(e)+'\n')
+        sys.stderr.write('error: '+str(e)+'\n')
 
 
 if __name__ == '__main__':

@@ -2,45 +2,125 @@ import json
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from resteasycli.objects import workspace
+from resteasycli.exceptions import EntryNotFoundException
 
 
 class ListSites(Lister):
     '''List available sites in current workspace'''
     def take_action(self, args):
-        result = workspace.list_sites()
+        result =  {k: v['base_url'] for k,v in workspace.sites.items()}
         return [['site', 'base_url'], result.items()]
+
+class ShowSite(ShowOne):
+    '''Show information about a site'''
+    def get_parser(self, prog_name):
+        parser = super(ShowSite, self).get_parser(prog_name)
+        parser.add_argument('site_id')
+        return parser
+
+    def take_action(self, args):
+        if args.site_id not in workspace.sites:
+            raise EntryNotFoundException('{}: site not found'.format(args.site_id))
+        result = workspace.get_site(args.site_id).dict()
+        return [result.keys(), result.values()]
 
 class ListEndpoints(Lister):
     '''List available endpoints in current workspace'''
     def take_action(self, args):
-        result = workspace.list_endpoints()
+        result = {}
+        for site, values in workspace.sites.items():
+            base_url = values['base_url']
+            for endpoint, values in values['endpoints'].items():
+                result['{}/{}'.format(site, endpoint)] = '{}/{}'.format(base_url, values['route'])
         return [['site_endpoint', 'endpoint_url'], result.items()]
+
+class ShowEndpoint(ShowOne):
+    '''Show information about an endpoint'''
+    def get_parser(self, prog_name):
+        parser = super(ShowEndpoint, self).get_parser(prog_name)
+        parser.add_argument('site_endpoint')
+        return parser
+
+    def take_action(self, args):
+        if len(args.site_endpoint.split('/')) != 2:
+            raise InvalidCommandException(
+                    '{}: correct format is: $site_id/$endpoint_id'.format(args.site_endpoint))
+        site_id, endpoint_id = args.site_endpoint.split('/')
+        if site_id not in workspace.sites:
+            raise EntryNotFoundException('{}: site not found'.format(site_id))
+        site = workspace.get_site(site_id)
+        if endpoint_id not in site.endpoints:
+            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
+        result = site.get_endpoint(endpoint_id).dict()
+        return [result.keys(), result.values()]
 
 class ListSavedRequests(Lister):
     '''List all saved requests in current workspace'''
     def take_action(self, args):
-        result = workspace.list_saved_requests()
-        header = ['request', 'method', 'site_endpoint', 'kwargs']
+        result = workspace.saved_requests
+        header = ['request', 'method', 'site_endpoint']
         body = []
         for k, v in result.items():
-            body.append([k, v['method'], v['site_endpoint'], json.dumps(v['kwargs'], indent=2)])
+            site_endpoint = '{}/{}'.format(v['site'], v['endpoint'])
+            body.append([k, v['method'], site_endpoint])
         return [header, body]
 
 class ShowSavedRequest(ShowOne):
     '''Show a particular saved request'''
     def get_parser(self, prog_name):
         parser = super(ShowSavedRequest, self).get_parser(prog_name)
-        parser.add_argument('saved_request')
+        parser.add_argument('request_id')
         return parser
 
     def take_action(self, args):
-        result = workspace.list_saved_requests().get(args.saved_request)
-        if result is None:
-            raise RuntimeError('error: {}: saved request not found'.format(args.saved_request))
-        if 'kwargs' in result:
-            result['kwargs'] = json.dumps(result['kwargs'], indent=2)
-        
-        if 'headers_values' in result:
-            result['headers_values'] = (
-                '; '.join(['{}: {}'.format(k, v) for k, v in result['headers_values'].items()]))
+        if args.request_id not in workspace.saved_requests:
+            raise EntryNotFoundException('{}: request not found'.format(args.request_id))
+        result = workspace.get_saved_request(args.request_id).dict()
         return [result.keys(), result.values()]
+
+class ListHeaders(Lister):
+    '''List all headers in current workspace'''
+    def take_action(self, args):
+        result = workspace.headers
+        header = ['headers_id', 'action', 'values']
+        body = []
+        for k, v in result.items():
+            body.append([k, v['action'], '\n'.join(['{}: {}'.format(x,y) for x,y in v['values'].items()])])
+        return [header, body]
+
+class ShowHeaders(ShowOne):
+    '''Show a particular set of headers'''
+    def get_parser(self, prog_name):
+        parser = super(ShowHeaders, self).get_parser(prog_name)
+        parser.add_argument('headers_id')
+        return parser
+
+    def take_action(self, args):
+        if args.headers_id not in workspace.headers:
+            raise EntryNotFoundException('{}: request not found'.format(args.headers_id))
+        result = workspace.get_headers(args.headers_id).dict()
+        return [result.keys(), result.values()]
+
+class ListAuth(Lister):
+    '''List all authentication methods in current workspace'''
+    def take_action(self, args):
+        result = workspace.auth
+        header = ['auth_id', 'type', 'credentials']
+        body = []
+        for k, v in result.items():
+            body.append([k, v['type'], v['credentials']])
+        return [header, body]
+
+class ShowAuth(ShowOne):
+    '''Show a particular authentication method'''
+    def get_parser(self, prog_name):
+        parser = super(ShowAuth, self).get_parser(prog_name)
+        parser.add_argument('auth_id')
+        return parser
+
+    def take_action(self, args):
+        if args.auth_id not in workspace.auth:
+            raise EntryNotFoundException('{}: auth method not found'.format(args.auth_id))
+        result = workspace.get_auth(args.auth_id).dict()
+        return [result.keys(), result.values()]
+

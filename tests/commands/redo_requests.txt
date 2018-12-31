@@ -3,3 +3,4 @@ recli redo remind_shopping -k "title=Watch naruto at 22:00"
 recli redo-list get_python_jobs --fit-width
 
 recli redo get_python_jobs -F
+recli do get_python_jobs -F

@@ -1,0 +1,18 @@
+version: 0.1
+saved_requests:
+  get_python_jobs:
+    method: GET
+    site: github_jobs
+    endpoint: positions
+    headers: demo_headers1
+    kwargs:
+      description: python
+      full_time: 1
+
+  remind_shopping:
+    method: POST
+    site: testing
+    endpoint: todos
+    auth: demo_basic_auth
+    kwargs:
+      title: Go to shopping

@@ -1,4 +1,10 @@
 recli list-sites
+recli show-site github_jobs
 recli list-endpoints
+recli show-endpoint github_jobs/positions
 recli list-saved
 recli show-saved remind_shopping
+recli list-headers
+recli show-headers demo_headers1
+recli list-auth
+recli show-auth demo_token_auth

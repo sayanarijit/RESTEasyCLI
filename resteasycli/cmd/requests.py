@@ -6,6 +6,7 @@ from cliff.command import Command
 
 from resteasycli.objects import workspace
 from resteasycli.lib.request import Request
+from resteasycli.exceptions import InvalidCommandException, EntryNotFoundException
 
 
 class List(Lister):
@@ -23,7 +24,7 @@ class List(Lister):
         if len(data) == 0:
             return [[], []]
         if isinstance(data, dict):
-            raise RuntimeError('error: use `show`/`redo-show` operation instead')
+            raise InvalidCommandException('use `show`/`redo-show` operation instead')
         header = data[0].keys()
         body = [x.values() for x in data]
         return [header, body]
@@ -43,7 +44,7 @@ class Show(ShowOne):
         if len(data) == 0:
             return [[], []]
         if isinstance(data, list):
-            raise RuntimeError('error: use `list`/`redo-list` operation instead')
+            raise InvalidCommandException('use `list`/`redo-list` operation instead')
         return [data.keys(), data.values()]
 
 
@@ -136,8 +137,8 @@ class UnSavedRequest(GenericRequest):
         elif len(args.site_endpoint.split('/')) == 3:
             site_id, endpoint_id, args.slug = args.site_endpoint.split('/')
         else:
-            raise RuntimeError(
-                'error: {}: correct format of endpoint is: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug'.format(args.site_endpoint))
+            raise InvalidCommandException(
+                '{}: correct format of endpoint is: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug'.format(args.site_endpoint))
         return super(UnSavedRequest, self).get_request(method=method, site_id=site_id,
                 endpoint_id=endpoint_id, args=args)
 
@@ -192,8 +193,8 @@ class SavedRequest(GenericRequest):
         '''Build and get the request object'''
 
         if args.request_id not in workspace.saved_requests:
-            raise RuntimeError(
-                'error: {}: request ID not found'.format(args.request_id))
+            raise EntryNotFoundException(
+                '{}: request ID not found'.format(args.request_id))
 
         request = workspace.get_saved_request(args.request_id)
 

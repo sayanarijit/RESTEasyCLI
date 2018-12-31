@@ -79,7 +79,12 @@ recli get testing/todos/1 -s my_request
 ### Re-do a saved request
 
 ```bash
+recli do remind_shopping
+# OR
 recli redo remind_shopping
+
+recli dolst remind_shopping -m GET -k
+# OR
 recli redo-list remind_shopping -m GET -k
 ```
 
