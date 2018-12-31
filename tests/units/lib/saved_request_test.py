@@ -19,7 +19,15 @@ class SavedRequestTest(unittest.TestCase):
                          'description': 'python', 'full_time': 1})
         self.assertEqual(info['method'], 'GET')
         self.assertEqual(info['timeout'], 10)
+    
+    def test_save_as(self):
+        self.get_python_jobs.set_method('POST')
+        self.get_python_jobs.save_as('test_post_python_jobs')
+        
+        info = workspace.get_saved_request('test_post_python_jobs')
+        workspace.reload()
 
+        self.assertEqual(info.method, 'POST')
 
 if __name__ == '__main__':
     unittest.main()

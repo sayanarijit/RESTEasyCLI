@@ -18,7 +18,6 @@ Handy REST API client on your terminal
       - [Show](#show)
     - [Re-do a saved request](#re-do-a-saved-request)
     - [Most importantly fake a retuest](#most-importantly-fake-a-retuest)
-  - [External packages used](#external-packages-used)
 
 ## Installation
 
@@ -81,9 +80,3 @@ recli redo-list remind_shopping -m GET -k
 ```bash
 recli redo-show remind_shopping -m GET -k --fake
 ```
-
-## External packages used
-
-- [cliff](https://github.com/openstack/cliff)
-- [RESTEasy](https://github.com/rapidstack/RESTEasy)
-  - [requests](https://github.com/requests/requests)
