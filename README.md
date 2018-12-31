@@ -16,6 +16,7 @@ Handy REST API client on your terminal
     - [Special formatting of data](#special-formatting-of-data)
       - [List](#list)
       - [Show](#show)
+    - [Save a request for later use](#save-a-request-for-later-use)
     - [Re-do a saved request](#re-do-a-saved-request)
     - [Most importantly fake a retuest](#most-importantly-fake-a-retuest)
 
@@ -68,6 +69,13 @@ recli list testing/todos
 recli show testing/todos
 ```
 
+### Save a request for later use
+
+```bash
+recli get testing/todos/1 -s my_request
+
+# Request will be saved in saved.yml as "my_request"
+```
 ### Re-do a saved request
 
 ```bash
