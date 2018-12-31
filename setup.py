@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 PROJECT = 'RESTEasyCLI'
-VERSION = '0.2.2'  # Also resteasycli.config.Config
+VERSION = '0.2.3'  # Also resteasycli.config.Config
 
 
 here = path.abspath(path.dirname(__file__))
@@ -13,7 +13,7 @@ with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
     requirements = f.read().splitlines()
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
@@ -23,7 +23,7 @@ setup(
     # Also change resteasycli.config.Config, README.md
     description='Handy REST API client on your terminal',
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    # long_description_content_type='text/markdown',
     url='https://github.com/rapidstack/RESTEasyCLI',
     download_url='https://github.com/rapidstack/RESTEasyCLI/archive/%s.tar.gz' % VERSION,
     author='Arijit Basu',

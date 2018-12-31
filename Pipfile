@@ -8,6 +8,7 @@ pylint = "*"
 autopep8 = "*"
 setuptools = "*"
 twine = "*"
+m2r = "*"
 
 [packages]
 resteasy = {version = "*",editable = true}
