@@ -1,0 +1,5 @@
+recli get testing/todos/1 -s new_request1
+recli list testing/todos -s new_request2
+recli redo get_python_jobs -s new_request3 -m POST -F
+recli redo-list get_python_jobs -s new_request4 -m POST -F -k full_time=0
+recli redo-show remind_shopping -s new_request5 -m GET -S 1 -k

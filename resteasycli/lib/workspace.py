@@ -118,7 +118,11 @@ class Workspace(object):
         self.writer = Writer(logger=logger)
         self.logger = logger
         self.load_files()
-    
+
+    @staticmethod
+    def init(force=False):
+        WorkspaceTemplates.initialize(force=force)
+
     def reload(self):
         '''Reload workspace changes'''
         self.load_files()

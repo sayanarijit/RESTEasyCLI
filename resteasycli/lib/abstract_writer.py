@@ -1,8 +1,8 @@
 import yaml
 import json
 
-from resteasycli.exceptions import FileExtensionNotSupportedException
 from resteasycli.config import Config
+from resteasycli.exceptions import FileExtensionNotSupportedException
 
 
 def _write_json(data, filepath):

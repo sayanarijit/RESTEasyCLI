@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 PROJECT = 'RESTEasyCLI'
-VERSION = '0.2.1'  # Also resteasycli.config.Config, README.md
+VERSION = '0.2.2'  # Also resteasycli.config.Config
 
 
 here = path.abspath(path.dirname(__file__))
@@ -70,11 +70,11 @@ setup(
             'put = resteasycli.cmd.requests:PUT',
             'patch = resteasycli.cmd.requests:PATCH',
             'delete = resteasycli.cmd.requests:DELETE',
-            'list = resteasycli.cmd.requests:List',
-            'show = resteasycli.cmd.requests:Show',
-            'redo = resteasycli.cmd.requests:ReDoQueryFromSavedRequests',
-            'redo-list = resteasycli.cmd.requests:ReDoListFromSavedRequest',
-            'redo-show = resteasycli.cmd.requests:ReDoShowFromSavedRequest',
+            'list = resteasycli.cmd.requests:UnSavedList',
+            'show = resteasycli.cmd.requests:UnSavedShow',
+            'redo = resteasycli.cmd.requests:SavedRedo',
+            'redo-list = resteasycli.cmd.requests:SavedList',
+            'redo-show = resteasycli.cmd.requests:SavedShow',
 
             'list-sites = resteasycli.cmd.workspace:ListSites',
             'list-endpoints = resteasycli.cmd.workspace:ListEndpoints',

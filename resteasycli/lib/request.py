@@ -1,5 +1,5 @@
 import time
-from pidlock import PIDLock
+from resteasycli.lib.locked_read_writer import LockedReadWriter
 
 
 class Request(object):
@@ -67,36 +67,36 @@ class Request(object):
         '''Invoke the query'''
         return self.endpoint.do(method=self.method, kwargs=self.kwargs)
 
+    def dict(self):
+        '''Return information about request in dict format'''
+        request = {
+            'method': self.method,
+            'site': self.endpoint.site.site_id,
+            'endpoint': self.endpoint.endpoint_id,
+            'kwargs': self.kwargs,
+        }
+        if self.auth_applied is not None:
+            request.update({'auth': self.auth_applied.auth_id})
+        if self.headers_applied is not None:
+            request.update({'headers': self.headers_applied.headers_id})
+        if self.timeout_applied is not None:
+            request.update({'timeout': self.timeout_applied})
+        if self.verify_applied is not None:
+            request.update({'verify': self.verify_applied})
+
+        return request
+
     def save_as(self, request_id):
         '''Save the query for later use'''
 
         fileinfo = self.workspace.saved_requests_file
-        locker = PIDLock(lockdir='.', verbose=False)
-        reader = self.workspace.reader
-        reader.load_reader_by_extension(fileinfo.extension)
-        writer = self.workspace.writer
-        writer.load_writer_by_extension(fileinfo.extension)
 
-        with locker.lock(fileinfo.name, wait=10, mininterval=1):
-            data = reader.read(fileinfo.path)
+        locked_file = LockedReadWriter(logger=self.workspace.logger).open(fileinfo.path)
+        data = locked_file.read()
 
-            # Add request
-            request = {
-                request_id: {
-                    'method': self.method,
-                    'site': self.endpoint.site.site_id,
-                    'endpoint': self.endpoint.endpoint_id,
-                    'kwargs': self.kwargs,
-                }
-            }
-            if self.auth_applied is not None:
-                request.update({'auth': self.auth_applied.auth_id})
-            if self.headers_applied is not None:
-                request.update({'headers': self.headers_applied.headers_id})
-            if self.timeout_applied is not None:
-                request.update({'timeout': self.timeout_applied})
-            if self.verify_applied is not None:
-                request.update({'verify': self.verify_applied})
+        data['saved_requests'].update({request_id: self.dict()})
+        locked_file.write(data=data)
+        locked_file.close()
 
-            data['saved_requests'].update(request)
-            writer.write(data=data, filepath=fileinfo.path)
+    def __repr__(self):
+        return self.dict()

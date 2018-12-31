@@ -8,6 +8,8 @@ from resteasycli.lib.auth import Auth
 from resteasycli.lib.headers import Headers
 from resteasycli.lib.saved_request import SavedRequest
 
+workspace.init(force=True)
+workspace.reload()
 
 class WorkspaceTemplatesTest(unittest.TestCase):
 
@@ -68,10 +70,10 @@ class WorkspaceTest(unittest.TestCase):
 
     def test_get_auth(self):
         self.assertIsInstance(self.ws.get_auth('demo_basic_auth'), Auth)
-    
+
     def test_get_headers(self):
         self.assertIsInstance(self.ws.get_headers('demo_headers1'), Headers)
-    
+
     def test_get_saved_request(self):
         self.assertIsInstance(self.ws.get_saved_request(
             'remind_shopping'), SavedRequest)

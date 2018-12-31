@@ -40,8 +40,7 @@ def main(argv=sys.argv[1:]):
     except (HTTPError, InvalidResponseError,
             exceptions.MethodNotAllowedException,
             exceptions.FileNotFoundException,
-            exceptions.FileExtensionNotSupportedException,
-            exceptions.InvalidEndpointException) as e:
+            exceptions.FileExtensionNotSupportedException) as e:
         sys.stderr.write('error:'+str(e)+'\n')
 
 
