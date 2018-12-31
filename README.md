@@ -123,6 +123,7 @@ recli redo-show remind_shopping -m GET -k --fake -s get_todos
 - [ ] Initialize workspace from generated API documentation
 - [ ] Write a blog post, create a youtube video on it
 - [ ] [Postman](https://www.getpostman.com) compatibility
+
 ...[add more goals](https://github.com/rapidstack/RESTEasyCLI/issues/new)
 
 ## Contribution guide
