@@ -1,5 +1,5 @@
 import os
-import asyncio
+import time
 
 from resteasycli.lib.abstract_reader import Reader
 from resteasycli.lib.abstract_writer import Writer
@@ -68,7 +68,7 @@ class LockedReadWriter(object):
         is_locked = locked(filepath)
         while is_locked:
             self.logger.debug('{}: file locked. waiting...'.format(filepath))
-            asyncio.sleep(.5)
+            time.sleep(.5)
             is_locked = locked(filepath)
         return LockedFile(filepath=filepath, reader=reader, writer=writer)
 
