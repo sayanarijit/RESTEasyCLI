@@ -47,7 +47,7 @@ Installation
 
 .. code-block:: bash
 
-   pip install resteasycli
+   pip install --user resteasycli
 
    # OR
 
@@ -160,8 +160,7 @@ TODO list
 * [ ] Write a blog post, create a youtube video on it
 * [ ] `Postman <https://www.getpostman.com>`_ compatibility
 
-...[add more goals](https://github.com/rapidstack/RESTEasyCLI/issues/new)
-
+`add more goals <https://github.com/rapidstack/RESTEasyCLI/issues/new>`_
 
 Contribution guide
 ------------------
@@ -170,10 +169,12 @@ This is a new born project and has lots of scope for improvements.
 
 If you feel that you can help with any of above TODO list or if you have a totally unique idea, feel free to jump right in.
 
-Here are some tips to get started with contributing to this project right away.
+Here are some tips to start contributing to this project right away.
 
 
 * Instead of directly creating pull requests, `create a issue <https://github.com/rapidstack/RESTEasyCLI/issues/new>`_ first to check it's relevence and save efforts. However,
 * If you find a bug, feel free to directly create pull requests by forking master branch
 * Awesome if commit messages and pull request description are clear and concise
-* One of it's depedency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_ has a gitter channel for any doubt or discussion related to this project or `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
+* One of it's depedency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_ has `a gitter channel <https://gitter.im/rapidstack/RESTEasy>`_ for any doubt or discussion related to this project or `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
+* Use `pipenv <https://github.com/pypa/pipenv>`_ to install/update dependencies
+* While updating README file, use `plugin for auto TOC update <https://github.com/ekalinin/github-markdown-toc>`_. Both ``README.md`` and ``README.rst`` should be in sync. One easy way is to update ``README.md`` and generate ``README.rst`` from it using `m2r <https://github.com/miyakogi/m2r>`_ (included as dev dependency)
