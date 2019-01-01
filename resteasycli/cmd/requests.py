@@ -6,7 +6,7 @@ from cliff.command import Command
 
 from resteasycli.objects import workspace
 from resteasycli.lib.request import Request
-from resteasycli.exceptions import InvalidCommandException, EntryNotFoundException
+from resteasycli.exceptions import InvalidCommandException
 
 
 class List(Lister):
@@ -78,19 +78,12 @@ class GenericRequest(Command):
     def get_request(self, method, site_id, endpoint_id, args):
         '''get the request object'''
 
-        if site_id not in workspace.sites:
-            raise EntryNotFoundException('{}: site not found'.format(site_id))
-
+        # Check if endpoint extsts
         site = workspace.get_site(site_id)
-
-        if endpoint_id not in site.endpoints:
-            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
-
-        if method not in site.get_endpoint(endpoint_id).allowed_methods and not args.fake:
-            raise MethodNotAllowedException('{}: method not allowed on this endpoint'.format(method))
+        endpoint = site.get_endpoint(endpoint_id)
 
         request = Request(workspace=workspace, method=method,
-                site_id=site_id, endpoint_id=endpoint_id)
+                site_id=site.site_id, endpoint_id=endpoint.endpoint_id)
 
         if args.timeout is not None:
             request.set_timeout(args.timeout)
@@ -202,10 +195,6 @@ class SavedRequest(GenericRequest):
 
     def get_request(self, method, args):
         '''Build and get the request object'''
-
-        if args.request_id not in workspace.saved_requests:
-            raise EntryNotFoundException(
-                '{}: request ID not found'.format(args.request_id))
 
         request = workspace.get_saved_request(args.request_id)
 

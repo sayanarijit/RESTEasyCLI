@@ -10,6 +10,7 @@ from resteasycli.lib.abstract_reader import Reader
 from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
+from resteasycli.exceptions import EntryNotFoundException
 
 
 SITES_TEMPLATE_CONTENT = '''\
@@ -155,16 +156,26 @@ class Workspace(object):
 
     def get_site(self, site_id):
         '''Returns initialized site obect'''
+        if site_id not in self.sites:
+            raise EntryNotFoundException('{}: site not found'.format(site_id))
         return Site(site_id=site_id, workspace=self)
 
     def get_auth(self, auth_id):
         '''Returns initialized auth obect'''
+        if auth_id not in self.auth:
+            raise EntryNotFoundException('{}: auth not found'.format(auth_id))
         return Auth(auth_id=auth_id, workspace=self)
 
     def get_headers(self, headers_id):
         '''Returns initialized headers obect'''
+        if headers_id not in self.headers:
+            raise EntryNotFoundException(
+                '{}: headers not found'.format(headers_id))
         return Headers(headers_id=headers_id, workspace=self)
 
     def get_saved_request(self, request_id):
         '''Returns initialized request obect'''
+        if request_id not in self.saved_requests:
+            raise EntryNotFoundException(
+                '{}: request not found'.format(request_id))
         return SavedRequest(request_id=request_id, workspace=self)

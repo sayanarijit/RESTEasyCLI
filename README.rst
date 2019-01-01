@@ -144,12 +144,11 @@ TODO list
 * [x] Formatted outputs 
 * [x] Save requests feature
 * [x] Refactored sites, headers, authentication methods, saved requests
-* [ ] Design a icon for it and it's dependency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
+* [ ] Add syntax verifier/fixer for workspace files
 * [ ] Add full usage documentation with examples
 * [ ] Add smart auto completions
 * [ ] Fix interactive mode
 * [ ] Code coverage > 90%
-* [ ] Release version 1
 * [ ] Test cases with different environment variables
 * [ ] API server for full end to end test with custom headers, authentication
 * [ ] Add more authentication methods
@@ -157,6 +156,8 @@ TODO list
 * [ ] Token detection for automatic authentication headers update
 * [ ] Generate and publish API documentation feature
 * [ ] Initialize workspace from generated API documentation
+* [ ] Release version 1
+* [ ] Design a icon for it and it's dependency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
 * [ ] Write a blog post, create a youtube video on it
 * [ ] `Postman <https://www.getpostman.com>`_ compatibility
 

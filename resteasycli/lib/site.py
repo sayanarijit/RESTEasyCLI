@@ -2,6 +2,8 @@ from resteasy import RESTEasy
 
 from resteasycli.config import Config
 from resteasycli.lib.endpoint import Endpoint
+from resteasycli.exceptions import EntryNotFoundException
+
 
 class Site(RESTEasy):
     '''A site is a modified RESTEasy object'''
@@ -37,6 +39,8 @@ class Site(RESTEasy):
 
     def get_endpoint(self, endpoint_id, slug=None):
         '''Return an initialized endpoint object'''
+        if endpoint_id not in self.endpoints:
+            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
         return Endpoint(endpoint_id=endpoint_id, site=self, slug=slug)
 
     def dict(self):

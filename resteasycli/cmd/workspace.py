@@ -2,7 +2,7 @@ import json
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from resteasycli.objects import workspace
-from resteasycli.exceptions import EntryNotFoundException
+from resteasycli.exceptions import InvalidCommandException
 
 
 class ListSites(Lister):
@@ -19,8 +19,6 @@ class ShowSite(ShowOne):
         return parser
 
     def take_action(self, args):
-        if args.site_id not in workspace.sites:
-            raise EntryNotFoundException('{}: site not found'.format(args.site_id))
         result = workspace.get_site(args.site_id).dict()
         return [result.keys(), result.values()]
 
@@ -46,11 +44,7 @@ class ShowEndpoint(ShowOne):
             raise InvalidCommandException(
                     '{}: correct format is: $site_id/$endpoint_id'.format(args.site_endpoint))
         site_id, endpoint_id = args.site_endpoint.split('/')
-        if site_id not in workspace.sites:
-            raise EntryNotFoundException('{}: site not found'.format(site_id))
         site = workspace.get_site(site_id)
-        if endpoint_id not in site.endpoints:
-            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
         result = site.get_endpoint(endpoint_id).dict()
         return [result.keys(), result.values()]
 
@@ -73,8 +67,6 @@ class ShowSavedRequest(ShowOne):
         return parser
 
     def take_action(self, args):
-        if args.request_id not in workspace.saved_requests:
-            raise EntryNotFoundException('{}: request not found'.format(args.request_id))
         result = workspace.get_saved_request(args.request_id).dict()
         return [result.keys(), result.values()]
 
@@ -96,8 +88,6 @@ class ShowHeaders(ShowOne):
         return parser
 
     def take_action(self, args):
-        if args.headers_id not in workspace.headers:
-            raise EntryNotFoundException('{}: request not found'.format(args.headers_id))
         result = workspace.get_headers(args.headers_id).dict()
         return [result.keys(), result.values()]
 
@@ -119,8 +109,6 @@ class ShowAuth(ShowOne):
         return parser
 
     def take_action(self, args):
-        if args.auth_id not in workspace.auth:
-            raise EntryNotFoundException('{}: auth method not found'.format(args.auth_id))
         result = workspace.get_auth(args.auth_id).dict()
         return [result.keys(), result.values()]
 

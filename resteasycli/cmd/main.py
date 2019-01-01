@@ -2,9 +2,7 @@ import sys
 from cliff.app import App
 from cliff.complete import CompleteCommand
 from cliff.commandmanager import CommandManager
-from resteasy import HTTPError, InvalidResponseError
 
-from resteasycli import exceptions
 from resteasycli.config import Config
 
 
@@ -35,15 +33,7 @@ class CLIApp(App):
 
 def main(argv=sys.argv[1:]):
     app = CLIApp()
-    try:
-        return app.run(argv)
-    except (HTTPError, InvalidResponseError,
-            exceptions.EntryNotFoundException,
-            exceptions.InvalidCommandException,
-            exceptions.MethodNotAllowedException,
-            exceptions.FileNotFoundException,
-            exceptions.FileExtensionNotSupportedException) as e:
-        sys.stderr.write('error: '+str(e)+'\n')
+    return app.run(argv)
 
 
 if __name__ == '__main__':
