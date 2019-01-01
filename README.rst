@@ -16,8 +16,8 @@ Handy REST API client on your terminal
 
 
 
-.. image:: https://asciinema.org/a/219065.svg
-   :target: https://asciinema.org/a/219065
+.. image:: https://asciinema.org/a/219207.svg
+   :target: https://asciinema.org/a/219207
    :alt: asciicast
 
 
