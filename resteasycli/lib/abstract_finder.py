@@ -27,7 +27,7 @@ class Finder(object):
             for fn in names:
                 for fe in self.SUPPORTED_EXTENSIONS:
                     fullpath = os.path.expanduser(os.path.join(sp, fn)+'.'+fe)
-                    self.logger.debug('Searching for endpoints file: ' + fullpath)
+                    self.logger.debug('Searching for file: ' + fullpath)
                     if not os.path.exists(fullpath):
                         continue
                     self.logger.debug('found file: ' + fullpath)
