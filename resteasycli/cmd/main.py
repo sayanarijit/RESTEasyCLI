@@ -33,7 +33,10 @@ class CLIApp(App):
 
 def main(argv=sys.argv[1:]):
     app = CLIApp()
-    return app.run(argv)
+    try:
+        return app.run(argv)
+    except Exception as e:
+        sys.stderr.write('error: {}\n'.format(e))
 
 
 if __name__ == '__main__':
