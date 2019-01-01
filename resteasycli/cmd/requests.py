@@ -54,10 +54,10 @@ class GenericRequest(Command):
     def get_parser(self, prog_name):
         parser = super(GenericRequest, self).get_parser(prog_name)
         parser.add_argument('-m', '--method', help='override query method')
-        parser.add_argument('-k', '--kwargs', type=str, nargs='*',
-                            help='set kwargs by removing old one')
-        parser.add_argument('-u', '--update_kwargs', type=str, nargs='*',
-                            help='update only mentioned key-value pairs')
+        parser.add_argument('-k', '--kwargs', type=self.parse_kwarg, nargs='*',
+                help='payload/params to send. format: key1=value "key2=another value"')
+        parser.add_argument('-u', '--update_kwargs', type=self.parse_kwarg, nargs='*',
+                help='add/update key-value pairs in kwargs. format: key1=value "key2=another value"')
         parser.add_argument(
             '-a', '--auth', help='use alternate authentication from file')
         parser.add_argument('-H', '--headers',
@@ -70,29 +70,41 @@ class GenericRequest(Command):
         return parser
 
     @staticmethod
+    def parse_kwarg(pair):
+        try:
+            return {pair.split('=', 1)[0]: pair.split('=', 1)[1]}
+        except Exception as e:
+            raise InvalidCommandException('kwargs: correct format is: key1=value "key2=another value"')
+
+    @staticmethod
     def parse_kwargs(lst):
         if lst is None:
-            return {}
-        return {x.split('=', 1)[0]: x.split('=', 1)[1] for x in lst}
+            return None
+        data = {}
+        for kv in lst: data.update(kv)
+        return data
 
-    def get_request(self, method, site_id, endpoint_id, args):
+    def get_request(self, method, site_id, endpoint_id, args, request=None):
         '''get the request object'''
 
         # Check if endpoint extsts
         site = workspace.get_site(site_id)
         endpoint = site.get_endpoint(endpoint_id)
 
-        request = Request(workspace=workspace, method=method,
-                site_id=site.site_id, endpoint_id=endpoint.endpoint_id)
+        if request is None:
+            request = Request(workspace=workspace, method=method,
+                    site_id=site.site_id, endpoint_id=endpoint.endpoint_id)
+        else:
+            request.set_method(method)
 
         if args.timeout is not None:
             request.set_timeout(args.timeout)
 
         if args.kwargs is not None:
-            request.set_kwargs(GenericRequest.parse_kwargs(args.kwargs))
+            request.set_kwargs(self.parse_kwargs(args.kwargs))
 
         if args.update_kwargs is not None:
-            request.update_kwargs(GenericRequest.parse_kwargs(args.update_kwargs))
+            request.update_kwargs(self.parse_kwargs(args.update_kwargs))
 
         if args.auth is not None:
             request.set_auth(args.auth)
@@ -200,8 +212,8 @@ class SavedRequest(GenericRequest):
 
         method = args.method if args.method is not None else request.method
 
-        return super(SavedRequest, self).get_request(method=method,
-                site_id=request.endpoint.site.site_id, endpoint_id=request.endpoint.endpoint_id, args=args)
+        return super(SavedRequest, self).get_request(method=method, site_id=request.endpoint.site.site_id,
+                endpoint_id=request.endpoint.endpoint_id, args=args, request=request)
 
     def take_action(self, args):
         self.act(args)
