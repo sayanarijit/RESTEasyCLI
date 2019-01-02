@@ -130,4 +130,5 @@ Here are some tips to start contributing to this project right away.
 - Awesome if commit messages and pull request description are clear and concise
 - One of it's depedency [RESTEasy](https://github.com/rapidstack/RESTEasy) has [a gitter channel](https://gitter.im/rapidstack/RESTEasy) for any doubt or discussion related to this project or [RESTEasy](https://github.com/rapidstack/RESTEasy)
 - Use [pipenv](https://github.com/pypa/pipenv) to install/update dependencies
-- While updating README file, use [plugin for auto TOC update](https://github.com/ekalinin/github-markdown-toc). Both `README.md` and `README.rst` should be in sync. One easy way is to update `README.md` and generate `README.rst` from it using [m2r](https://github.com/miyakogi/m2r) (included as dev dependency)
+- Do not modify `README.rst` file. It's auto generated using [m2r](https://github.com/miyakogi/m2r) (Installed as a dev dependency). While updating `README.md` file, use [plugin for auto TOC update](https://github.com/ekalinin/github-markdown-toc).
+- Run `./tools/before_push.sh` before pushing. It will take care of house keeping stuffs like generating `README.rst`, checking if VERSOIN info is updating correctly etc.
