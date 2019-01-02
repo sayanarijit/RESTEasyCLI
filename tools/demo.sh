@@ -2,7 +2,7 @@
 
 clear
 echo '========================================='
-echo '* STARTING RESTEasyCLI interactive demo *'
+echo '* Starting RESTEasyCLI interactive demo *'
 echo '========================================='
 echo
 echo 'Press [ENTER] key to continue with each step'
