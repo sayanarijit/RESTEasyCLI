@@ -59,11 +59,13 @@ Installation
 
 .. code-block:: bash
 
-   pip install --user resteasycli
+   # Install it globally
+   sudo pip install -U resteasycli
 
    # OR
 
-   pipenv install resteasycli
+   # Install it locally
+   pip install -U --user resteasycli
 
 Usage
 -----

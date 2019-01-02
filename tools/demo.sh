@@ -2,7 +2,7 @@
 
 clear
 echo '========================================='
-echo '* STARTING RESTEasyCLI interactive demo *'
+echo '* Starting RESTEasyCLI interactive demo *'
 echo '========================================='
 echo
 echo 'Press [ENTER] key to continue with each step'
@@ -41,6 +41,12 @@ echo
 recli init || exit 1
 echo
 
+echo '# See what did it actually do'
+read -sp '> ls' x
+echo
+ls || exit 1
+echo
+
 echo '# Check auto generated sites file'
 read -sp '> cat sites.yml' x
 echo
@@ -65,6 +71,12 @@ echo
 cat saved.yml || exit 1
 echo
 
+echo '# Check out the help menu'
+read -sp '> recli help' x
+echo
+recli help|| exit 1
+echo
+
 echo '# List available endpoints from sites file'
 read -sp '> recli list-endpoints' x
 echo
@@ -77,7 +89,13 @@ echo
 recli get testing/todos || exit 1
 echo
 
-echo '# Do the same request with parameter "userId=1" and format the output as a table'
+echo '# See help menu for "list" command'
+read -sp '> recli help list' x
+echo
+recli help list|| exit 1
+echo
+
+echo '# Do the earlier GET request with parameter "userId=1" and format the output as a table'
 read -sp '> recli list testing/todos --kwargs userId=1 --fit-width' x
 echo
 recli list testing/todos --kwargs userId=1 --fit-width || exit 1
@@ -101,13 +119,19 @@ echo
 recli list-saved || exit 1
 echo
 
-echo '# Invoke a request from saved requests'
-read -sp '> recli do remind_shopping' x
+echo '# Show details of a saved request'
+read -sp '> recli show remind_shopping' x
+echo
+recli show-saved remind_shopping || exit 1
+echo
+
+echo '# Invoke this request'
+read -sp '> recli do remind_shopping -f yaml' x
 echo
 recli do remind_shopping || exit 1
 echo
 
-echo '# Fake the previous request with modified payload to check if correct'
+echo '# Fake the previous request with modified payload'
 read -sp '> recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake' x
 echo
 recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake || exit 1
@@ -142,5 +166,7 @@ echo '* CONGRATULATIONS...! you have completed the interactive demo *'
 echo '==============================================================='
 echo
 echo 'NOTE:'
-echo '  The command "recli" is installed inside: ~/recli_demo_venv/bin'
-echo '  You can access your demo worlspace here: ~/recli_demo_workspace'
+echo '  This package currently is installed inside virtual environment: ~/recli_demo_venv'
+echo '  You can access your demo workspace here: ~/recli_demo_workspace'
+echo '  You can install this tool globally by running: sudo pip install -U resteasycli'
+echo '  Or install it locally by running: pip install -U --user resteasycli'

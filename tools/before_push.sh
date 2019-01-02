@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-rm README.rst || exit 1
 m2r README.md || exit 1
 
 setup_py_v=$(grep 'VERSION = ' setup.py | awk '{print $3}' | sed "s/'//g")
