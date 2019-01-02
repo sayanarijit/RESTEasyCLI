@@ -117,7 +117,7 @@ recli redo-show remind_shopping -m GET -k --fake -s get_todos
 
 ## TODO list
 
-**[Check the great TODO list on project board](https://github.com/rapidstack/RESTEasyCLI/projects)**
+[Check the great TODO list on project board](https://github.com/rapidstack/RESTEasyCLI/projects)
 
 ## Contribution guide
 
