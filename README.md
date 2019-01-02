@@ -8,6 +8,7 @@ Handy REST API client on your terminal
 [![asciicast](https://asciinema.org/a/219207.svg)](https://asciinema.org/a/219207)
 
 - [RESTEasyCLI](#resteasycli)
+  - [Get started with an interactive demo](#get-started-with-an-interactive-demo)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Help menu](#help-menu)
@@ -21,6 +22,16 @@ Handy REST API client on your terminal
     - [Most importantly fake a request](#most-importantly-fake-a-request)
   - [TODO list](#todo-list)
   - [Contribution guide](#contribution-guide)
+
+## Get started with an interactive demo
+
+NOTE: This demo requires supported version of python and `virtualenv` to be installed
+
+```bash
+curl -L https://raw.githubusercontent.com/sayanarijit/RESTEasyCLI/master/tools/demo.sh -o demo.sh
+chmod +x demo.sh
+./demo.sh
+```
 
 ## Installation
  
@@ -104,28 +115,7 @@ recli redo-show remind_shopping -m GET -k --fake -s get_todos
 
 ## TODO list
 
-- [x] CRUD requests
-- [x] Formatted outputs 
-- [x] Save requests feature
-- [x] Refactored sites, headers, authentication methods, saved requests
-- [ ] Add syntax verifier/fixer for workspace files
-- [ ] Add full usage documentation with examples
-- [ ] Add smart auto completions
-- [ ] Fix interactive mode
-- [ ] Code coverage > 90%
-- [ ] Test cases with different environment variables
-- [ ] API server for full end to end test with custom headers, authentication
-- [ ] Add more authentication methods
-- [ ] Add proxy support
-- [ ] Token detection for automatic authentication headers update
-- [ ] Generate and publish API documentation feature
-- [ ] Initialize workspace from generated API documentation
-- [ ] Release version 1
-- [ ] Design a icon for it and it's dependency [RESTEasy](https://github.com/rapidstack/RESTEasy)
-- [ ] Write a blog post, create a youtube video on it
-- [ ] [Postman](https://www.getpostman.com) compatibility
-
-[add more goals](https://github.com/rapidstack/RESTEasyCLI/issues/new)
+**[Check the great TODO list on project board](https://github.com/rapidstack/RESTEasyCLI/projects)**
 
 ## Contribution guide
 
