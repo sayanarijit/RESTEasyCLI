@@ -18,15 +18,13 @@ class Endpoint(object):
         self.endpoint_id = endpoint_id
         self.site = site
         self.logger = site.logger
+        self.api = self.site.route(data['route'])
         self.auth_applied = None
         self.headers_applied = None
         self.timeout_applied = None
         self.verify_applied = None
         self.allowed_methods = Config.DEFAULT_ALLOWED_METHODS
         self.allowed_methods_applied = None
-        self.api = APIEndpoint(endpoint=('{}/{}'.format(site.base_url, data['route'])),
-                session=site.session,
-                timeout=site.timeout, debug=site.debug)
         if slug is not None:
             self.api = self.api.route(slug)
         if 'auth' in data:
