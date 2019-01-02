@@ -126,7 +126,7 @@ recli show-saved remind_shopping || exit 1
 echo
 
 echo '# Invoke this request'
-read -sp '> recli do remind_shopping -f yaml' x
+read -sp '> recli do remind_shopping' x
 echo
 recli do remind_shopping || exit 1
 echo
