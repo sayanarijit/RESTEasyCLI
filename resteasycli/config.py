@@ -1,7 +1,7 @@
 import os
 
 class Config(object):
-    VERSION = 'v0.3.2' # Also update setup.py
+    VERSION = 'v0.3.3' # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
     SUPPORTED_EXTENSIONS = os.environ.get(
         'RECLI_SUPPORTED_EXTENSIONS', 'json,yml,yaml').split(',')

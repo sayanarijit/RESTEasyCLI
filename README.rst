@@ -153,7 +153,7 @@ Most importantly fake a request
 TODO list
 ---------
 
-**\ `Check the great TODO list on project board <https://github.com/rapidstack/RESTEasyCLI/projects>`_\ **
+`Check the great TODO list on project board <https://github.com/rapidstack/RESTEasyCLI/projects>`_
 
 Contribution guide
 ------------------
