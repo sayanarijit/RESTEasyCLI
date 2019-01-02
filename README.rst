@@ -24,6 +24,7 @@ Handy REST API client on your terminal
 
 * `RESTEasyCLI <#resteasycli>`_
 
+  * `Get started with an interactive demo <#get-started-with-an-interactive-demo>`_
   * `Installation <#installation>`_
   * `Usage <#usage>`_
 
@@ -41,6 +42,17 @@ Handy REST API client on your terminal
 
   * `TODO list <#todo-list>`_
   * `Contribution guide <#contribution-guide>`_
+
+Get started with an interactive demo
+------------------------------------
+
+NOTE: This demo requires supported version of python and ``virtualenv`` to be installed
+
+.. code-block:: bash
+
+   curl -L https://raw.githubusercontent.com/sayanarijit/RESTEasyCLI/master/tools/demo.sh -o demo.sh
+   chmod +x demo.sh
+   ./demo.sh
 
 Installation
 ------------
@@ -139,29 +151,7 @@ Most importantly fake a request
 TODO list
 ---------
 
-
-* [x] CRUD requests
-* [x] Formatted outputs 
-* [x] Save requests feature
-* [x] Refactored sites, headers, authentication methods, saved requests
-* [ ] Add syntax verifier/fixer for workspace files
-* [ ] Add full usage documentation with examples
-* [ ] Add smart auto completions
-* [ ] Fix interactive mode
-* [ ] Code coverage > 90%
-* [ ] Test cases with different environment variables
-* [ ] API server for full end to end test with custom headers, authentication
-* [ ] Add more authentication methods
-* [ ] Add proxy support
-* [ ] Token detection for automatic authentication headers update
-* [ ] Generate and publish API documentation feature
-* [ ] Initialize workspace from generated API documentation
-* [ ] Release version 1
-* [ ] Design a icon for it and it's dependency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
-* [ ] Write a blog post, create a youtube video on it
-* [ ] `Postman <https://www.getpostman.com>`_ compatibility
-
-`add more goals <https://github.com/rapidstack/RESTEasyCLI/issues/new>`_
+**\ `Check the great TODO list on project board <https://github.com/rapidstack/RESTEasyCLI/projects>`_\ **
 
 Contribution guide
 ------------------
@@ -178,4 +168,5 @@ Here are some tips to start contributing to this project right away.
 * Awesome if commit messages and pull request description are clear and concise
 * One of it's depedency `RESTEasy <https://github.com/rapidstack/RESTEasy>`_ has `a gitter channel <https://gitter.im/rapidstack/RESTEasy>`_ for any doubt or discussion related to this project or `RESTEasy <https://github.com/rapidstack/RESTEasy>`_
 * Use `pipenv <https://github.com/pypa/pipenv>`_ to install/update dependencies
-* While updating README file, use `plugin for auto TOC update <https://github.com/ekalinin/github-markdown-toc>`_. Both ``README.md`` and ``README.rst`` should be in sync. One easy way is to update ``README.md`` and generate ``README.rst`` from it using `m2r <https://github.com/miyakogi/m2r>`_ (included as dev dependency)
+* Do not modify ``README.rst`` file. It's auto generated using `m2r <https://github.com/miyakogi/m2r>`_ (Installed as a dev dependency). While updating ``README.md`` file, use `plugin for auto TOC update <https://github.com/ekalinin/github-markdown-toc>`_.
+* Run ``./tools/before_push.sh`` before pushing. It will take care of house keeping stuffs like generating ``README.rst``\ , checking if VERSOIN info is updating correctly etc.
