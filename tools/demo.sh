@@ -19,6 +19,7 @@ virtualenv ~/recli_demo_venv || exit 1
 echo
 
 read -sp '> source ~/recli_demo_venv/bin/activate' x
+echo
 source ~/recli_demo_venv/bin/activate || exit 1
 echo
 
