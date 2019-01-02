@@ -28,7 +28,7 @@ Handy REST API client on your terminal
 NOTE: This demo requires supported version of python and `virtualenv` to be installed
 
 ```bash
-curl -L https://raw.githubusercontent.com/sayanarijit/RESTEasyCLI/master/tools/demo.sh -o demo.sh
+curl -L https://raw.githubusercontent.com/rapidstack/RESTEasyCLI/master/tools/demo.sh -o demo.sh
 chmod +x demo.sh
 ./demo.sh
 ```
