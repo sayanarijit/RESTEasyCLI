@@ -7,11 +7,11 @@ class WorkspaceFileSchema(Schema):
 
     @validates('version')
     def validate_version(self, version):
-        valid = [
-            version.startswith('v'),
-            len(version.split('.')) == 2,
-            all(map(lambda x: x.isdigit(),
+        checks = [
+                lambda v: v.startswith('v'),
+                lambda v: len(v.split('.')) == 2,
+                lambda v: all(map(lambda x: x.isdigit(),
                     version.replace('v', '', 1).split('.')))
         ]
-        if not all(valid):
+        if not all(map(lambda check: check(version), checks)):
             raise ValidationError('correct format for version field is: "v(digit).(digit)"')
