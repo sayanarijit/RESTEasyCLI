@@ -170,7 +170,7 @@ class Workspace(object):
         try:
             data = schema.load(raw_data)
         except ValidationError as e:
-            raise InvalidFormatException('{}\n{}'.format(fileinfo.path,
+            raise InvalidFormatException('{}: {}'.format(fileinfo.path,
                 yaml.dump(e.messages, default_flow_style=False)))
         return data
 
