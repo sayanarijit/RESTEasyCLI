@@ -15,21 +15,21 @@ invalid_file_datas = [
 valid_datas = [
     {
         'method': 'GET',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
     },
     {
         'method': 'GET',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'headers': 'demo_headers1',
         'auth': 'demo_token_auth',
         'kwargs': {'description': 'python', 'full_time': 1}
     },
     {
         'method': 'POST',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'kwargs': {}
     }
 ]
@@ -38,31 +38,31 @@ invalid_datas = [
     None,
     'abc',
     [valid_datas[0]],
-    {'site': 'github_jobs', 'endpoint': 'positions'},
-    {'method': 'POST', 'site': 'github_jobs'},
-    {'method': 'POST', 'endpoint': 'positions'},
+    {'site': 'ghjobs', 'endpoint': 'p'},
+    {'method': 'POST', 'site': 'ghjobs'},
+    {'method': 'POST', 'endpoint': 'p'},
     {
         'method': 'GET',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'kwargs': []
     },
     {
         'method': 'POST',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'kwargs': None
     },
     {
         'method': 'GET',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'headers': {'abc': 'xyz'}
     },
     {
         'method': 'GET',
-        'site': 'github_jobs',
-        'endpoint': 'positions',
+        'site': 'ghjobs',
+        'endpoint': 'p',
         'auth': {'abc': 'xyz'}
     }
 ]
@@ -79,7 +79,7 @@ class SavedRequestsFileSchemaTest(unittest.TestCase):
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
 class SavedRequestSchemaTest(unittest.TestCase):
-    
+
     schema = SavedRequestSchema()
 
     def test_validation(self):

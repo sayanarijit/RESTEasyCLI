@@ -92,11 +92,11 @@ Do CRUD requests
 
 .. code-block:: bash
 
-   recli get testing/todos
-   recli post testing/todos --kwargs title=abcd userId=10
-   recli put testing/todos/1 --kwargs title=abcd
-   recli patch testing/todo1 --kwargs title=xyz
-   recli delete testing/todos/1
+   recli get testing/t
+   recli post testing/t --kwargs title=abcd userId=10
+   recli put testing/t/1 --kwargs title=abcd
+   recli patch testing/t1 --kwargs title=xyz
+   recli delete testing/t/1
 
 Special formatting of data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -106,21 +106,21 @@ List
 
 .. code-block:: bash
 
-   recli list testing/todos
+   recli list testing/t
 
 Show
 ~~~~
 
 .. code-block:: bash
 
-   recli show testing/todos/1
+   recli show testing/t/1
 
 Save a request for later use
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   recli get testing/todos/1 -s my_request
+   recli get testing/t/1 -s my_request
 
    # Request will be saved in saved.yml as "my_request"
 

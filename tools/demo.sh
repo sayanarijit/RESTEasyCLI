@@ -24,9 +24,9 @@ source ~/recli_demo_venv/bin/activate || exit 1
 echo
 
 echo "# Install package in $VIRTUAL_ENV"
-read -sp '> pip install resteasycli' x
+read -sp '> pip install -U resteasycli' x
 echo
-pip install resteasycli || exit 1
+pip install -U resteasycli || exit 1
 echo
 
 echo '# Create workspace'
@@ -84,9 +84,9 @@ recli list-endpoints || exit 1
 echo
 
 echo '# Do GET request to https://jsonplaceholder.typicode.com/todos'
-read -sp '> recli get testing/todos' x
+read -sp '> recli get testing/t' x
 echo
-recli get testing/todos || exit 1
+recli get testing/t || exit 1
 echo
 
 echo '# See help menu for "list" command'
@@ -96,21 +96,21 @@ recli help list|| exit 1
 echo
 
 echo '# Do the earlier GET request with parameter "userId=1" and format the output as a table'
-read -sp '> recli list testing/todos --kwargs userId=1 --fit-width' x
+read -sp '> recli list testing/t --kwargs userId=1 --fit-width' x
 echo
-recli list testing/todos --kwargs userId=1 --fit-width || exit 1
+recli list testing/t --kwargs userId=1 --fit-width || exit 1
 echo
 
 echo '# Add a slug "1" to previous request and format the output as a table'
-read -sp '> recli show testing/todos/1 --fit-width' x
+read -sp '> recli show testing/t/1 --fit-width' x
 echo
-recli show testing/todos/1 --fit-width || exit 1
+recli show testing/t/1 --fit-width || exit 1
 echo
 
-echo '# Do DELETE request to https://jsonplaceholder.typicode.com/todos/1 (saved as testing/todo1)'
-read -sp '> recli delete testing/todo1' x
+echo '# Do DELETE request to https://jsonplaceholder.typicode.com/todos/1 (saved as testing/t1)'
+read -sp '> recli delete testing/t1' x
 echo
-recli delete testing/todo1 || exit 1
+recli delete testing/t1 || exit 1
 echo
 
 echo '# List saved requests from auto generated file'

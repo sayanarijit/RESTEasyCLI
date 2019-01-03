@@ -18,10 +18,10 @@ from resteasycli.exceptions import EntryNotFoundException, InvalidFormatExceptio
 SITES_TEMPLATE_CONTENT = '''\
 version: v0.1
 sites:
-  github_jobs:
+  ghjobs:
     base_url: https://jobs.github.com
     endpoints:
-      positions:
+      p:
         route: positions.json
         timeout: 10
         methods:
@@ -30,9 +30,9 @@ sites:
   testing:
     base_url: https://jsonplaceholder.typicode.com
     endpoints:
-      todos:
+      t:
         route: todos
-      todo1:
+      t1:
         route: todos/1
 '''
 
@@ -75,8 +75,8 @@ version: v0.1
 saved_requests:
   get_python_jobs:
     method: GET
-    site: github_jobs
-    endpoint: positions
+    site: ghjobs
+    endpoint: p
     headers: demo_headers1
     kwargs:
       description: python
@@ -85,7 +85,7 @@ saved_requests:
   remind_shopping:
     method: POST
     site: testing
-    endpoint: todos
+    endpoint: t
     auth: demo_basic_auth
     kwargs:
       title: Go to shopping

@@ -10,7 +10,7 @@ class SiteTest(unittest.TestCase):
     site = workspace.get_site('testing')
 
     def test_get_endpoint(self):
-        self.assertIsInstance(self.site.get_endpoint('todos'), Endpoint)
+        self.assertIsInstance(self.site.get_endpoint('t'), Endpoint)
 
 
 if __name__ == "__main__":

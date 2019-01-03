@@ -1,8 +1,8 @@
-recli get testing/todos
-recli get testing/todos/1
-recli get testing/todos --kwargs userId=1
-recli put testing/todo1 -k title=test
-recli patch testing/todos/1 -k title=test
-recli post testing/todos --kwargs title=test userId=100
-recli show testing/todos/1 --kwargs title=abcd
-recli list testing/todos --fit-width
+recli get testing/t
+recli get testing/t/1
+recli get testing/t --kwargs userId=1
+recli put testing/t1 -k title=test
+recli patch testing/t/1 -k title=test
+recli post testing/t --kwargs title=test userId=100
+recli show testing/t/1 --kwargs title=abcd
+recli list testing/t --fit-width
