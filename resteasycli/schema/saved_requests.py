@@ -10,7 +10,7 @@ class SavedRequestSchema(Schema):
     endpoint = fields.Str(required=True)
     headers = fields.Str()
     auth = fields.Str()
-    kwargs = fields.Dict(keys=fields.Str())
+    kwargs = fields.Dict()
 
 
 class SavedRequestsFileSchema(WorkspaceFileSchema):

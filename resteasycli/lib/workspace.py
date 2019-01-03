@@ -1,5 +1,5 @@
 import os
-import json
+import yaml
 from marshmallow.exceptions import ValidationError
 
 from resteasycli.config import Config
@@ -11,8 +11,8 @@ from resteasycli.lib.abstract_reader import Reader
 from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
-from resteasycli.exceptions import EntryNotFoundException
-from resteasycli.schema.saved_requests import SavedRequestSchema, SavedRequestsFileSchema
+from resteasycli.schema.saved_requests import SavedRequestsFileSchema
+from resteasycli.exceptions import EntryNotFoundException, InvalidFormatException, CorruptFileException
 
 
 SITES_TEMPLATE_CONTENT = '''\
@@ -120,6 +120,9 @@ class Workspace(object):
         self.reader = Reader(logger=logger)
         self.writer = Writer(logger=logger)
         self.logger = logger
+        self.file_schemas = {
+            'saved_requests': SavedRequestsFileSchema()
+        }
         self.load_files()
 
     @staticmethod
@@ -138,8 +141,9 @@ class Workspace(object):
         self.headers_file = self.finder.find(names=[Config.HEADERS_TEMPLATE_FILENAME])
         self.saved_requests_file = self.finder.find(names=[Config.SAVED_REQUESTS_TEMPLATE_FILENAME])
 
-        # TODO: it will go into self.load_sites()
         self.logger.debug('reading found files')
+
+        # TODO: it will go into self.load_sites()
         self.reader.load_reader_by_extension(self.sites_file.extension)
         self.sites = self.reader.read(self.sites_file.path)['sites']
 
@@ -155,13 +159,26 @@ class Workspace(object):
 
         self.load_saved_requests()
 
+    def load_using_schema(self, schema, fileinfo):
+        '''Helps loading validated data from file'''
+        self.reader.load_reader_by_extension(fileinfo.extension)
+        try:
+            raw_data = self.reader.read(fileinfo.path)
+        except Exception as e:
+            raise CorruptFileException('{}: {}'.format(fileinfo.path, e))
+
+        try:
+            data = schema.load(raw_data)
+        except ValidationError as e:
+            raise InvalidFormatException('{}\n{}'.format(fileinfo.path,
+                yaml.dump(e.messages, default_flow_style=False)))
+        return data
+
     def load_saved_requests(self):
         '''Loads saved requests from files'''
-        if self.headers_file.extension != self.saved_requests_file.extension:
-            self.reader.load_reader_by_extension(
-                self.saved_requests_file.extension)
-        self.saved_requests = SavedRequestsFileSchema().load(self.reader.read(
-            self.saved_requests_file.path)).get('saved_requests')
+        data = self.load_using_schema(fileinfo=self.saved_requests_file,
+                schema=self.file_schemas['saved_requests'])
+        self.saved_requests = data['saved_requests']
 
     def get_site(self, site_id):
         '''Returns initialized site obect'''
