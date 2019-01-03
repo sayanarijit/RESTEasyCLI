@@ -1,5 +1,6 @@
 import os
 import json
+from marshmallow.exceptions import ValidationError
 
 from resteasycli.config import Config
 from resteasycli.lib.site import Site
@@ -11,10 +12,11 @@ from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
 from resteasycli.exceptions import EntryNotFoundException
+from resteasycli.schema.saved_requests import SavedRequestSchema, SavedRequestsFileSchema
 
 
 SITES_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 sites:
   github_jobs:
     base_url: https://jobs.github.com
@@ -35,7 +37,7 @@ sites:
 '''
 
 AUTH_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 auth:
   demo_basic_auth:
     type: basic
@@ -51,7 +53,7 @@ auth:
 '''
 
 HEADERS_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 headers:
   demo_headers1:
     action: update
@@ -69,7 +71,7 @@ headers:
 '''
 
 SAVED_REQUESTS_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 saved_requests:
   get_python_jobs:
     method: GET
@@ -136,23 +138,30 @@ class Workspace(object):
         self.headers_file = self.finder.find(names=[Config.HEADERS_TEMPLATE_FILENAME])
         self.saved_requests_file = self.finder.find(names=[Config.SAVED_REQUESTS_TEMPLATE_FILENAME])
 
+        # TODO: it will go into self.load_sites()
         self.logger.debug('reading found files')
         self.reader.load_reader_by_extension(self.sites_file.extension)
         self.sites = self.reader.read(self.sites_file.path)['sites']
 
+        # TODO: it will go into self.load_auth()
         if self.sites_file.extension != self.auth_file.extension:
             self.reader.load_reader_by_extension(self.auth_file.extension)
         self.auth = self.reader.read(self.auth_file.path)['auth']
 
+        # TODO: it will go into self.load_headers()
         if self.auth_file.extension != self.headers_file.extension:
             self.reader.load_reader_by_extension(self.headers_file.extension)
         self.headers = self.reader.read(self.headers_file.path)['headers']
 
+        self.load_saved_requests()
+
+    def load_saved_requests(self):
+        '''Loads saved requests from files'''
         if self.headers_file.extension != self.saved_requests_file.extension:
             self.reader.load_reader_by_extension(
                 self.saved_requests_file.extension)
-        self.saved_requests = self.reader.read(
-            self.saved_requests_file.path)['saved_requests']
+        self.saved_requests = SavedRequestsFileSchema().load(self.reader.read(
+            self.saved_requests_file.path)).get('saved_requests')
 
     def get_site(self, site_id):
         '''Returns initialized site obect'''
