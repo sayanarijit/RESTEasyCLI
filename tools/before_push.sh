@@ -8,6 +8,6 @@ config_v=$(grep 'VERSION = ' resteasycli/config.py | awk '{print $3}' | sed "s/'
 echo "setup.py: $setup_py_v"
 echo "resteasycli/config.py: $config_v"
 
-[ "v$setup_py_v" != "$config_v" ] && echo 'ERROR: VERSION not in sync: setup.py, resteasycli/config.py' && exit 1
+[ "$setup_py_v" != "$config_v" ] && echo 'ERROR: VERSION not in sync: setup.py, resteasycli/config.py' && exit 1
 
 echo 'all seems OK'
