@@ -150,8 +150,8 @@ class UnSavedRequest(GenericRequest):
         if len(args.site_endpoint.split('/')) == 2:
             args.slug = None
             site_id, endpoint_id = args.site_endpoint.split('/')
-        elif len(args.site_endpoint.split('/')) == 3:
-            site_id, endpoint_id, args.slug = args.site_endpoint.split('/')
+        elif len(args.site_endpoint.split('/')) > 2:
+            site_id, endpoint_id, args.slug = args.site_endpoint.split('/', 2)
         else:
             raise InvalidCommandException(
                 '{}: correct format of endpoint is: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug'.format(args.site_endpoint))
