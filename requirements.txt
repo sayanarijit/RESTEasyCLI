@@ -1,3 +1,4 @@
 cliff==2.14.0
 PyYAML==3.13
 RESTEasy==1.0.5
+marshmallow==3.0.0rc1

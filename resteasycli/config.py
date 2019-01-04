@@ -3,6 +3,7 @@ import os
 class Config(object):
     VERSION = 'v0.3.3' # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
+    ALL_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
     SUPPORTED_EXTENSIONS = os.environ.get(
         'RECLI_SUPPORTED_EXTENSIONS', 'json,yml,yaml').split(',')
     DEFAULT_FILE_EXTENSION = os.environ.get('RECLI_DEFAULT_FILE_EXTENSION', 'yml')

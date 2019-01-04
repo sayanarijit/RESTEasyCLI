@@ -1,5 +1,6 @@
 import os
-import json
+import yaml
+from marshmallow.exceptions import ValidationError
 
 from resteasycli.config import Config
 from resteasycli.lib.site import Site
@@ -10,11 +11,15 @@ from resteasycli.lib.abstract_reader import Reader
 from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
-from resteasycli.exceptions import EntryNotFoundException
+from resteasycli.schema.auth import AuthFileSchema
+from resteasycli.schema.sites import SitesFileSchema
+from resteasycli.schema.headers import HeadersFileSchema
+from resteasycli.schema.saved_requests import SavedRequestsFileSchema
+from resteasycli.exceptions import EntryNotFoundException, InvalidFormatException, CorruptFileException
 
 
 SITES_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 sites:
   github_jobs:
     base_url: https://jobs.github.com
@@ -35,7 +40,7 @@ sites:
 '''
 
 AUTH_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 auth:
   demo_basic_auth:
     type: basic
@@ -51,7 +56,7 @@ auth:
 '''
 
 HEADERS_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 headers:
   demo_headers1:
     action: update
@@ -69,7 +74,7 @@ headers:
 '''
 
 SAVED_REQUESTS_TEMPLATE_CONTENT = '''\
-version: 0.1
+version: v0.1
 saved_requests:
   get_python_jobs:
     method: GET
@@ -118,6 +123,12 @@ class Workspace(object):
         self.reader = Reader(logger=logger)
         self.writer = Writer(logger=logger)
         self.logger = logger
+        self.file_schemas = {
+            'saved_requests': SavedRequestsFileSchema(),
+            'sites': SitesFileSchema(),
+            'auth': AuthFileSchema(),
+            'headers': HeadersFileSchema()
+        }
         self.load_files()
 
     @staticmethod
@@ -137,22 +148,50 @@ class Workspace(object):
         self.saved_requests_file = self.finder.find(names=[Config.SAVED_REQUESTS_TEMPLATE_FILENAME])
 
         self.logger.debug('reading found files')
-        self.reader.load_reader_by_extension(self.sites_file.extension)
-        self.sites = self.reader.read(self.sites_file.path)['sites']
+        self.load_auth()
+        self.load_headers()
+        self.load_sites()
+        self.load_saved_requests()
 
-        if self.sites_file.extension != self.auth_file.extension:
-            self.reader.load_reader_by_extension(self.auth_file.extension)
-        self.auth = self.reader.read(self.auth_file.path)['auth']
 
-        if self.auth_file.extension != self.headers_file.extension:
-            self.reader.load_reader_by_extension(self.headers_file.extension)
-        self.headers = self.reader.read(self.headers_file.path)['headers']
+    def load_using_schema(self, schema, fileinfo):
+        '''Helps loading validated data from file'''
+        self.reader.load_reader_by_extension(fileinfo.extension)
+        try:
+            raw_data = self.reader.read(fileinfo.path)
+        except Exception as e:
+            raise CorruptFileException('{}: {}'.format(fileinfo.path, e))
 
-        if self.headers_file.extension != self.saved_requests_file.extension:
-            self.reader.load_reader_by_extension(
-                self.saved_requests_file.extension)
-        self.saved_requests = self.reader.read(
-            self.saved_requests_file.path)['saved_requests']
+        try:
+            data = schema.load(raw_data)
+        except ValidationError as e:
+            raise InvalidFormatException('{}: {}'.format(fileinfo.path,
+                yaml.dump(e.messages, default_flow_style=False)))
+        return data
+
+    def load_auth(self):
+        '''Loads authentication methods from files'''
+        data = self.load_using_schema(fileinfo=self.auth_file,
+                                      schema=self.file_schemas['auth'])
+        self.auth = data['auth']
+
+    def load_headers(self):
+        '''Loads headers from files'''
+        data = self.load_using_schema(fileinfo=self.headers_file,
+                                      schema=self.file_schemas['headers'])
+        self.headers = data['headers']
+
+    def load_sites(self):
+        '''Loads sites with endpoints from files'''
+        data = self.load_using_schema(fileinfo=self.sites_file,
+                                      schema=self.file_schemas['sites'])
+        self.sites = data['sites']
+
+    def load_saved_requests(self):
+        '''Loads saved requests from files'''
+        data = self.load_using_schema(fileinfo=self.saved_requests_file,
+                schema=self.file_schemas['saved_requests'])
+        self.saved_requests = data['saved_requests']
 
     def get_site(self, site_id):
         '''Returns initialized site obect'''
