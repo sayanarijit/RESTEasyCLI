@@ -64,7 +64,7 @@ class GenericRequest(Command):
                 help='use alternate set of headers from file')
         parser.add_argument('-t', '--timeout', type=int)
         parser.add_argument('-C', '--certfile', help='ssl certificate file path')
-        parser.add_argument('-i', '--insecure', action='store_true',
+        parser.add_argument('-I', '--insecure', action='store_true',
                 help='do not verify ssl certificate. (overrides "-C", "--certfile" option)')
         parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
                 action='store_true')

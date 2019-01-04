@@ -4,5 +4,7 @@ recli get testing/todos --kwargs userId=1
 recli put testing/todo1 -k title=test
 recli patch testing/todos/1 -k title=test
 recli post testing/todos --kwargs title=test userId=100
+recli post testing/todos --kwargs title=test userId=100 -I
+recli post testing/todos/1 --kwargs title=test userId=100 -C tests/units/schema/fake_certfile
 recli show testing/todos/1 --kwargs title=abcd
 recli list testing/todos --fit-width
