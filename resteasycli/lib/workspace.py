@@ -12,6 +12,7 @@ from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
 from resteasycli.schema.saved_requests import SavedRequestsFileSchema
+from resteasycli.schema.sites import SitesFileSchema
 from resteasycli.exceptions import EntryNotFoundException, InvalidFormatException, CorruptFileException
 
 
@@ -121,7 +122,8 @@ class Workspace(object):
         self.writer = Writer(logger=logger)
         self.logger = logger
         self.file_schemas = {
-            'saved_requests': SavedRequestsFileSchema()
+            'saved_requests': SavedRequestsFileSchema(),
+            'sites': SitesFileSchema()
         }
         self.load_files()
 
@@ -143,9 +145,8 @@ class Workspace(object):
 
         self.logger.debug('reading found files')
 
-        # TODO: it will go into self.load_sites()
-        self.reader.load_reader_by_extension(self.sites_file.extension)
-        self.sites = self.reader.read(self.sites_file.path)['sites']
+        self.load_sites()
+        self.load_saved_requests()
 
         # TODO: it will go into self.load_auth()
         if self.sites_file.extension != self.auth_file.extension:
@@ -157,7 +158,6 @@ class Workspace(object):
             self.reader.load_reader_by_extension(self.headers_file.extension)
         self.headers = self.reader.read(self.headers_file.path)['headers']
 
-        self.load_saved_requests()
 
     def load_using_schema(self, schema, fileinfo):
         '''Helps loading validated data from file'''
@@ -173,6 +173,12 @@ class Workspace(object):
             raise InvalidFormatException('{}: {}'.format(fileinfo.path,
                 yaml.dump(e.messages, default_flow_style=False)))
         return data
+
+    def load_sites(self):
+        '''Loads sites with endpoints from files'''
+        data = self.load_using_schema(fileinfo=self.sites_file,
+                                      schema=self.file_schemas['sites'])
+        self.sites = data['sites']
 
     def load_saved_requests(self):
         '''Loads saved requests from files'''
