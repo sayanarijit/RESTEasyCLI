@@ -1,7 +1,8 @@
 import unittest
+from marshmallow import ValidationError
 
 from resteasycli.schema.saved_requests import SavedRequestSchema, SavedRequestsFileSchema
-from marshmallow import ValidationError
+
 
 valid_file_datas = [{'version': 'v1.0', 'saved_requests': {}}]
 invalid_file_datas = [
@@ -22,8 +23,15 @@ valid_datas = [
         'method': 'GET',
         'site': 'ghjobs',
         'endpoint': 'p',
+        'verify': False,
+    },
+    {
+        'method': 'GET',
+        'site': 'github_jobs',
+        'endpoint': 'positions',
         'headers': 'demo_headers1',
         'auth': 'demo_token_auth',
+        'verify': 'tests/units/schema/fake_certfile',
         'kwargs': {'description': 'python', 'full_time': 1}
     },
     {

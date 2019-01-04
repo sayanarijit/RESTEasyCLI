@@ -2,8 +2,7 @@ from marshmallow import Schema, fields, ValidationError, validates
 
 
 class WorkspaceFileSchema(Schema):
-    version = fields.Str(required=True,
-                         error_messages={'validate': 'correct format is "v.(int).(int)"'})
+    version = fields.Str(required=True)
 
     @validates('version')
     def validate_version(self, version):
@@ -11,7 +10,8 @@ class WorkspaceFileSchema(Schema):
                 lambda v: v.startswith('v'),
                 lambda v: len(v.split('.')) == 2,
                 lambda v: all(map(lambda x: x.isdigit(),
-                    version.replace('v', '', 1).split('.')))
+                    v.replace('v', '', 1).split('.')))
         ]
         if not all(map(lambda check: check(version), checks)):
-            raise ValidationError('correct format for version field is: "v(digit).(digit)"')
+            raise ValidationError(
+                '{}: incorrect format. correct format is: "v(digit).(digit)"'.format(version))
