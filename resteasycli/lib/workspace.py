@@ -13,6 +13,7 @@ from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
 from resteasycli.schema.saved_requests import SavedRequestsFileSchema
 from resteasycli.schema.sites import SitesFileSchema
+from resteasycli.schema.auth import AuthFileSchema
 from resteasycli.exceptions import EntryNotFoundException, InvalidFormatException, CorruptFileException
 
 
@@ -123,7 +124,8 @@ class Workspace(object):
         self.logger = logger
         self.file_schemas = {
             'saved_requests': SavedRequestsFileSchema(),
-            'sites': SitesFileSchema()
+            'sites': SitesFileSchema(),
+            'auth': AuthFileSchema()
         }
         self.load_files()
 
@@ -145,17 +147,12 @@ class Workspace(object):
 
         self.logger.debug('reading found files')
 
+        self.load_auth()
         self.load_sites()
         self.load_saved_requests()
 
-        # TODO: it will go into self.load_auth()
-        if self.sites_file.extension != self.auth_file.extension:
-            self.reader.load_reader_by_extension(self.auth_file.extension)
-        self.auth = self.reader.read(self.auth_file.path)['auth']
-
         # TODO: it will go into self.load_headers()
-        if self.auth_file.extension != self.headers_file.extension:
-            self.reader.load_reader_by_extension(self.headers_file.extension)
+        self.reader.load_reader_by_extension(self.headers_file.extension)
         self.headers = self.reader.read(self.headers_file.path)['headers']
 
 
@@ -179,6 +176,12 @@ class Workspace(object):
         data = self.load_using_schema(fileinfo=self.sites_file,
                                       schema=self.file_schemas['sites'])
         self.sites = data['sites']
+
+    def load_auth(self):
+        '''Loads authentication methods from files'''
+        data = self.load_using_schema(fileinfo=self.auth_file,
+                                      schema=self.file_schemas['auth'])
+        self.auth = data['auth']
 
     def load_saved_requests(self):
         '''Loads saved requests from files'''
