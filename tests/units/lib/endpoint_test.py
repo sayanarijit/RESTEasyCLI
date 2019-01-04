@@ -9,7 +9,7 @@ from resteasycli.exceptions import MethodNotAllowedException
 
 
 class EndpointTest(unittest.TestCase):
-    ep = workspace.get_site('github_jobs').get_endpoint('positions')
+    ep = workspace.get_site('ghjobs').get_endpoint('p')
     ep.api.debug = True
     ep.api.timeout = 10
 

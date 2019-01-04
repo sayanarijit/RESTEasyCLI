@@ -1,7 +1,7 @@
 recli list-sites
-recli show-site github_jobs
+recli show-site ghjobs
 recli list-endpoints
-recli show-endpoint github_jobs/positions
+recli show-endpoint ghjobs/p
 recli list-saved
 recli show-saved remind_shopping
 recli list-headers
