@@ -9,6 +9,7 @@ autopep8 = "*"
 setuptools = "*"
 twine = "*"
 m2r = "*"
+ipykernel = "*"
 
 [packages]
 resteasy = {version = "*",editable = true}
