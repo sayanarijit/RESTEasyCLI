@@ -14,6 +14,7 @@ class Request(object):
         self.headers_applied = None
         self.timeout_applied = None
         self.verify_applied = None
+        self.slug_applied = None
         if 'auth' in data:
             self.set_auth(data['auth'])
         if 'headers' in data:
@@ -22,6 +23,8 @@ class Request(object):
             self.set_timeout(data['timeout'])
         if 'verify' in data:
             self.set_verify(data['verify'])
+        if 'slug' in data:
+            self.add_slug(data['slug'])
 
     def set_method(self, method):
         '''Override request method'''
@@ -58,6 +61,10 @@ class Request(object):
 
     def add_slug(self, slug):
         '''Add slug to current endpoint'''
+        if self.slug_applied is not None:
+            self.slug_applied = '{}/{}'.format(self.slug_applied, slug)
+        else:
+            self.slug_applied = slug
         self.endpoint.api = self.endpoint.api.route(slug)
 
     def set_debug(self, value):
@@ -84,6 +91,8 @@ class Request(object):
             request.update({'timeout': self.timeout_applied})
         if self.verify_applied is not None:
             request.update({'verify': self.verify_applied})
+        if self.slug_applied is not None:
+            request.update({'slug': self.slug_applied})
 
         return request
 

@@ -1,7 +1,7 @@
-from marshmallow import fields
+from marshmallow import fields, validates, ValidationError, ValidationError
 
 from resteasycli.schema.workspace import WorkspaceFileSchema
-from resteasycli.schema.common import AbstractRequestPropertiesSchema
+from resteasycli.schema.common import AnyField, AbstractRequestPropertiesSchema
 
 
 class SavedRequestSchema(AbstractRequestPropertiesSchema):
@@ -10,6 +10,13 @@ class SavedRequestSchema(AbstractRequestPropertiesSchema):
     site = fields.Str(required=True)
     endpoint = fields.Str(required=True)
     kwargs = fields.Dict()
+    slug = AnyField()
+
+    @validates('slug')
+    def validate_slug(self, slug):
+        if isinstance(slug, int) or isinstance(slug, str):
+            return
+        raise ValidationError('{}: Not a valid string or integer'.format(slug))
 
 
 class SavedRequestsFileSchema(WorkspaceFileSchema):
