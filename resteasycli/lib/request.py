@@ -15,17 +15,13 @@ class Request(object):
         self.timeout_applied = None
         self.verify_applied = None
         if 'auth' in data:
-            self.auth_applied = workspace.get_auth(data['auth'])
-            self.auth_applied.apply(self.endpoint.api.session)
+            self.set_auth(data['auth'])
         if 'headers' in data:
-            self.headers_applied = workspace.get_headers(data['headers'])
-            self.headers_applied.apply(self.endpoint.api.session)
+            self.set_headers(data['headers'])
         if 'timeout' in data:
-            self.timeout_applied = data['timeout']
-            self.endpoint.api.timeout = data['timeout']
+            self.set_timeout(data['timeout'])
         if 'verify' in data:
-            self.verify_applied = data['verify']
-            self.endpoint.api.verify = data['verify']
+            self.set_verify(data['verify'])
 
     def set_method(self, method):
         '''Override request method'''
@@ -54,6 +50,11 @@ class Request(object):
         self.headers_applied = self.workspace.get_headers(headers_id)
         self.headers_applied.apply(
             self.endpoint.api.session)
+
+    def set_verify(self, verify):
+        '''Override certificate verification'''
+        self.verify_applied = verify
+        self.endpoint.api.verify = verify
 
     def add_slug(self, slug):
         '''Add slug to current endpoint'''

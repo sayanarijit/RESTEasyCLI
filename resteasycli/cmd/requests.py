@@ -59,21 +59,24 @@ class GenericRequest(Command):
         parser.add_argument('-u', '--update_kwargs', type=self.parse_kwarg, nargs='*',
                 help='add/update key-value pairs in kwargs. format: key1=value "key2=another value"')
         parser.add_argument(
-            '-a', '--auth', help='use alternate authentication from file')
+                '-a', '--auth', help='use alternate authentication from file')
         parser.add_argument('-H', '--headers',
-                            help='use alternate set of headers from file')
+                help='use alternate set of headers from file')
         parser.add_argument('-t', '--timeout', type=int)
+        parser.add_argument('-C', '--certfile', help='ssl certificate file path')
+        parser.add_argument('-i', '--insecure', action='store_true',
+                help='do not verify ssl certificate. (overrides "-C", "--certfile" option)')
         parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
-                            action='store_true')
+                action='store_true')
         parser.add_argument('-s', '--save_as',
-                            help='save the request for later use. can be used with --fake option')
+                help='save the request for later use. can be used with --fake option')
         return parser
 
     @staticmethod
     def parse_kwarg(pair):
         try:
             return {pair.split('=', 1)[0]: pair.split('=', 1)[1]}
-        except Exception as e:
+        except Exception:
             raise InvalidCommandException('kwargs: correct format is: key1=value "key2=another value"')
 
     @staticmethod
@@ -111,6 +114,12 @@ class GenericRequest(Command):
 
         if args.headers is not None:
             request.set_headers(args.headers)
+
+        if args.certfile is not None:
+            request.set_verify(args.certfile)
+
+        if args.insecure:
+            request.set_verify(False)
 
         if args.slug is not None:
             request.add_slug(args.slug)
