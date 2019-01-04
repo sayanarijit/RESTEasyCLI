@@ -24,6 +24,7 @@ valid_datas = [
         'site': 'ghjobs',
         'endpoint': 'p',
         'verify': False,
+        'slug': '1'
     },
     {
         'method': 'GET',
@@ -32,7 +33,8 @@ valid_datas = [
         'headers': 'demo_headers1',
         'auth': 'demo_token_auth',
         'verify': 'tests/units/schema/fake_certfile',
-        'kwargs': {'description': 'python', 'full_time': 1}
+        'kwargs': {'description': 'python', 'full_time': 1},
+        'slug': 1
     },
     {
         'method': 'POST',
