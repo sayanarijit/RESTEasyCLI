@@ -24,8 +24,7 @@ sites:
       p:
         route: positions.json
         timeout: 10
-        methods:
-          - GET
+        methods: [ GET ]
 
   testing:
     base_url: https://jsonplaceholder.typicode.com
