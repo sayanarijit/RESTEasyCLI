@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.3.7'  # Also resteasycli.config.Config
+VERSION = 'v0.3.8'  # Also resteasycli.config.Config
 
 
 here = path.abspath(path.dirname(__file__))
