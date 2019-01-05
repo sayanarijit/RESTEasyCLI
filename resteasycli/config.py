@@ -4,8 +4,10 @@ class Config(object):
     VERSION = 'v0.3.6' # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
     ALL_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-    SUPPORTED_EXTENSIONS = os.environ.get(
-        'RECLI_SUPPORTED_EXTENSIONS', 'json,yml,yaml').split(',')
+    SUPPORTED_FILE_FORMATS = ['v0.1', 'v1.0']
+    DEFAULT_FILE_FORMAT = 'v1.0'
+    SUPPORTED_FILE_EXTENSIONS = os.environ.get(
+        'RECLI_SUPPORTED_FILE_EXTENSIONS', 'json,yml,yaml').split(',')
     DEFAULT_FILE_EXTENSION = os.environ.get('RECLI_DEFAULT_FILE_EXTENSION', 'yml')
     SEARCH_PATHS = os.environ.get(
         'RECLI_SEARCH_PATHS', '.,~/.recli,/etc/recli').split(',')

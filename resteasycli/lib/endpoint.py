@@ -1,5 +1,6 @@
 import os
 import yaml
+from collections import OrderedDict
 from resteasy import requests, APIEndpoint
 
 from resteasycli.config import Config
@@ -54,7 +55,7 @@ class Endpoint(object):
 
     def dict(self):
         '''Return information about itself in dict format'''
-        data = {'endpoint_url': self.api.endpoint}
+        data = OrderedDict([('endpoint_url', self.api.endpoint)])
         if self.auth_applied is not None:
             data.update({'auth': self.auth_applied.auth_id})
         if self.headers_applied is not None:

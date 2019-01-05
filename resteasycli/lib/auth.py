@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 class Auth(object):
     '''Authentication for your session'''
 
@@ -5,7 +7,7 @@ class Auth(object):
         self.auth_id = auth_id
         data = workspace.auth[auth_id]
         self.type = data['type']
-        self.credentials = data['credentials']
+        self.credentials = dict(data['credentials'])
 
     def apply(self, session):
         '''Perform action on the session'''
@@ -17,4 +19,7 @@ class Auth(object):
                     {self.credentials['header']: self.credentials['value']})
 
     def dict(self):
-        return {'type': self.type, 'credentials': self.credentials}
+        return OrderedDict([
+            ('type', self.type),
+            ('credentials', self.credentials)
+        ])

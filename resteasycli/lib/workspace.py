@@ -1,5 +1,6 @@
 import os
-import yaml
+import logging
+from collections import OrderedDict
 from marshmallow.exceptions import ValidationError
 
 from resteasycli.config import Config
@@ -11,6 +12,7 @@ from resteasycli.lib.abstract_reader import Reader
 from resteasycli.lib.abstract_writer import Writer
 from resteasycli.lib.abstract_finder import Finder
 from resteasycli.lib.saved_request import SavedRequest
+from resteasycli.lib.utils import yaml, Dumper
 from resteasycli.schema.auth import AuthFileSchema
 from resteasycli.schema.sites import SitesFileSchema
 from resteasycli.schema.headers import HeadersFileSchema
@@ -18,102 +20,122 @@ from resteasycli.schema.saved_requests import SavedRequestsFileSchema
 from resteasycli.exceptions import EntryNotFoundException, InvalidFormatException, CorruptFileException
 
 
-SITES_TEMPLATE_CONTENT = '''\
-version: v0.1
-sites:
-  ghjobs:
-    base_url: https://jobs.github.com
-    endpoints:
-      p:
-        route: positions.json
-        timeout: 10
-        methods: [ GET ]
+SITES_TEMPLATE_CONTENT = OrderedDict([
+    ('version', Config.DEFAULT_FILE_FORMAT),
+    ('sites', OrderedDict([
+        ('ghjobs', OrderedDict([
+            ('base_url', 'https://jobs.github.com'),
+            ('endpoints', OrderedDict([
+                ('p', OrderedDict([
+                    ('route', 'positions.json'),
+                    ('timeout', 10),
+                    ('methods', ['GET'])
+                ]))
+            ]))
+        ])),
+        ('testing', OrderedDict([
+            ('base_url', 'https://jsonplaceholder.typicode.com'),
+            ('endpoints', OrderedDict([
+                ('t', OrderedDict([
+                    ('route', 'todos')
+                ])),
+                ('t1', OrderedDict([
+                    ('route', 'todos/1')
+                ]))
+            ]))
+        ]))
+    ]))
+])
 
-  testing:
-    base_url: https://jsonplaceholder.typicode.com
-    endpoints:
-      t:
-        route: todos
-      t1:
-        route: todos/1
-'''
+AUTH_TEMPLATE_CONTENT = OrderedDict([
+    ('version', Config.DEFAULT_FILE_FORMAT),
+    ('auth', OrderedDict([
+        ('demo_basic_auth', OrderedDict([
+            ('type', 'basic'),
+            ('credentials', OrderedDict([
+                ('username', 'user1'),
+                ('password', 'password1')
+            ]))
+        ])),
+        ('demo_token_auth', OrderedDict([
+            ('type', 'token'),
+            ('credentials', OrderedDict([
+                ('header', 'Authorization'),
+                ('value', 'Bearer uu6OgZqaChWj8vlTSiSBTirjeGpQqa83MycWiWHdPL2ppcrKTpDgrlegT87dhkhr')
+            ]))
+        ]))
+    ]))
+])
 
-AUTH_TEMPLATE_CONTENT = '''\
-version: v0.1
-auth:
-  demo_basic_auth:
-    type: basic
-    credentials:
-      username: user1
-      password: password1
+HEADERS_TEMPLATE_CONTENT = OrderedDict([
+    ('version', Config.DEFAULT_FILE_FORMAT),
+    ('headers', OrderedDict([
+        ('demo_headers1', OrderedDict([
+            ('action', 'update'),
+            ('values', OrderedDict([
+                ('Custom-Header', 'demo1')
+            ]))
+        ])),
+        ('demo_headers2', OrderedDict([
+            ('action', 'only'),
+            ('values', OrderedDict([
+                ('Content-Type', 'application/json'),
+                ('Accept', 'application/json'),
+                ('Custom-Header', 'demo2')
+            ]))
+        ]))
+    ]))
+])
 
-  demo_token_auth:
-    type: token
-    credentials:
-      header: Authorization
-      value: Bearer uu6OgZqaChWj8vlTSiSBTirjeGpQqa83MycWiWHdPL2ppcrKTpDgrlegT87dhkhr
-'''
-
-HEADERS_TEMPLATE_CONTENT = '''\
-version: v0.1
-headers:
-  demo_headers1:
-    action: update
-    values:
-      Content-Type: application/json
-      Accept: application/json
-      Custom-Header: demo1
-
-  demo_headers2:
-    action: only
-    values:
-      Content-Type: application/json
-      Accept: application/json
-      Custom-Header: demo2
-'''
-
-SAVED_REQUESTS_TEMPLATE_CONTENT = '''\
-version: v0.1
-saved_requests:
-  get_python_jobs:
-    method: GET
-    site: ghjobs
-    endpoint: p
-    headers: demo_headers1
-    kwargs:
-      description: python
-      full_time: 1
-
-  remind_shopping:
-    method: POST
-    site: testing
-    endpoint: t
-    auth: demo_basic_auth
-    kwargs:
-      title: Go to shopping
-'''
+SAVED_REQUESTS_TEMPLATE_CONTENT = OrderedDict([
+    ('version', Config.DEFAULT_FILE_FORMAT),
+    ('saved_requests', OrderedDict([
+        ('get_python_jobs', OrderedDict([
+            ('method', 'GET'),
+            ('site', 'ghjobs'),
+            ('endpoint', 'p'),
+            ('headers', 'demo_headers1'),
+            ('kwargs', OrderedDict([
+                ('description', 'python'),
+                ('full_time', 1)
+            ]))
+        ])),
+        ('remind_shopping', OrderedDict([
+            ('method', 'POST'),
+            ('site', 'testing'),
+            ('endpoint', 't'),
+            ('auth', 'demo_basic_auth'),
+            ('kwargs', OrderedDict([
+                ('title', 'Go to shopping')
+            ]))
+        ]))
+    ]))
+])
 
 class WorkspaceTemplates(object):
     '''Default templates and initializer for workspace'''
 
     TEMPLATE = {
-      'sites': {'filename': '{}.{}'.format(Config.SITES_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'sites': {'filename': Config.SITES_TEMPLATE_FILENAME,
                 'content': SITES_TEMPLATE_CONTENT},
-      'auth': {'filename': '{}.{}'.format(Config.AUTH_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'auth': {'filename': Config.AUTH_TEMPLATE_FILENAME,
                'content': AUTH_TEMPLATE_CONTENT},
-      'headers': {'filename': '{}.{}'.format(Config.HEADERS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'headers': {'filename': Config.HEADERS_TEMPLATE_FILENAME,
                   'content': HEADERS_TEMPLATE_CONTENT},
-      'saved_requests': {'filename': '{}.{}'.format(Config.SAVED_REQUESTS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'saved_requests': {'filename': Config.SAVED_REQUESTS_TEMPLATE_FILENAME,
                          'content': SAVED_REQUESTS_TEMPLATE_CONTENT}
     }
 
     @staticmethod
-    def initialize(force=False):
+    def initialize(force=False, writer=None, extension=Config.DEFAULT_FILE_EXTENSION):
+        if writer is None:
+            writer = Writer(logger=logging.getLogger('resteasycli'))
+        writer.load_writer_by_extension(extension)
         for t in WorkspaceTemplates.TEMPLATE.values():
-            if os.path.exists(t['filename']) and not force:
+            filepath = '{}.{}'.format(t['filename'], extension)
+            if os.path.exists(filepath) and not force:
                 continue
-            with open(t['filename'], 'w') as f:
-                f.write(t['content'])
+            writer.write(data=t['content'], filepath=filepath)
 
 class Workspace(object):
     '''Workspace manager'''
@@ -130,9 +152,9 @@ class Workspace(object):
         }
         self.load_files()
 
-    @staticmethod
-    def init(force=False):
-        WorkspaceTemplates.initialize(force=force)
+    def init(self, force=False, extension=Config.DEFAULT_FILE_EXTENSION):
+        WorkspaceTemplates.initialize(
+            writer=self.writer, force=force, extension=extension)
 
     def reload(self):
         '''Reload workspace changes'''
@@ -152,7 +174,6 @@ class Workspace(object):
         self.load_sites()
         self.load_saved_requests()
 
-
     def load_using_schema(self, schema, fileinfo):
         '''Helps loading validated data from file'''
         self.reader.load_reader_by_extension(fileinfo.extension)
@@ -164,8 +185,9 @@ class Workspace(object):
         try:
             data = schema.load(raw_data)
         except ValidationError as e:
-            raise InvalidFormatException('{}: {}'.format(fileinfo.path,
-                yaml.dump(e.messages, default_flow_style=False)))
+            raise InvalidFormatException(
+                '{}: while reading this file below errors were found:\n{}'.format(
+                    fileinfo.path, yaml.dump(e.messages, default_flow_style=False, Dumper=Dumper)))
         return data
 
     def load_auth(self):

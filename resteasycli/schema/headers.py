@@ -1,12 +1,13 @@
 from marshmallow import fields, Schema, validates, ValidationError
 
+from resteasycli.schema.common import OrderedDictField
 from resteasycli.schema.workspace import WorkspaceFileSchema
 
 
 class HeadersSchema(Schema):
     '''Schema for a set of headers'''
     action = fields.Str(required=True)
-    values = fields.Dict(
+    values = OrderedDictField(
         required=True,
         keys=fields.Str(),
         values=fields.Str())
@@ -16,7 +17,11 @@ class HeadersSchema(Schema):
         '''Validate action'''
         if action in ['only', 'update']:
             return
-        raise ValidationError('{}: invalid action. use one of: only,update'.format(action))
+        raise ValidationError(
+            '{}: invalid action. use one of: only,update'.format(action))
+
+    class Meta:
+        ordered = True
 
 
 class HeadersFileSchema(WorkspaceFileSchema):
@@ -25,3 +30,6 @@ class HeadersFileSchema(WorkspaceFileSchema):
         required=True,
         keys=fields.Str(),
         values=fields.Nested(HeadersSchema))
+
+    class Meta:
+        ordered = True

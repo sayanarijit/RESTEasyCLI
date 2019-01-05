@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 class Headers(object):
     '''Headers for your session'''
 
@@ -5,7 +7,7 @@ class Headers(object):
         self.headers_id = headers_id
         data = workspace.headers[headers_id]
         self.action = data['action']
-        self.values = data['values']
+        self.values = dict(data['values'])
 
     def apply(self, session):
         '''Perform action on the session'''
@@ -15,4 +17,7 @@ class Headers(object):
             session.headers.update(self.values)
 
     def dict(self):
-        return {'action': self.action, 'values': self.values}
+        return OrderedDict([
+            ('action', self.action),
+            ('values', self.values)
+        ])

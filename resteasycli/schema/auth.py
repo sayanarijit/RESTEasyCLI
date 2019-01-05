@@ -1,5 +1,6 @@
 from marshmallow import fields, Schema, ValidationError, post_load
 
+from resteasycli.schema.common import OrderedDictField
 from resteasycli.schema.workspace import WorkspaceFileSchema
 
 
@@ -7,11 +8,15 @@ class BasicAuthSchema(Schema):
     '''Schema for basic auth'''
     username = fields.Str(required=True)
     password = fields.Str(required=True)
+    class Meta:
+        ordered = True
 
 class TokenAuthSchema(Schema):
     '''Schema for token auth'''
     header = fields.Str(required=True)
     value = fields.Str(required=True)
+    class Meta:
+        ordered = True
 
 class AuthSchema(Schema):
     '''Schema for a saved request format'''
@@ -28,10 +33,16 @@ class AuthSchema(Schema):
         else:
             raise ValidationError('{}: invalid authentication type'.format(data['type']))
         return data
+    
+    class Meta:
+        ordered = True
 
 class AuthFileSchema(WorkspaceFileSchema):
     '''Schema for auth file format'''
-    auth = fields.Dict(
+    auth = OrderedDictField(
         required=True,
         keys=fields.Str(),
         values=fields.Nested(AuthSchema))
+
+    class Meta:
+        ordered = True

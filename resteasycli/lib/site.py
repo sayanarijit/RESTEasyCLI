@@ -1,4 +1,5 @@
 from resteasy import RESTEasy
+from collections import OrderedDict
 
 from resteasycli.config import Config
 from resteasycli.lib.endpoint import Endpoint
@@ -45,10 +46,10 @@ class Site(RESTEasy):
 
     def dict(self):
         '''Return information about itself in dict format'''
-        data = {
-            'endpoints': list(self.endpoints.keys()),
-            'base_url': self.base_url
-        }
+        data = OrderedDict([
+            ('endpoints', list(self.endpoints.keys())),
+            ('base_url', self.base_url)
+        ])
         if self.auth_applied is not None:
             data.update({'auth': self.auth_applied.auth_id})
         if self.headers_applied is not None:
