@@ -17,8 +17,7 @@ class WorkspaceTemplatesTest(unittest.TestCase):
         WorkspaceTemplates.initialize(force=True)
 
         for t in WorkspaceTemplates.TEMPLATE.values():
-            with open(t['filename']) as f:
-                self.assertEqual(f.read(), t['content'])
+            self.assertEqual(workspace.reader.read(t['filename']), t['content'])
 
 class WorkspaceTest(unittest.TestCase):
 

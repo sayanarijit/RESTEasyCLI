@@ -1,24 +1,25 @@
-import yaml
 import json
 
 from resteasycli.config import Config
+from resteasycli.lib.utils import yaml, Dumper
 from resteasycli.exceptions import FileExtensionNotSupportedException
 
 
 def _write_json(data, filepath):
     '''Write json files'''
     with open(filepath, 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f, indent=2)
 
 def _write_yaml(data, filepath):
     '''Write yaml files'''
     with open(filepath, 'w') as f:
-        f.write(yaml.dump(data))
+        yaml.dump(data, f, default_flow_style=False, Dumper=Dumper)
+
 
 class Writer(object):
     '''Interface for writing to all supported file formats'''
 
-    SUPPORTED_EXTENSIONS = Config.SUPPORTED_EXTENSIONS
+    SUPPORTED_FILE_EXTENSIONS = Config.SUPPORTED_FILE_EXTENSIONS
 
     def __init__(self, logger):
         self.logger = logger
@@ -28,7 +29,7 @@ class Writer(object):
 
         ext = ext.lower()
 
-        if ext not in self.SUPPORTED_EXTENSIONS:
+        if ext not in self.SUPPORTED_FILE_EXTENSIONS:
             raise FileExtensionNotSupportedException(
                 'extension not supported: ' + ext)
 

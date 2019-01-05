@@ -1,8 +1,8 @@
-import yaml
 import json
 
-from resteasycli.exceptions import FileExtensionNotSupportedException
 from resteasycli.config import Config
+from resteasycli.lib.utils import yaml, Loader
+from resteasycli.exceptions import FileExtensionNotSupportedException
 
 
 def _read_json(filepath):
@@ -14,14 +14,14 @@ def _read_json(filepath):
 def _read_yaml(filepath):
     '''Read yaml files'''
     with open(filepath) as f:
-        data = yaml.load(f.read())
+        data = yaml.load(f, Loader=Loader)
     return data
 
 
 class Reader(object):
     '''Interface for reading all supported file formats'''
 
-    SUPPORTED_EXTENSIONS = Config.SUPPORTED_EXTENSIONS
+    SUPPORTED_FILE_EXTENSIONS = Config.SUPPORTED_FILE_EXTENSIONS
 
     def __init__(self, logger):
         self.logger = logger
@@ -31,7 +31,7 @@ class Reader(object):
 
         ext = ext.lower()
 
-        if ext not in self.SUPPORTED_EXTENSIONS:
+        if ext not in self.SUPPORTED_FILE_EXTENSIONS:
             raise FileExtensionNotSupportedException('extension not supported: ' + ext)
 
         if ext == 'json':

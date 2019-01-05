@@ -8,8 +8,8 @@ from resteasycli.exceptions import InvalidCommandException
 class ListSites(Lister):
     '''List available sites in current workspace'''
     def take_action(self, args):
-        result =  {k: v['base_url'] for k,v in workspace.sites.items()}
-        return [['site', 'base_url'], result.items()]
+        result =  [(k, v['base_url']) for k,v in workspace.sites.items()]
+        return [['site', 'base_url'], result]
 
 class ShowSite(ShowOne):
     '''Show information about a site'''
@@ -25,12 +25,14 @@ class ShowSite(ShowOne):
 class ListEndpoints(Lister):
     '''List available endpoints in current workspace'''
     def take_action(self, args):
-        result = {}
+        result = []
         for site, values in workspace.sites.items():
             base_url = values['base_url']
             for endpoint, values in values['endpoints'].items():
-                result['{}/{}'.format(site, endpoint)] = '{}/{}'.format(base_url, values['route'])
-        return [['site_endpoint', 'endpoint_url'], result.items()]
+                result.append((
+                    '{}/{}'.format(site, endpoint), '{}/{}'.format(base_url, values['route'])
+                ))
+        return [['site_endpoint', 'endpoint_url'], result]
 
 class ShowEndpoint(ShowOne):
     '''Show information about an endpoint'''
@@ -56,7 +58,7 @@ class ListSavedRequests(Lister):
         body = []
         for k, v in result.items():
             site_endpoint = '{}/{}'.format(v['site'], v['endpoint'])
-            body.append([k, v['method'], site_endpoint])
+            body.append((k, v['method'], site_endpoint))
         return [header, body]
 
 class ShowSavedRequest(ShowOne):
@@ -77,7 +79,10 @@ class ListHeaders(Lister):
         header = ['headers_id', 'action', 'values']
         body = []
         for k, v in result.items():
-            body.append([k, v['action'], '\n'.join(['{}: {}'.format(x,y) for x,y in v['values'].items()])])
+            body.append((
+                k, v['action'], '\n'.join(['{}: {}'.format(x,y)
+                for x,y in v['values'].items()])
+            ))
         return [header, body]
 
 class ShowHeaders(ShowOne):
@@ -95,10 +100,10 @@ class ListAuth(Lister):
     '''List all authentication methods in current workspace'''
     def take_action(self, args):
         result = workspace.auth
-        header = ['auth_id', 'type', 'credentials']
+        header = ['auth_id', 'type']
         body = []
         for k, v in result.items():
-            body.append([k, v['type'], v['credentials']])
+            body.append((k, v['type']))
         return [header, body]
 
 class ShowAuth(ShowOne):

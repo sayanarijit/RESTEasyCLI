@@ -1,7 +1,7 @@
 from marshmallow import fields, validates, ValidationError, ValidationError
 
 from resteasycli.schema.workspace import WorkspaceFileSchema
-from resteasycli.schema.common import AnyField, AbstractRequestPropertiesSchema
+from resteasycli.schema.common import AnyField, AbstractRequestPropertiesSchema, OrderedDictField
 
 
 class SavedRequestSchema(AbstractRequestPropertiesSchema):
@@ -18,10 +18,16 @@ class SavedRequestSchema(AbstractRequestPropertiesSchema):
             return
         raise ValidationError('{}: Not a valid string or integer'.format(slug))
 
+    class Meta:
+        ordered = True
+
 
 class SavedRequestsFileSchema(WorkspaceFileSchema):
     '''Schema for saved requests file format'''
-    saved_requests = fields.Dict(
+    saved_requests = OrderedDictField(
         required=True,
         keys=fields.Str(),
         values=fields.Nested(SavedRequestSchema))
+
+    class Meta:
+        ordered = True
