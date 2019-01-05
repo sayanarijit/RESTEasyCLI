@@ -116,13 +116,13 @@ class WorkspaceTemplates(object):
     '''Default templates and initializer for workspace'''
 
     TEMPLATE = {
-      'sites': {'filename': '{}.{}'.format(Config.SITES_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'sites': {'filename': Config.SITES_TEMPLATE_FILENAME,
                 'content': SITES_TEMPLATE_CONTENT},
-      'auth': {'filename': '{}.{}'.format(Config.AUTH_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'auth': {'filename': Config.AUTH_TEMPLATE_FILENAME,
                'content': AUTH_TEMPLATE_CONTENT},
-      'headers': {'filename': '{}.{}'.format(Config.HEADERS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'headers': {'filename': Config.HEADERS_TEMPLATE_FILENAME,
                   'content': HEADERS_TEMPLATE_CONTENT},
-      'saved_requests': {'filename': '{}.{}'.format(Config.SAVED_REQUESTS_TEMPLATE_FILENAME, Config.DEFAULT_FILE_EXTENSION),
+      'saved_requests': {'filename': Config.SAVED_REQUESTS_TEMPLATE_FILENAME,
                          'content': SAVED_REQUESTS_TEMPLATE_CONTENT}
     }
 
@@ -132,9 +132,10 @@ class WorkspaceTemplates(object):
             writer = Writer(logger=logging.getLogger('resteasycli'))
         writer.load_writer_by_extension(extension)
         for t in WorkspaceTemplates.TEMPLATE.values():
-            if os.path.exists(t['filename']) and not force:
+            filepath = '{}.{}'.format(t['filename'], extension)
+            if os.path.exists(filepath) and not force:
                 continue
-            writer.write(data=t['content'], filepath=t['filename'])
+            writer.write(data=t['content'], filepath=filepath)
 
 class Workspace(object):
     '''Workspace manager'''

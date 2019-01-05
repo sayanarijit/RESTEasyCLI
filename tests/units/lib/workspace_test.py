@@ -14,10 +14,10 @@ workspace.reload()
 class WorkspaceTemplatesTest(unittest.TestCase):
 
     def test_initialize(self):
-        WorkspaceTemplates.initialize(force=True)
+        WorkspaceTemplates.initialize(force=True, extension='yml')
 
         for t in WorkspaceTemplates.TEMPLATE.values():
-            self.assertEqual(workspace.reader.read(t['filename']), t['content'])
+            self.assertEqual(workspace.reader.read('{}.yml'.format(t['filename'])), t['content'])
 
 class WorkspaceTest(unittest.TestCase):
 

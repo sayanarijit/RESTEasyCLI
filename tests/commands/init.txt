@@ -1,3 +1,6 @@
 recli help
 recli init
 recli init -f
+recli init -f -e json
+recli init -f -e yaml
+recli init -f -e yml

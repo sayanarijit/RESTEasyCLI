@@ -16,6 +16,7 @@ class Finder(object):
     '''Interface for finding files'''
 
     SEARCH_PATHS = Config.SEARCH_PATHS
+    DEFAULT_FILE_EXTENSION = Config.DEFAULT_FILE_EXTENSION
     SUPPORTED_FILE_EXTENSIONS = Config.SUPPORTED_FILE_EXTENSIONS
 
     def __init__(self, logger):
@@ -25,7 +26,7 @@ class Finder(object):
         '''Find and return file info'''
         for sp in self.SEARCH_PATHS:
             for fn in names:
-                for fe in self.SUPPORTED_FILE_EXTENSIONS:
+                for fe in [self.DEFAULT_FILE_EXTENSION, self.SUPPORTED_FILE_EXTENSIONS]:
                     fullpath = os.path.expanduser(os.path.join(sp, fn)+'.'+fe)
                     self.logger.debug('Searching for file: ' + fullpath)
                     if not os.path.exists(fullpath):
