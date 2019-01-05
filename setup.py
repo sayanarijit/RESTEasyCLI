@@ -3,7 +3,7 @@ from codecs import open
 from setuptools import setup, find_packages
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.3.6'  # Also resteasycli.config.Config
+VERSION = 'v0.3.7'  # Also resteasycli.config.Config
 
 
 here = path.abspath(path.dirname(__file__))
@@ -25,7 +25,7 @@ setup(
     long_description=long_description,
     # long_description_content_type='text/markdown',
     url='https://github.com/rapidstack/RESTEasyCLI',
-    download_url='https://github.com/rapidstack/RESTEasyCLI/archive/%s.tar.gz' % VERSION,
+    download_url='https://github.com/rapidstack/RESTEasyCLI/archive/{}.tar.gz'.format(VERSION),
     author='Arijit Basu',
     author_email='sayanarijit@gmail.com',
     license='MIT',
