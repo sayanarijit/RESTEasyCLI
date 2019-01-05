@@ -37,6 +37,7 @@ def main(argv=sys.argv[1:]):
         return app.run(argv)
     except Exception as e:
         sys.stderr.write('error: {}\n'.format(e))
+    return 1
 
 
 if __name__ == '__main__':
