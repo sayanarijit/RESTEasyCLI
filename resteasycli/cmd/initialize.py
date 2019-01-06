@@ -2,6 +2,7 @@ import logging
 from cliff.command import Command
 
 from resteasycli.config import Config
+from resteasycli.config.template import ConfigTemplate
 from resteasycli.lib.workspace import WorkspaceTemplates
 
 
@@ -16,4 +17,5 @@ class Init(Command):
         return parser
 
     def take_action(self, args):
+        ConfigTemplate.initialize(force=args.force)
         WorkspaceTemplates.initialize(force=args.force, extension=args.extension)

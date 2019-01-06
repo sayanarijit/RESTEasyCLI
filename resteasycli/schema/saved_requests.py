@@ -14,6 +14,7 @@ class SavedRequestSchema(AbstractRequestPropertiesSchema):
 
     @validates('slug')
     def validate_slug(self, slug):
+        '''Validates slug field'''
         if isinstance(slug, int) or isinstance(slug, str):
             return
         raise ValidationError('{}: Not a valid string or integer'.format(slug))

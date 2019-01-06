@@ -128,8 +128,13 @@ class WorkspaceTemplates(object):
 
     @staticmethod
     def initialize(force=False, writer=None, extension=Config.DEFAULT_FILE_EXTENSION):
+        if Config.DEFAULT_FILE_FORMAT not in ['v0.1', 'v1.0']:
+            raise InvalidFormatException(
+                '{}: file format not supported'.format(Config.DEFAULT_FILE_FORMAT))
         if writer is None:
-            writer = Writer(logger=logging.getLogger('resteasycli'))
+            writer = Writer(
+                logger=logging.getLogger('resteasycli'),
+                extensions=[extension])
         writer.load_writer_by_extension(extension)
         for t in WorkspaceTemplates.TEMPLATE.values():
             filepath = '{}.{}'.format(t['filename'], extension)
@@ -140,10 +145,17 @@ class WorkspaceTemplates(object):
 class Workspace(object):
     '''Workspace manager'''
     def __init__(self, logger):
-        self.finder = Finder(logger=logger)
-        self.reader = Reader(logger=logger)
-        self.writer = Writer(logger=logger)
         self.logger = logger
+        self.finder = Finder(
+                logger=logger,
+                extensions=Config.SUPPORTED_FILE_EXTENSIONS,
+                search_paths=Config.SEARCH_PATHS)
+        self.reader = Reader(
+                logger=logger,
+                extensions=Config.SUPPORTED_FILE_EXTENSIONS)
+        self.writer = Writer(
+                logger=logger,
+                extensions=Config.SUPPORTED_FILE_EXTENSIONS)
         self.file_schemas = {
             'saved_requests': SavedRequestsFileSchema(),
             'sites': SitesFileSchema(),
@@ -152,9 +164,9 @@ class Workspace(object):
         }
         self.load_files()
 
-    def init(self, force=False, extension=Config.DEFAULT_FILE_EXTENSION):
+    def init(self, force=False):
         WorkspaceTemplates.initialize(
-            writer=self.writer, force=force, extension=extension)
+            writer=self.writer, force=force, extension=Config.DEFAULT_FILE_EXTENSION)
 
     def reload(self):
         '''Reload workspace changes'''

@@ -29,25 +29,29 @@ class LockedFile(object):
     def __init__(self, filepath, reader, writer):
         lock(filepath)
         self.filepath = filepath
+        self._closed = False
         self._reader = reader
         self._writer = writer
 
     def read(self):
         '''Read from locked file'''
+        if self._closed:
+            self._throw_io_error()
         return self._reader.read(self.filepath)
 
     def write(self, data):
         '''Write info locked file'''
+        if self._closed:
+            self._throw_io_error()
         return self._writer.write(data=data, filepath=self.filepath)
 
     def close(self):
         '''Release lock and close file'''
         release(self.filepath)
-        self.read = lambda: self._throw_io_error()
-        self.write = lambda data: self._throw_io_error()
+        self._closed = True
 
     def _throw_io_error(self):
-        raise IOError('file is closed')
+        raise IOError('{}: file is closed for any operation'.format(self.filepath))
 
 
 class LockedReadWriter(object):
@@ -59,9 +63,9 @@ class LockedReadWriter(object):
     def open(self, filepath):
         '''Lock file and return open file object for concurrent read/write'''
 
-        reader = Reader(logger=self.logger)
-        writer = Writer(logger=self.logger)
         extension = filepath.split('.')[-1]
+        reader = Reader(logger=self.logger, extensions=[extension])
+        writer = Writer(logger=self.logger, extensions=[extension])
         reader.load_reader_by_extension(extension)
         writer.load_writer_by_extension(extension)
 
