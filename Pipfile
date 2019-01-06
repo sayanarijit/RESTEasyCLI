@@ -11,6 +11,7 @@ twine = "*"
 m2r = "*"
 ipykernel = "*"
 mkdocs = "*"
+mkdocs-rtd-dropdown = "*"
 
 [packages]
 resteasy = {version = "*",editable = true}
