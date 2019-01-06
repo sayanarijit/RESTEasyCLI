@@ -4,11 +4,11 @@ theme: readthedocs
 repo_url: https://github.com/rapidstack/RESTEasyCLI
 site_author: Arijit Basu
 nav:
-  - Introduction: 1_index.md
-  - Installation: 2_installation.md
-  - Usage: 3_usage.md
-  - "Files Explained": 4_files_explained.md
-  - "Best Practices": 5_best_practices.md
-  - "Future Plan": 6_future_plan.md
-  - "Contribution Guide": 7_contribution_guide.md
-  - Credits: 8_credits.md
+  - Introduction: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - "Files Explained": files_explained.md
+  - "Best Practices": best_practices.md
+  - "Future Plan": future_plan.md
+  - "Contribution Guide": contribution_guide.md
+  - Credits: credits.md
