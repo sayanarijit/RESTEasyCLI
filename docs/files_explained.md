@@ -141,6 +141,7 @@ auth:
 
 ```yaml
 version: v1.0
+auth:
   $auth_id:
     type: token
     credentials:
