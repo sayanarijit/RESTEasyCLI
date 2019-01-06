@@ -1,4 +1,3 @@
-import json
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from resteasycli.objects import workspace

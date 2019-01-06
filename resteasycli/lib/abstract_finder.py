@@ -1,6 +1,6 @@
 import os
-from resteasycli.config import Config
 from resteasycli.exceptions import FileNotFoundException
+
 
 class FileInfo(object):
     '''Keeps information about a file'''
@@ -15,18 +15,16 @@ class FileInfo(object):
 class Finder(object):
     '''Interface for finding files'''
 
-    SEARCH_PATHS = Config.SEARCH_PATHS
-    DEFAULT_FILE_EXTENSION = Config.DEFAULT_FILE_EXTENSION
-    SUPPORTED_FILE_EXTENSIONS = Config.SUPPORTED_FILE_EXTENSIONS
-
-    def __init__(self, logger):
+    def __init__(self, logger, search_paths, extensions):
         self.logger = logger
+        self.search_paths = search_paths
+        self.extensions = extensions
 
     def find(self, names):
         '''Find and return file info'''
-        for sp in self.SEARCH_PATHS:
+        for sp in self.search_paths:
             for fn in names:
-                for fe in [self.DEFAULT_FILE_EXTENSION] + self.SUPPORTED_FILE_EXTENSIONS:
+                for fe in self.extensions:
                     fullpath = os.path.expanduser(os.path.join(sp, fn)+'.'+fe)
                     self.logger.debug('Searching for file: ' + fullpath)
                     if not os.path.exists(fullpath):
@@ -35,4 +33,4 @@ class Finder(object):
                     return FileInfo(name=fn, extension=fe, path=fullpath)
         raise FileNotFoundException(
             '{}: file not found in any of: {}. Note: supported file extensions are: {}'.format(
-                '|'.join(names), ', '.join(self.SEARCH_PATHS), ', '.join(self.SUPPORTED_FILE_EXTENSIONS)))
+                '|'.join(names), ', '.join(self.search_paths), ', '.join(self.extensions)))

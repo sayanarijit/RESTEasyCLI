@@ -14,7 +14,6 @@ class OrderedDictField(fields.Dict):
         if not isinstance(value, collections.Mapping):
             self.fail('invalid')
 
-        # Serialize keys
         if self.key_container is None:
             keys = {k: k for k in value.keys()}
         else:
@@ -42,7 +41,6 @@ class OrderedDictField(fields.Dict):
 
         errors = collections.defaultdict(dict)
 
-        # Deserialize keys
         if self.key_container is None:
             keys = {k: k for k in value.keys()}
         else:

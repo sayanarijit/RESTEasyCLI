@@ -99,6 +99,8 @@ ENV/
 .mypy_cache/
 
 # workspace files
+recli.cfg
+
 *.yml.lock
 *.yaml.lock
 *.json.lock

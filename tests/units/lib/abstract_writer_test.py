@@ -10,7 +10,7 @@ logger = logging.getLogger('test_logger')
 class AbstractWriterTest(unittest.TestCase):
 
     def test_load_writer_by_extension(self):
-        writer = Writer(logger=logger)
+        writer = Writer(logger=logger, extensions=['json', 'yml', 'yaml'])
 
         writer.load_writer_by_extension('json')
         self.assertEqual(writer.write, _write_json)

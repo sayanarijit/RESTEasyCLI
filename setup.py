@@ -2,8 +2,10 @@ from os import path
 from codecs import open
 from setuptools import setup, find_packages
 
+
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.3.8'  # Also resteasycli.config.Config
+VERSION = 'v0.3.8'  # Also change resteasycli.config.default.DefaultConfig
+DESCRIPTION = 'Handy REST API client on your terminal'
 
 
 here = path.abspath(path.dirname(__file__))
@@ -21,7 +23,7 @@ setup(
     version=VERSION,
 
     # Also change resteasycli.config.Config, README.md
-    description='Handy REST API client on your terminal',
+    description=DESCRIPTION,
     long_description=long_description,
     # long_description_content_type='text/markdown',
     url='https://github.com/rapidstack/RESTEasyCLI',
