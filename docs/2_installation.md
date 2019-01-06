@@ -1,4 +1,4 @@
-# Installation
+# Installating RESTEasyCLI
 
 You can install this tool using pip. Basic requirements are mentioned below.
 

@@ -3,11 +3,12 @@ site_description: Handy REST API client on your terminal
 theme: readthedocs
 repo_url: https://github.com/rapidstack/RESTEasyCLI
 site_author: Arijit Basu
-highlightjs: true
-hljs_languages:
-  - yaml
-  - bash
 nav:
-  - Introduction: index.md
-  - Installation: installation.md
-  - "User Guide": user_guide.md
+  - Introduction: 1_index.md
+  - Installation: 2_installation.md
+  - Usage: 3_usage.md
+  - "Files Explained": 4_files_explained.md
+  - "Best Practices": 5_best_practices.md
+  - "Future Plan": 6_future_plan.md
+  - "Contribution Guide": 7_contribution_guide.md
+  - Credits: 8_credits.md
