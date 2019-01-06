@@ -9,9 +9,9 @@ It provides a command-line interface to [RESTEasy](https://github.com/rapidstack
 
 Anyone who prefers a command-line tool over GUI apps, but when it comes to API testing or doing repetitive queries to an API server, has to give up on their favourite shell.
 
-This field doesn't have to be dominated by GUI apps anymore.
+The domain of REST clients doesn't have to be dominated by GUI apps anymore.
 
-This tool gives you the power to use advanced featured offered by popular REST clients at the convenience of your terminal.
+This tool gives you the power to use advanced features offered by popular REST clients at the convenience of your terminal.
 
 ## Try an interactive demo
 
