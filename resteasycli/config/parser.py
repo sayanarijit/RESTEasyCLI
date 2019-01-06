@@ -6,7 +6,7 @@ class Parser(object):
 
     def __init__(self):
         self._parsed = dict()
-    
+
     def parse(self, search_paths):
         '''Fing and return dict object containing configurations'''
         filepath = self.find(search_paths)
@@ -15,7 +15,7 @@ class Parser(object):
 
         with open(filepath) as f:
             lines = f.read().splitlines()
-        
+
         line_no = 0
         for line in lines:
             line_no += 1
@@ -34,12 +34,13 @@ class Parser(object):
             if not key:
                 raise RuntimeError(
                     'file: {}: line no: {}: key is missing'.format(filepath, line_no))
-            
+
             if key in ['DEFAULT_ALLOWED_METHODS', 'SEARCH_PATHS']:
                 self._parsed.update({key: [x.strip() for x in val.split(',')]})
                 continue
 
             if key in ['DEFAULT_FILE_FORMAT', 'DEFAULT_FILE_EXTENSION',
+                       'SITES_TEMPLATE_FILENAME',
                        'AUTH_TEMPLATE_FILENAME', 'HEADERS_TEMPLATE_FILENAME',
                        'SAVED_REQUESTS_TEMPLATE_FILENAME', 'WORKSPACE_TITLE',
                        'WORKSPACE_DESCRIPTION']:

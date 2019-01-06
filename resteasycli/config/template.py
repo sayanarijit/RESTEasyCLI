@@ -44,6 +44,10 @@ class ConfigTemplate(object):
     @staticmethod
     def initialize(force=False):
         '''Initialize config file in current workspace'''
+
+        if os.path.exists('recli.cfg') and not force:
+            return
+
         with open('recli.cfg', 'w') as f:
             f.write(CONFIG_TEMPLATE_CONTENT.format(
                 default_allowed_methods=(', '.join(DefaultConfig.DEFAULT_ALLOWED_METHODS)),
