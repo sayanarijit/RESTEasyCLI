@@ -10,6 +10,7 @@ setuptools = "*"
 twine = "*"
 m2r = "*"
 ipykernel = "*"
+mkdocs = "*"
 
 [packages]
 resteasy = {version = "*",editable = true}
