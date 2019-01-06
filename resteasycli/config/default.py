@@ -4,7 +4,7 @@ import os
 class DefaultConfig(object):
     '''Default configuration'''
 
-    VERSION = 'v0.3.8' # Also update setup.py
+    VERSION = 'v0.4.0' # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
 
     ALL_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')
@@ -16,7 +16,7 @@ class DefaultConfig(object):
     DEFAULT_FILE_FORMAT = 'v1.0'
     SUPPORTED_FILE_EXTENSIONS = ('json', 'yml', 'yaml')
     DEFAULT_FILE_EXTENSION = 'yml'
-    
+
     SITES_TEMPLATE_FILENAME = 'sites'
     AUTH_TEMPLATE_FILENAME = 'auth'
     HEADERS_TEMPLATE_FILENAME = 'headers'
