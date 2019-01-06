@@ -9,6 +9,7 @@ This project depends on following cool projects:
 - **[PyYAML](https://github.com/yaml/pyyaml):** YAML/JSON parsing and dumping
 - **[marshmallow](https://marshmallow.readthedocs.io):** For schema validation
 - **[Pipenv](https://docs.pipenv.org):** For development and dependency management.
+- **[JSONPlaceholder](https://jsonplaceholder.typicode.com):** Testing and demonstrating API calls.
 
 
 ## Contributors
