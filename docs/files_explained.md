@@ -123,7 +123,7 @@ Name of this file can be changed by modifying `HEADERS_TEMPLATE_FILENAME` field 
 
 ## 4. Auth file
 
-This file stored authentication methods. Key-value pairs may vary based on authentication type. This file in YAML format will look like this:
+This file stores authentication methods. Key-value pairs may vary based on authentication type. This file in YAML format will look like this:
 
 ### Basic auth
 
@@ -154,7 +154,7 @@ Name of this file can be changed by modifying `AUTH_TEMPLATE_FILENAME` field in 
 
 ## 5. Saved requests file
 
-This file stored information of all the requests saved for re-use purpose. Along with manual updates, this file also gets updated automatically by *recli* when we use `-s` or `--save` option to save a request. This file in YAML format looks like this:
+This file stores information of all the requests saved for re-use purpose. Along with manual updates, this file also gets updated automatically by *recli* when we use `-s` or `--save` option to save a request. This file in YAML format looks like this:
 
 ### Minimal parameters
 
