@@ -133,7 +133,7 @@ recli put $site_id/$endpoint_id/1 -k "$key=$value"
 recli patch $site_id/$endpoint_id/1 -k "$key=$value"
 
 # DELETE request
-recli DELETE $site_id/$endpoint_id/1
+recli delete $site_id/$endpoint_id/1
 ```
 
 ***NOTE: Although site_id/$endpoint_id/1 is not defined in any file, it will take "1" as a slug and format the URL accordingly***
