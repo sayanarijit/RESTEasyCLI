@@ -105,11 +105,11 @@ recli show-auth $auth_id
 
 # List and show headers
 recli list-headers
-recli show-headers
+recli show-headers $headers_id
 
 # List and show saved requests
 recli list-saved
-recli show-saved
+recli show-saved $request_id
 ```
 
 All these commands can be invoked with additional parameters such as `-f json` to display the output as JSON formatted text.
