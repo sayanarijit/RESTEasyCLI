@@ -186,7 +186,7 @@ saved_requests:
       $key2: $value2
 ```
 
-A requests inherits undefined values from it's endpoint which already inherited it's undefined values from it's site.
+A request inherits undefined values from it's endpoint which already inherited it's undefined values from it's site.
 
 Name of this file can be changed by modifying `SAVED_REQUESTS_TEMPLATE_FILENAME` field in configuration file.
 
