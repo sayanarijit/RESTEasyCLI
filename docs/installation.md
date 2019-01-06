@@ -9,7 +9,7 @@ You can install this tool using pip. Basic requirements are mentioned below.
 
 ## Install it globally
 
-If you install it globally, anyone can use this tool by invoking `recli` command. Installing it globally required special priviledge.
+If you install it globally, anyone can use this tool by invoking `recli` command. Installing it globally requires special priviledge.
 
 ### unix/mac users
 
@@ -29,7 +29,7 @@ pip install --upgrade resteasycli
 
 ## Install it locally
 
-If you install it locally, it will be installed in your home directory and you may have to add the executable's path in your PATH variable. It does not require any special priviledge and only you will be able to use it.
+If you install it locally, it will be installed in your home directory and you may have to add the executable's path in your PATH variable. This installation does not require any special priviledge and only you will be able to use it.
 
 ```bash
 pip install --user --upgrade resteasycli

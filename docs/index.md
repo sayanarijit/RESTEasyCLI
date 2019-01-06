@@ -19,7 +19,7 @@ You can try an interactive demo to have a glimpse of it's most useful features.
 
 This demo will create a virtual python environment inside your home directory and install this tool there. Then it will create a workspace for the demo in your home directory and walk you through the most useful features step by step.
 
-***Important:*** *Only for unix/mac users. Requires Python 2.7-3.6 and `virtualenv` needs to be installed.*
+***Important:*** *Only for unix/mac users. Requires Python 2.7-3.6 and `virtualenv` to be installed.*
 
 Just copy and paste following commands on your terminal or [download this script from here](https://raw.githubusercontent.com/rapidstack/RESTEasyCLI/master/tools/demo.sh) and execute it.
 

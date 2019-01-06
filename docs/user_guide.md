@@ -2,15 +2,15 @@
 
 ## Quick start
 
-For getting started as quickly as possible i.e. to get introduced to the most useful features it provides, we recommend you to try [this interactive demo](/#try-an-interactive-demo).
+For getting started as quickly as possible i.e. to get introduced to the most useful features it provides, we recommend you to try the interactive demo mentioned in the Introduction page.
 
 ## Initialize workspace
 
-A workspace a directory is where you keep a group of files that contains information about your API queries such as API endpoints, request parameters, headers & authentication methods you use etc.
+A workspace a directory is where you keep a group of files that contains information about your API queries such as API endpoints, request parameters, headers & authentication methods, configuration files etc.
 
 The default format of these files is [YAML](https://en.wikipedia.org/wiki/YAML) for better readability. However [JSON](https://en.wikipedia.org/wiki/JSON) is also supported.
 
-To initialize as workspace, create an empty directory and execute below command
+To initialize a workspace, create an empty directory and execute below command
 
 ### To initialize workspace with default YAML files
 
