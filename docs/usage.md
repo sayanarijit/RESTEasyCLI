@@ -24,7 +24,7 @@ recli init
 recli init -e json
 ```
 
-***NOTE: Normally it will skip a file if it already exists. However, you may use `-f` or `--force` option to overwrite **all** the files.***
+***NOTE: Normally it will skip a file if it already exists. However, you may use `-f` or `--force` option to overwrite all the files.***
 
 ## Workspace concept
 
