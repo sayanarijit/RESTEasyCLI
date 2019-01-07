@@ -24,4 +24,11 @@ class DefaultConfig(object):
 
     WORKSPACE_TITLE = os.path.basename(
         os.path.basename(os.path.abspath('.')))
-    WORKSPACE_DESCRIPTION = ''
+    WORKSPACE_DESCRIPTION = None
+
+    DEFAULT_SITE_ID = None
+    DEFAULT_ENDPOINT_ID = None
+    DEFAULT_HEADERS_ID = None
+    DEFAULT_AUTH_ID = None
+    DEFAULT_TIMEOUT = None
+    DEFAULT_CERTFILE = None

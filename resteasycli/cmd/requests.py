@@ -59,11 +59,15 @@ class GenericRequest(Command):
         parser.add_argument('-u', '--update_kwargs', type=self.parse_kwarg, nargs='*',
                 help='add/update key-value pairs in kwargs. format: key1=value "key2=another value"')
         parser.add_argument(
-                '-a', '--auth', help='use alternate authentication from file')
+                '-a', '--auth', help='use alternate authentication from file',
+                default=workspace.config.DEFAULT_AUTH_ID)
         parser.add_argument('-H', '--headers',
-                help='use alternate set of headers from file')
-        parser.add_argument('-t', '--timeout', type=int)
-        parser.add_argument('-C', '--certfile', help='ssl certificate file path')
+                help='use alternate set of headers from file',
+                default=workspace.config.DEFAULT_HEADERS_ID)
+        parser.add_argument('-t', '--timeout', type=int,
+                default=workspace.config.DEFAULT_TIMEOUT)
+        parser.add_argument('-C', '--certfile', help='ssl certificate file path',
+                default=workspace.config.DEFAULT_CERTFILE)
         parser.add_argument('-I', '--insecure', action='store_true',
                 help='do not verify ssl certificate. (overrides "-C", "--certfile" option)')
         parser.add_argument('-F', '--fake', help='print the request instead of actually doing it',
@@ -164,6 +168,19 @@ class UnSavedRequest(GenericRequest):
         else:
             raise InvalidCommandException(
                 '{}: correct format of endpoint is: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug'.format(args.site_endpoint))
+
+        if not site_id:
+            if workspace.config.DEFAULT_SITE_ID:
+                site_id = workspace.config.DEFAULT_SITE_ID
+            else:
+                raise InvalidCommandException('default site ID is not defined')
+
+        if not endpoint_id:
+            if workspace.config.DEFAULT_ENDPOINT_ID:
+                endpoint_id = workspace.config.DEFAULT_ENDPOINT_ID
+            else:
+                raise InvalidCommandException('default endpoint ID is not defined')
+
         return super(UnSavedRequest, self).get_request(method=method, site_id=site_id,
                 endpoint_id=endpoint_id, args=args)
 

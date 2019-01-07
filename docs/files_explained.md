@@ -46,6 +46,14 @@ WORKSPACE_TITLE = myworkspace
 
 ### Description for current workspace
 WORKSPACE_DESCRIPTION =
+
+### Default values to provide when no command-line argument is provided
+DEFAULT_SITE_ID =
+DEFAULT_ENDPOINT_ID =
+DEFAULT_HEADERS_ID =
+DEFAULT_AUTH_ID =
+DEFAULT_TIMEOUT =
+DEFAULT_CERTFILE =
 ```
 
 As shown above, this is a flat file with key-value pairs separated with `=`. Any of the characters `#` or `;` can be used to put comments.

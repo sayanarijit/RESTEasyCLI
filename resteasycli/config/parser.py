@@ -39,11 +39,16 @@ class Parser(object):
                 self._parsed.update({key: [x.strip() for x in val.split(',')]})
                 continue
 
-            if key in ['DEFAULT_FILE_FORMAT', 'DEFAULT_FILE_EXTENSION',
-                       'SITES_TEMPLATE_FILENAME',
+            if val and key in ['DEFAULT_TIMEOUT']:
+                self._parsed.update({key: int(val)})
+                continue
+
+            if val and key in ['DEFAULT_FILE_FORMAT', 'DEFAULT_FILE_EXTENSION',
+                       'SITES_TEMPLATE_FILENAME', 'DEFAULT_SITE_ID',
                        'AUTH_TEMPLATE_FILENAME', 'HEADERS_TEMPLATE_FILENAME',
                        'SAVED_REQUESTS_TEMPLATE_FILENAME', 'WORKSPACE_TITLE',
-                       'WORKSPACE_DESCRIPTION']:
+                       'WORKSPACE_DESCRIPTION', 'DEFAULT_ENDPOINT_ID',
+                       'DEFAULT_HEADERS_ID', 'DEFAULT_AUTH_ID', 'DEFAULT_CERTFILE']:
                 self._parsed.update({key: val})
                 continue
 
