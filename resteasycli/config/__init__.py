@@ -32,3 +32,16 @@ class Config(DefaultConfig):
         'WORKSPACE_TITLE', DefaultConfig.WORKSPACE_TITLE)
     WORKSPACE_DESCRIPTION = parsed.get(
         'WORKSPACE_DESCRIPTION', DefaultConfig.WORKSPACE_DESCRIPTION)
+
+    DEFAULT_SITE_ID = parsed.get(
+        'DEFAULT_SITE_ID', DefaultConfig.DEFAULT_SITE_ID)
+    DEFAULT_ENDPOINT_ID = parsed.get(
+        'DEFAULT_ENDPOINT_ID', DefaultConfig.DEFAULT_ENDPOINT_ID)
+    DEFAULT_HEADERS_ID = parsed.get(
+        'DEFAULT_HEADERS_ID', DefaultConfig.DEFAULT_HEADERS_ID)
+    DEFAULT_AUTH_ID = parsed.get(
+        'DEFAULT_AUTH_ID', DefaultConfig.DEFAULT_AUTH_ID)
+    DEFAULT_TIMEOUT = parsed.get(
+        'DEFAULT_TIMEOUT', DefaultConfig.DEFAULT_TIMEOUT)
+    DEFAULT_CERTFILE = parsed.get(
+        'DEFAULT_CERTFILE', DefaultConfig.DEFAULT_CERTFILE)

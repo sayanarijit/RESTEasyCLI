@@ -145,6 +145,7 @@ class WorkspaceTemplates(object):
 class Workspace(object):
     '''Workspace manager'''
     def __init__(self, logger):
+        self.config = Config
         self.logger = logger
         self.finder = Finder(
                 logger=logger,

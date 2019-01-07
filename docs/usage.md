@@ -57,6 +57,7 @@ recli help
 recli -h
 
 # OR
+
 recli --help
 ```
 
@@ -85,6 +86,11 @@ recli do --help
 ```bash
 recli
 ```
+
+When in interactive mode, we don't need to type `recli` anymore. We can just enter the remaining parts of the command.
+For example: `recli help` becomes `help`, `recli init` becomes `init`. There are many more cool features that you can explore with `help` command.
+
+For further information on interactive mode, please read [cliff documentation](https://docs.openstack.org/cliff/latest/user/interactive_mode.html).
 
 ### Workspace management commands
 
@@ -192,3 +198,30 @@ recli redo-show $request_id -S 1
 This output can be further formatted to any supported representation using the `-f` or `--format` option.
 
 ***NOTE: You can also use this feature for other CRUD operations by overriding the method using `-m` or `--method` option but doing so is not recommended as result's structure may vary and formatting may fail***
+
+
+## Defining default command-line arguments
+
+We can define frequently used command-line arguments such as site ID, endpoint ID, headers ID, auth ID etc in `recli.cfg` file. When defined in this file, these defaults will override all the other values.
+
+For example, if we define `DEFAULT_SITE_ID = testing` and `DEFAULT_ENDPOINT_ID = t`, we can use below commands:
+
+```bash
+recli get /
+# Same as: recli get testing/t
+
+recli get //1
+# Same as: recli get testing/t/1
+
+recli get /another_endpoint
+# Same as: recli get testing/another_endpoint
+
+recli get /another_endpoint/1
+# Same as: recli get testing/another_endpoint/1
+
+recli get another_site/
+# Same as: recli get another_site/t
+
+recli get another_site//1
+# Same as: recli get another_site/t/1
+```
