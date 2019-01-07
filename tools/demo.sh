@@ -132,15 +132,15 @@ recli do remind_shopping || exit 1
 echo
 
 echo '# Fake the previous request with modified payload'
-read -sp '> recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake' x
+read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake' x
 echo
-recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake || exit 1
+recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake || exit 1
 echo
 
 echo '# Add "-s" or "--save_as" with an ID to save the request for later use'
-read -sp '> recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake --save_as my_request' x
+read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request' x
 echo
-recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake --save_as my_request || exit 1
+recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request || exit 1
 echo
 
 echo '# Verify the newly saved request'
