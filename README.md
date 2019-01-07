@@ -8,11 +8,6 @@ Handy REST API client on your terminal
 
 [![asciicast](https://asciinema.org/a/219207.svg)](https://asciinema.org/a/219207)
 
-- [RESTEasyCLI](#resteasycli)
-  - [Get started with an interactive demo](#get-started-with-an-interactive-demo)
-  - [Usage](#usage)
-  - [TODO list](#todo-list)
-  - [Contribution guide](#contribution-guide)
 
 ## Get started with an interactive demo
 

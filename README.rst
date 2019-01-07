@@ -26,14 +26,6 @@ Handy REST API client on your terminal
    :alt: asciicast
 
 
-
-* `RESTEasyCLI <#resteasycli>`_
-
-  * `Get started with an interactive demo <#get-started-with-an-interactive-demo>`_
-  * `Usage <#usage>`_
-  * `TODO list <#todo-list>`_
-  * `Contribution guide <#contribution-guide>`_
-
 Get started with an interactive demo
 ------------------------------------
 

@@ -190,5 +190,6 @@ A request inherits undefined values from it's endpoint which already inherited i
 
 Name of this file can be changed by modifying `SAVED_REQUESTS_TEMPLATE_FILENAME` field in configuration file.
 
+To understand what the fields `kwargs`, `verify` etc. mean, check the next section *Fields Explained*.
 
 ***NOTE: All workspace files except the configuration file contain a version information to allow extension of currently defined format tackling incompatibility***

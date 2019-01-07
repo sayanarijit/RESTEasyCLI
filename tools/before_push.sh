@@ -2,7 +2,7 @@
 
 m2r README.md || exit 1
 
-cp -vf CONTRIBUTING.md docs/contribution_guide.md
+cp -vf CONTRIBUTING.md docs/contribution_guide.md || exit 1
 
 setup_py_v=$(grep 'VERSION = ' setup.py | awk '{print $3}' | sed "s/'//g")
 config_v=$(grep 'VERSION = ' resteasycli/config/default.py | awk '{print $3}' | sed "s/'//g")

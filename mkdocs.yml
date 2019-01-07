@@ -13,6 +13,7 @@ nav:
   - Installation: installation.md
   - Usage: usage.md
   - "Files Explained": files_explained.md
+  - "Fields Explained": fields_explained.md
   - "Best Practices": best_practices.md
   - "Future Plan": future_plan.md
   - "Contribution Guide": contribution_guide.md
