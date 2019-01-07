@@ -1,5 +1,6 @@
 import sys
 import json
+import yaml
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from cliff.command import Command
@@ -54,10 +55,10 @@ class GenericRequest(Command):
     def get_parser(self, prog_name):
         parser = super(GenericRequest, self).get_parser(prog_name)
         parser.add_argument('-m', '--method', help='override query method')
-        parser.add_argument('-k', '--kwargs', type=self.parse_kwarg, nargs='*',
-                help='payload/params to send. format: key1=value "key2=another value"')
-        parser.add_argument('-u', '--update_kwargs', type=self.parse_kwarg, nargs='*',
-                help='add/update key-value pairs in kwargs. format: key1=value "key2=another value"')
+        parser.add_argument('-k', '--kwargs', type=lambda x: dict(yaml.load(x)),
+                help='payload/params to send. format is yaml')
+        parser.add_argument('-u', '--update_kwargs', type=lambda x: dict(yaml.load(x)),
+                help='add/update key-value pairs in kwargs. format is yaml')
         parser.add_argument(
                 '-a', '--auth', help='use alternate authentication from file',
                 default=workspace.config.DEFAULT_AUTH_ID)
@@ -76,20 +77,6 @@ class GenericRequest(Command):
                 help='save the request for later use. can be used with --fake option')
         return parser
 
-    @staticmethod
-    def parse_kwarg(pair):
-        try:
-            return {pair.split('=', 1)[0]: pair.split('=', 1)[1]}
-        except Exception:
-            raise InvalidCommandException('kwargs: correct format is: key1=value "key2=another value"')
-
-    @staticmethod
-    def parse_kwargs(lst):
-        if lst is None:
-            return None
-        data = {}
-        for kv in lst: data.update(kv)
-        return data
 
     def get_request(self, method, site_id, endpoint_id, args, request=None):
         '''get the request object'''
@@ -108,10 +95,10 @@ class GenericRequest(Command):
             request.set_timeout(args.timeout)
 
         if args.kwargs is not None:
-            request.set_kwargs(self.parse_kwargs(args.kwargs))
+            request.set_kwargs(args.kwargs)
 
         if args.update_kwargs is not None:
-            request.update_kwargs(self.parse_kwargs(args.update_kwargs))
+            request.update_kwargs(args.update_kwargs)
 
         if args.auth is not None:
             request.set_auth(args.auth)

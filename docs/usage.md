@@ -130,13 +130,13 @@ All these commands can be invoked with additional parameters such as `-f json` t
 recli get $site_id/$endpoint_id
 
 # POST request
-recli post $site_id/$endpoint_id -k "$key1=$value1" "$key2=$value2"
+recli post $site_id/$endpoint_id -k "{$key1: $value1, $key2: $value2}"
 
 # PUT request
-recli put $site_id/$endpoint_id/1 -k "$key=$value"
+recli put $site_id/$endpoint_id/1 -k "$key: $value"
 
 # PATCH request
-recli patch $site_id/$endpoint_id/1 -k "$key=$value"
+recli patch $site_id/$endpoint_id/1 -k "$key: $value"
 
 # DELETE request
 recli delete $site_id/$endpoint_id/1
@@ -170,7 +170,7 @@ recli do $request_id
 Saved requests can also be invoked with updated parameters by overriding the saved parameters using command-line arguments.
 
 ```bash
-recli do $request_id -k $key=$value -a $updated_auth_id -H $updated_header_id
+recli do $request_id -k "$key: $value" -a $updated_auth_id -H $updated_header_id
 ```
 
 And it can be faked and saved by adding `-F -s $updated_request_id` arguments.

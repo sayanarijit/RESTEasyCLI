@@ -96,9 +96,9 @@ recli help list|| exit 1
 echo
 
 echo '# Do the earlier GET request with parameter "userId=1" and format the output as a table'
-read -sp '> recli list testing/t --kwargs userId=1 --fit-width' x
+read -sp '> recli list testing/t --kwargs "userId: 1" --fit-width' x
 echo
-recli list testing/t --kwargs userId=1 --fit-width || exit 1
+recli list testing/t --kwargs "userId: 1" --fit-width || exit 1
 echo
 
 echo '# Add a slug "1" to previous request and format the output as a table'

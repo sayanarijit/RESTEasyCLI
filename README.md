@@ -6,8 +6,6 @@ Handy REST API client on your terminal
 [![Build Status](https://travis-ci.org/rapidstack/RESTEasyCLI.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCLI)
 [![Documentation Status](https://readthedocs.org/projects/resteasycli/badge/?version=latest)](https://resteasycli.readthedocs.io/en/latest/?badge=latest)
 
-[![asciicast](https://asciinema.org/a/219207.svg)](https://asciinema.org/a/219207)
-
 
 ## Get started with an interactive demo
 
