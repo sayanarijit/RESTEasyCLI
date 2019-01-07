@@ -2,13 +2,13 @@
 
 All the files that may reside in a workspace or `~/.recli` or `/etc/recli` are metioned below.
 
+By default *recli* searches for each file in following order: `.` > `~/.recli` > `/etc/recli` and reads whatever it finds first.
+
 ## 1. Configuration file
 
-This file has a fixed name `recli.cfg` and may reside in either current workspace, or `./recli`, or `/etc/recli`. *recli* will search for this file in specified order and read whatever comes first.
+This file has a fixed name: `recli.cfg`, a fixed lookup path `.` > `~/.recli` > `/etc/recli` and a fixed syntax as it is the first file *recli* reads when a command is invoked.
 
-All the variable parameters of configuration used by *recli* such as default file extension, lookup path etc. may be defined in this file.
-
-This file has it's own fixed format and a fixed search path as it is the first file *recli* reads when a command is invoked.
+All the variable parts of configuration used by *recli* such as default file extension, lookup path etc. may be defined in this file.
 
 This file looks like this:
 
