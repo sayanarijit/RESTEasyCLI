@@ -20,12 +20,6 @@ Handy REST API client on your terminal
    :alt: Documentation Status
 
 
-
-.. image:: https://asciinema.org/a/219207.svg
-   :target: https://asciinema.org/a/219207
-   :alt: asciicast
-
-
 Get started with an interactive demo
 ------------------------------------
 
