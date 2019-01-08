@@ -1,6 +1,6 @@
 # Workspace Files Explained
 
-All the files that may reside in a workspace or `~/.recli` or `/etc/recli` are metioned below.
+All the files that may reside in a workspace or `~/.recli` or `/etc/recli` are explained here.
 
 By default *recli* searches for each file in following order: `.` > `~/.recli` > `/etc/recli` and reads whatever it finds first.
 
@@ -58,12 +58,12 @@ DEFAULT_CERTFILE =
 
 As shown above, this is a flat file with key-value pairs separated with `=`. Any of the characters `#` or `;` can be used to put comments.
 
-***NOTE: Do not use single or double quotes to define values and use `#` or `;` only at the starting of a line***
+***NOTE:*** *Do not use single or double quotes to define values and use `#` or `;` only at the starting of a line*
 
 
 ## 2. Sites file
 
-This file holds information about different sites, endpoints exposed by each site, default authentication used, default headers used etc. This file in YAML format will look like this:
+This file holds information about different sites, endpoints exposed by each site, default authentication used, default headers used etc. This file in YAML format looks like this:
 
 ### Minimal parameters
 
@@ -103,7 +103,7 @@ sites:
         - $allowed_method2
 ```
 
-Both versions of sites file defines an endpoint $base_url/$endpoint_path. One with minimal parameters, another with all available options.
+Both versions of sites file defines an endpoint $base_url/$endpoint_path. One with minimal parameters, another with all the available options.
 
 All the undefined fields will inherit values from parent if available or take default values.
 
@@ -114,7 +114,7 @@ Name of this file can be changed by modifying `SITES_TEMPLATE_FILENAME` field in
 
 This file holds key-value pairs to be sent as request headers.
 
-Two actions are supported: `only` and `update`. `only` will remove previously applied headers by parents and apply new set of key-value pairs. `update` only adds new key-value pairs or updates existing ones without removing any. This file in YAML format will look like this:
+Two actions are supported: `only` and `update`. `only` will remove previously applied headers by parents and apply new set of key-value pairs. `update` only adds new key-value pairs or updates existing ones without removing any. This file in YAML format looks like this:
 
 ```yaml
 version: v1.0
@@ -131,7 +131,7 @@ Name of this file can be changed by modifying `HEADERS_TEMPLATE_FILENAME` field 
 
 ## 4. Auth file
 
-This file stores authentication methods. Key-value pairs may vary based on authentication type. This file in YAML format will look like this:
+This file stores authentication methods. Key-value pairs may vary based on authentication type. This file in YAML format looks like this:
 
 ### Basic auth
 
@@ -200,4 +200,4 @@ Name of this file can be changed by modifying `SAVED_REQUESTS_TEMPLATE_FILENAME`
 
 To understand what the fields `kwargs`, `verify` etc. mean, check the next section *Fields Explained*.
 
-***NOTE: All workspace files except the configuration file contain a version information to allow extension of currently defined format tackling incompatibility***
+***NOTE:*** *All workspace files except the configuration file contain a version information to allow extension of currently defined format tackling incompatibility*
