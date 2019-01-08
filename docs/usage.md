@@ -2,7 +2,7 @@
 
 ## Quick start
 
-For getting started as quickly as possible i.e. to get introduced to the most useful features it provides, we recommend you to try the interactive demo mentioned in the Introduction page.
+To get started as quickly as possible i.e. to get introduced to the most useful features it provides, we recommend you to try the interactive demo mentioned in the Introduction page.
 
 ## Initialize workspace
 
@@ -47,7 +47,7 @@ As we will eventually find out, this way of organising files will allow us to ha
 
 ### Help menu
 
-To get the full list of available sub-commands type any of the following commands:
+To get the full list of available sub-commands enter any of the following commands:
 
 ```bash
 recli help
@@ -63,7 +63,7 @@ recli --help
 
 ### Help menu of a sub-command
 
-To get the help menu of a sub-command type any of the following commands
+To get the help menu of a sub-command enter any of the following commands
 
 ```bash
 # Assuming "do" is the sub-command
@@ -81,22 +81,28 @@ recli do --help
 
 ### Interactive mode
 
-*recli* also supports interactive mode for more convenience. To get into the interactive mode, just type:
+*recli* also supports interactive mode for more convenience. To get into the interactive mode, just enter:
 
 ```bash
 recli
 ```
 
-When in interactive mode, we don't need to type `recli` anymore. We can just enter the remaining parts of the command.
-For example: `recli help` becomes `help`, `recli init` becomes `init`. There are many more cool features that you can explore with `help` command.
+When in interactive mode, you don't need to type `recli` anymore. You can just enter the remaining parts of the command.
+For example: `recli help` becomes `help`, `recli init` becomes `init`. There are some additional cool features that you can explore with `help` command.
 
 For further information on interactive mode, please read [cliff documentation](https://docs.openstack.org/cliff/latest/user/interactive_mode.html).
 
 ### Workspace management commands
 
-*recli* has a set of workspace management commands. Such as:
+*recli* has a set of workspace management commands such as:
 
 ```bash
+# List available sites
+recli list-sites
+
+# Show details of a particular site (e.g. ghjobs)
+recli show-site ghjobs
+
 # List available endpoints
 recli list-endpoints
 
@@ -142,7 +148,7 @@ recli patch $site_id/$endpoint_id/1 -k "$key: $value"
 recli delete $site_id/$endpoint_id/1
 ```
 
-***NOTE: Although site_id/$endpoint_id/1 is not defined in any file, it will take "1" as a slug and format the URL accordingly***
+***NOTE:*** *Although `$site_id/$endpoint_id/1` is not defined in any file, it will take "1" as a slug and format the URL accordingly*
 
 
 ### Faking a request
@@ -161,7 +167,7 @@ This feature is best used with `-F` i.e. `--fake` option to save a request for l
 
 ### Invoking a saved request
 
-Saved request can be invoked any number of times using the `do` sub-command.
+Saved requests can be invoked any number of times using the `do` sub-command.
 
 ```bash
 recli do $request_id
@@ -175,7 +181,7 @@ recli do $request_id -k "$key: $value" -a $updated_auth_id -H $updated_header_id
 
 And it can be faked and saved by adding `-F -s $updated_request_id` arguments.
 
-***NOTE: `redo` is an alias to `do` command***
+***NOTE:*** *`redo` is an alias to `do` command*
 
 
 ### Table formatted outputs
@@ -197,12 +203,12 @@ recli redo-show $request_id -S 1
 
 This output can be further formatted to any supported representation using the `-f` or `--format` option.
 
-***NOTE: You can also use this feature for other CRUD operations by overriding the method using `-m` or `--method` option but doing so is not recommended as result's structure may vary and formatting may fail***
+***NOTE:*** *You can also use this feature for other CRUD operations by overriding the method using `-m` or `--method` option but doing so is not recommended as result's structure may vary and formatting may fail*
 
 
 ## Defining default command-line arguments
 
-We can define frequently used command-line arguments such as site ID, endpoint ID, headers ID, auth ID etc in `recli.cfg` file. When defined in this file, these defaults will override all the other values.
+We can define frequently used command-line arguments such as site ID, endpoint ID, headers ID, auth ID etc in `recli.cfg` file. When defined in this file, these defaults will override all the other values as these will be passed as command-line arguments which has the highest priority.
 
 For example, if we define `DEFAULT_SITE_ID = testing` and `DEFAULT_ENDPOINT_ID = t`, we can use below commands:
 
