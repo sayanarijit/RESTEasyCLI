@@ -61,7 +61,7 @@ recli -h
 recli --help
 ```
 
-### Help menu for a sub-command
+### Help menu of a sub-command
 
 To get the help menu of a sub-command type any of the following commands
 
@@ -94,7 +94,7 @@ For further information on interactive mode, please read [cliff documentation](h
 
 ### Workspace management commands
 
-*recli* has a set to workspace management commands. Such as:
+*recli* has a set of workspace management commands. Such as:
 
 ```bash
 # List available endpoints
