@@ -50,7 +50,7 @@ export PYTHONPATH=$PWD
 # python setup.py install
 ```
 
-5. Do your stuff. Debug commands using `--debug` option.
+5. Do your stuff. Debug commands using `--debug` and `--verbose` options.
 
 6. Test your stuff (if applicable)
 

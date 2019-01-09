@@ -20,6 +20,7 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(info['method'], 'GET')
         self.assertEqual(info['timeout'], 10)
 
+        self.ep.api.debug = False
         self.assertRaises(MethodNotAllowedException, lambda: self.ep.do('POST', kwargs={}))
 
 

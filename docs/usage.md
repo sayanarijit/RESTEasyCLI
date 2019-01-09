@@ -151,6 +151,18 @@ recli delete $site_id/$endpoint_id/1
 ***NOTE:*** *Although `$site_id/$endpoint_id/1` is not defined in any file, it will take "1" as a slug and format the URL accordingly*
 
 
+### Formatting the output
+
+To format the output of any CRUD request, use `-f` or `--format` option
+
+```bash
+recli get $site_id/$endpoint_id -f json
+
+# Same as
+
+recli get $site_id/$endpoint_id --format json
+```
+
 ### Faking a request
 
 Any API request can be faked using `-F` or `--fake` option. When faked, *recli* will print the information about that request instead of doing it.
