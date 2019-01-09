@@ -18,7 +18,7 @@ class RequestFactory(object):
         if fmt == 'json':
             out = json.dumps(data, indent=2)
         else:
-            out = yaml.dump(data, default_flow_style=False)
+            out = yaml.safe_dump(data, default_flow_style=False)
         sys.stdout.write(out+'\n')
 
     @staticmethod
