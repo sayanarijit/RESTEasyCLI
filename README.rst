@@ -5,6 +5,11 @@ RESTEasyCLI
 Handy REST API client on your terminal
 
 
+.. image:: https://img.shields.io/pypi/pyversions/resteasycli.svg
+   :target: https://pypi.org/project/RESTEasyCLI
+   :alt: PyPI pyversions
+
+
 .. image:: https://img.shields.io/pypi/v/RESTEasyCLI.svg
    :target: https://pypi.org/project/RESTEasyCLI
    :alt: PyPI version

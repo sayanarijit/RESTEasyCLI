@@ -12,6 +12,39 @@ from resteasycli.cmd.request_factory import RequestFactory
 from resteasycli.exceptions import InvalidCommandException
 
 
+class SiteEndpoint(object):
+    '''Combination of site ID and endpoint ID and an optional slug'''
+
+    def __init__(self, txt):
+        if len(txt.split('/')) == 2:
+            self.site_id, self.endpoint_id = txt.split('/')
+            self.slug = None
+        elif len(txt.split('/')) > 2:
+            self.site_id, self.endpoint_id, self.slug = txt.split('/', 2)
+        else:
+            raise InvalidCommandException(
+                ('{}: correct format is: $site_id/$endpoint_id'
+                    ' or $site_id/$endpoint_id/$slug').format(args.site_endpoint))
+
+    def __repr__(self):
+        '''Overriding object representation'''
+        if self.slug is None:
+            return '{}/{}'.format(self.site_id, self.endpoint_id)
+        return '{}/{}/{}'.format(self.site_id, self.endpoint_id, self.slug)
+
+    def __str__(self):
+        '''Overriding string representation'''
+        return str(self.__repr__())
+
+    def __eq__(self, obj):
+        '''Overloading "==" operator'''
+        return obj.site_id == self.site_id and obj.endpoint_id == self.endpoint_id
+
+    def __ne__(self, obj):
+        '''Overloading "!=" operator'''
+        return not self.__eq__(obj)
+
+
 class UnSavedRequest(GenericRequest):
     '''Parent for all unsaved requests for API requests'''
 
@@ -25,28 +58,25 @@ class UnSavedRequest(GenericRequest):
 
         if ds in workspace.sites:
             if dep in workspace.sites[ds]['endpoints']:
-                choices.append('/')
-            choices += list(map(lambda x: '/'+x, workspace.sites[ds]['endpoints'].keys()))
-        
+                choices.append(SiteEndpoint('/'))
+            choices += list(map(lambda x: SiteEndpoint('/'+x), workspace.sites[ds]['endpoints'].keys()))
+
         for s, v in workspace.sites.items():
             if dep in v['endpoints']:
-                choices.append('{}/'.format(s))
+                choices.append(SiteEndpoint(s+'/'))
             for e in v['endpoints'].keys():
-                choices.append('{}/{}'.format(s,e))
-        
+                choices.append(SiteEndpoint('{}/{}'.format(s,e)))
+
         parser.add_argument(
-            'site_endpoint',
-            choices=choices, help='format: $site_id/$endpoint_id or $site_id/$endpoint_id')
+            'target',
+            type=SiteEndpoint, choices=choices,
+            help='format: $site_id/$endpoint_id or $site_id/$endpoint_id/$slug')
         return parser
 
     def get_request(self, method, args):
         '''Overriding parent method'''
 
-        if len(args.site_endpoint.split('/')) == 2:
-            site_id, endpoint_id = args.site_endpoint.split('/')
-        else:
-            raise InvalidCommandException(
-                ('{}: correct format is: $site_id/$endpoint_id').format(args.site_endpoint))
+        site_id, endpoint_id, slug = args.target.site_id, args.target.endpoint_id, args.target.slug
 
         if not site_id:
             if workspace.config.DEFAULT_SITE_ID:
@@ -60,9 +90,13 @@ class UnSavedRequest(GenericRequest):
             else:
                 raise InvalidCommandException('default endpoint ID is not defined')
 
-        return super(UnSavedRequest, self).get_request(
+        req = super(UnSavedRequest, self).get_request(
                 method=method, site_id=site_id,
                 endpoint_id=endpoint_id, args=args)
+
+        if slug is not None:
+            req.add_slug(slug)
+        return req
 
 
 class SavedRequest(GenericRequest):
@@ -74,11 +108,20 @@ class SavedRequest(GenericRequest):
             'request_id',
             choices=workspace.saved_requests.keys(),
             help='request ID from saved requests')
+        parser.add_argument(
+            '-S', '--slug',
+            help='add slug at the end of the URL')
         return parser
 
-    def get_request(self, args):
+    def update_request(self, request, args):
+        '''Override parent class'''
+        super(SavedRequest, self).update_request(request, args)
+        if args.slug is not None:
+            request.add_slug(args.slug)
+
+    def get_request(self, method, args):
         '''Builds and returns the request object'''
-        
+
         req = workspace.get_saved_request(args.request_id)
         self.update_request(req, args)
         return req
@@ -115,7 +158,7 @@ class PATCH(RequestFactory.unformatted(UnSavedRequest)):
 
 class DELETE(RequestFactory.unformatted(UnSavedRequest)):
     '''Do DELETE request'''
-    
+
     def take_action(self, args):
         super(DELETE, self).act(method='DELETE', args=args)
 
@@ -127,7 +170,7 @@ class UnSavedList(RequestFactory.listformatted(UnSavedRequest)):
         return super(UnSavedList, self).act(method='GET', args=args)
 
 
-class UnSavedShow(RequestFactory.listformatted(UnSavedRequest)):
+class UnSavedShow(RequestFactory.showoneformatted(UnSavedRequest)):
     '''Show a particular resource'''
 
     def take_action(self, args):
@@ -138,19 +181,18 @@ class SavedRedo(RequestFactory.unformatted(SavedRequest)):
     '''Re-do a saved request'''
 
     def take_action(self, args):
-        req = self.get_request(args)
-        super(SavedRedo, self).act(method=req.method, args=args)
+        super(SavedRedo, self).act(method=None, args=args)
 
 
 class SavedList(RequestFactory.listformatted(SavedRequest)):
     '''Re-do a saved request with list format'''
 
     def take_action(self, args):
-        super(SavedList, self).act(method='GET', args=args)
+        return super(SavedList, self).act(method='GET', args=args)
 
 
 class SavedShow(RequestFactory.showoneformatted(SavedRequest)):
     '''Re-do a saved request with show one format'''
 
     def take_action(self, args):
-        super(SavedShow, self).act(method='GET', args=args)
+        return super(SavedShow, self).act(method='GET', args=args)

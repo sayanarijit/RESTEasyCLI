@@ -32,7 +32,6 @@ CONFIG_TEMPLATE_CONTENT = '''\
 # SAVED_REQUESTS_TEMPLATE_FILENAME = {saved_requests_template_filename}
 
 ### Default output format (e.g. {output_formats})
-
 # DEFAULT_OUTPUT_FORMAT = {default_output_format}
 
 ### Title for current workspace

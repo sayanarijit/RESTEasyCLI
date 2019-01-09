@@ -17,17 +17,17 @@ This file looks like this:
 ### Values mentioned here are default values
 ### Uncomment lines and edit values as required
 
-### Request methods to allow
+### Request methods to allow (e.g. GET, POST, PUT, PATCH, DELETE)
 DEFAULT_ALLOWED_METHODS = GET, POST, PUT, PATCH, DELETE
 
 ### Where to search for workspace files (priority highest -> lowest)
 SEARCH_PATHS = ., ~/.recli, /etc/recli
 
-### Which file format to use for initializing workspace files
+### Which file format to use for initializing workspace files (e.g. v0.1, v1.0)
 DEFAULT_FILE_FORMAT = v1.0
 
-### With file extension to use for initializing workspace files
-DEFAULT_FILE_EXTENSION = yml
+### Which file extension to use for initializing workspace files (e.g. json, yaml, yml)
+DEFAULT_FILE_EXTENSION = yaml
 
 ### Name of the sites template file
 SITES_TEMPLATE_FILENAME = sites
@@ -41,8 +41,11 @@ HEADERS_TEMPLATE_FILENAME = headers
 ### Name of the saved requests template file
 SAVED_REQUESTS_TEMPLATE_FILENAME = saved
 
+### Default output format (e.g. json, yaml)
+DEFAULT_OUTPUT_FORMAT = yaml
+
 ### Title for current workspace
-WORKSPACE_TITLE = myworkspace
+WORKSPACE_TITLE = RESTEasyCLI
 
 ### Description for current workspace
 WORKSPACE_DESCRIPTION =
@@ -53,7 +56,7 @@ DEFAULT_ENDPOINT_ID =
 DEFAULT_HEADERS_ID =
 DEFAULT_AUTH_ID =
 DEFAULT_TIMEOUT =
-DEFAULT_CERTFILE =
+DEFAULT_CERTFILE = 
 ```
 
 As shown above, this is a flat file with key-value pairs separated with `=`. Any of the characters `#` or `;` can be used to put comments.

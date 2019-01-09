@@ -14,7 +14,7 @@ class RequestFactory(object):
     @staticmethod
     def write_output(data, fmt):
         '''Write data to stdout'''
-        
+
         if fmt == 'json':
             out = json.dumps(data, indent=2)
         else:
@@ -45,7 +45,7 @@ class RequestFactory(object):
                 resp = self.get_response(req, args)
                 RequestFactory.write_output(resp, fmt=args.format)
         return UnformattedRequest
-    
+
     @staticmethod
     def listformatted(parent_class):
         '''Builds and returns the class for list formatted request'''
@@ -59,8 +59,7 @@ class RequestFactory(object):
                 resp = self.get_response(req, args)
 
                 if args.fake:
-                    RequestFactory.write_output(resp, fmt=args.format)
-                    return [[], []]
+                    return [resp.keys(), [[dict(x) for x in resp.values()]]]
 
                 if len(resp) == 0:
                     return [[], []]
@@ -71,7 +70,7 @@ class RequestFactory(object):
                 return [header, body]
 
         return ListFormattedRequest
-    
+
     @staticmethod
     def showoneformatted(parent_class):
         '''Builds and returns the class for table formatted request'''
@@ -84,8 +83,7 @@ class RequestFactory(object):
                 resp = self.get_response(req, args)
 
                 if args.fake:
-                    RequestFactory.write_output(resp, fmt=args.format)
-                    return [[], []]
+                    return [resp.keys(), [dict(x) for x in resp.values()]]
 
                 if len(resp) == 0:
                     return [[], []]

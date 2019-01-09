@@ -3,6 +3,7 @@ from cliff.command import Command
 
 from resteasycli.objects import workspace
 from resteasycli.lib.request import Request
+from resteasycli.exceptions import InvalidCommandException
 
 
 class GenericRequest(Command):
@@ -12,9 +13,6 @@ class GenericRequest(Command):
         '''Overriding parent method'''
 
         parser = super(GenericRequest, self).get_parser(prog_name)
-        parser.add_argument(
-            '-S', '--slug',
-            help='slug to add at the end of the URL')
         parser.add_argument(
             '-m', '--method',
             choices=workspace.config.ALL_METHODS,
@@ -89,8 +87,6 @@ class GenericRequest(Command):
             request.set_verify(args.certfile)
         if args.insecure:
             request.set_verify(False)
-        if args.slug is not None:
-            request.add_slug(args.slug)
         if args.fake:
             request.set_debug(True)
 
@@ -102,6 +98,6 @@ class GenericRequest(Command):
         resp = request.do()
         if args.fake and 'session' in resp:
             del resp['session']
-            resp.update({'request': request.dict()})
+            resp = {'params': request.dict(), 'request': resp}
         return resp
 

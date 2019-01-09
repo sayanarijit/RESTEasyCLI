@@ -48,7 +48,7 @@ class Endpoint(object):
     def do(self, method, kwargs={}):
         '''Do the request'''
 
-        if method not in self.allowed_methods:
+        if method not in self.allowed_methods and not self.api.debug:
             raise MethodNotAllowedException('allowed methods are: ' + (', '.join(self.allowed_methods)))
 
         return self.api.do(method, kwargs)
