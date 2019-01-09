@@ -24,7 +24,7 @@ class SiteEndpoint(object):
         else:
             raise InvalidCommandException(
                 ('{}: correct format is: $site_id/$endpoint_id'
-                    ' or $site_id/$endpoint_id/$slug').format(args.site_endpoint))
+                    ' or $site_id/$endpoint_id/$slug').format(txt))
 
     def __repr__(self):
         '''Overriding object representation'''
@@ -123,6 +123,8 @@ class SavedRequest(GenericRequest):
         '''Builds and returns the request object'''
 
         req = workspace.get_saved_request(args.request_id)
+        if method is not None:
+            req.set_method(method)
         self.update_request(req, args)
         return req
 
