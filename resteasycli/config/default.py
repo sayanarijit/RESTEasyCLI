@@ -14,13 +14,16 @@ class DefaultConfig(object):
 
     SUPPORTED_FILE_FORMATS = ('v0.1', 'v1.0')
     DEFAULT_FILE_FORMAT = 'v1.0'
-    SUPPORTED_FILE_EXTENSIONS = ('json', 'yml', 'yaml')
-    DEFAULT_FILE_EXTENSION = 'yml'
+    SUPPORTED_FILE_EXTENSIONS = ('json', 'yaml', 'yml')
+    DEFAULT_FILE_EXTENSION = 'yaml'
 
     SITES_TEMPLATE_FILENAME = 'sites'
     AUTH_TEMPLATE_FILENAME = 'auth'
     HEADERS_TEMPLATE_FILENAME = 'headers'
     SAVED_REQUESTS_TEMPLATE_FILENAME = 'saved'
+
+    SUPPORTED_OUTPUT_FORMATS = ('json', 'yaml')
+    DEFAULT_OUTPUT_FORMAT = 'yaml'
 
     WORKSPACE_TITLE = os.path.basename(
         os.path.basename(os.path.abspath('.')))

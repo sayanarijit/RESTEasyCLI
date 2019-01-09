@@ -7,16 +7,16 @@ CONFIG_TEMPLATE_CONTENT = '''\
 ### Values mentioned here are default values
 ### Uncomment lines and edit values as required
 
-### Request methods to allow
+### Request methods to allow (e.g. {allowed_methods})
 # DEFAULT_ALLOWED_METHODS = {default_allowed_methods}
 
 ### Where to search for workspace files (priority highest -> lowest)
 # SEARCH_PATHS = {search_paths}
 
-### Which file format to use for initializing workspace files
+### Which file format to use for initializing workspace files (e.g. {file_formats})
 # DEFAULT_FILE_FORMAT = {default_file_format}
 
-### With file extension to use for initializing workspace files
+### Which file extension to use for initializing workspace files (e.g. {file_extensions})
 # DEFAULT_FILE_EXTENSION = {default_file_extension}
 
 ### Name of the sites template file
@@ -30,6 +30,10 @@ CONFIG_TEMPLATE_CONTENT = '''\
 
 ### Name of the saved requests template file
 # SAVED_REQUESTS_TEMPLATE_FILENAME = {saved_requests_template_filename}
+
+### Default output format (e.g. {output_formats})
+
+# DEFAULT_OUTPUT_FORMAT = {default_output_format}
 
 ### Title for current workspace
 # WORKSPACE_TITLE = {workspace_title}
@@ -58,6 +62,7 @@ class ConfigTemplate(object):
 
         with open('recli.cfg', 'w') as f:
             f.write(CONFIG_TEMPLATE_CONTENT.format(
+                allowed_methods=(', '.join(DefaultConfig.ALL_METHODS)),
                 default_allowed_methods=(', '.join(DefaultConfig.DEFAULT_ALLOWED_METHODS)),
                 search_paths=(', '.join(DefaultConfig.SEARCH_PATHS)),
                 default_file_format=DefaultConfig.DEFAULT_FILE_FORMAT,
@@ -66,5 +71,9 @@ class ConfigTemplate(object):
                 auth_template_filename=DefaultConfig.AUTH_TEMPLATE_FILENAME,
                 headers_template_filename=DefaultConfig.HEADERS_TEMPLATE_FILENAME,
                 saved_requests_template_filename=DefaultConfig.SAVED_REQUESTS_TEMPLATE_FILENAME,
-                workspace_title=DefaultConfig.WORKSPACE_TITLE
+                workspace_title=DefaultConfig.WORKSPACE_TITLE,
+                output_formats=(', '.join(DefaultConfig.SUPPORTED_OUTPUT_FORMATS)),
+                default_output_format=DefaultConfig.DEFAULT_OUTPUT_FORMAT,
+                file_formats=(', '.join(DefaultConfig.SUPPORTED_FILE_FORMATS)),
+                file_extensions=(', '.join(DefaultConfig.SUPPORTED_FILE_EXTENSIONS))
             ))

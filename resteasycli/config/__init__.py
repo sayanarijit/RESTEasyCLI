@@ -33,6 +33,9 @@ class Config(DefaultConfig):
     WORKSPACE_DESCRIPTION = parsed.get(
         'WORKSPACE_DESCRIPTION', DefaultConfig.WORKSPACE_DESCRIPTION)
 
+    DEFAULT_OUTPUT_FORMAT = parsed.get(
+        'DEFAULT_OUTPUT_FORMAT', DefaultConfig.DEFAULT_OUTPUT_FORMAT)
+
     DEFAULT_SITE_ID = parsed.get(
         'DEFAULT_SITE_ID', DefaultConfig.DEFAULT_SITE_ID)
     DEFAULT_ENDPOINT_ID = parsed.get(

@@ -43,12 +43,14 @@ class Parser(object):
                 self._parsed.update({key: int(val)})
                 continue
 
-            if val and key in ['DEFAULT_FILE_FORMAT', 'DEFAULT_FILE_EXTENSION',
-                       'SITES_TEMPLATE_FILENAME', 'DEFAULT_SITE_ID',
-                       'AUTH_TEMPLATE_FILENAME', 'HEADERS_TEMPLATE_FILENAME',
-                       'SAVED_REQUESTS_TEMPLATE_FILENAME', 'WORKSPACE_TITLE',
-                       'WORKSPACE_DESCRIPTION', 'DEFAULT_ENDPOINT_ID',
-                       'DEFAULT_HEADERS_ID', 'DEFAULT_AUTH_ID', 'DEFAULT_CERTFILE']:
+            if val and key in [
+                    'DEFAULT_FILE_FORMAT', 'DEFAULT_FILE_EXTENSION',
+                    'SITES_TEMPLATE_FILENAME', 'DEFAULT_SITE_ID',
+                    'AUTH_TEMPLATE_FILENAME', 'HEADERS_TEMPLATE_FILENAME',
+                    'SAVED_REQUESTS_TEMPLATE_FILENAME', 'WORKSPACE_TITLE',
+                    'WORKSPACE_DESCRIPTION', 'DEFAULT_ENDPOINT_ID',
+                    'DEFAULT_HEADERS_ID', 'DEFAULT_AUTH_ID',
+                    'DEFAULT_CERTFILE', 'DEFAULT_OUTPUT_FORMAT']:
                 self._parsed.update({key: val})
                 continue
 
