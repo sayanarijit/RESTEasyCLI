@@ -1,4 +1,6 @@
 import time
+from collections import OrderedDict
+
 from resteasycli.lib.locked_read_writer import LockedReadWriter
 
 
@@ -9,7 +11,7 @@ class Request(object):
         self.workspace = workspace
         self.method = method
         self.endpoint = workspace.get_site(site_id).get_endpoint(endpoint_id)
-        self.kwargs = data.get('kwargs', {})
+        self.kwargs = dict(data.get('kwargs', {}))
         self.auth_applied = None
         self.headers_applied = None
         self.timeout_applied = None
@@ -77,12 +79,12 @@ class Request(object):
 
     def dict(self):
         '''Return information about request in dict format'''
-        request = {
-            'method': self.method,
-            'site': self.endpoint.site.site_id,
-            'endpoint': self.endpoint.endpoint_id,
-            'kwargs': self.kwargs,
-        }
+        request = OrderedDict([
+            ('method', self.method),
+            ('site', self.endpoint.site.site_id),
+            ('endpoint', self.endpoint.endpoint_id),
+            ('kwargs', self.kwargs),
+        ])
         if self.auth_applied is not None:
             request.update({'auth': self.auth_applied.auth_id})
         if self.headers_applied is not None:

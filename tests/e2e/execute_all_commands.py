@@ -6,6 +6,7 @@ from subprocess import Popen
 CMDDIR = 'tests/commands'
 
 def main():
+    Popen(['recli', 'init', '-f']).wait()
     for f in os.listdir(CMDDIR):
         print('*', f, '--------------------------\n')
         path = os.path.join(CMDDIR, f)

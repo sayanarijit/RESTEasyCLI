@@ -1,5 +1,6 @@
 import os
 import yaml
+from collections import OrderedDict
 from resteasy import requests, APIEndpoint
 
 from resteasycli.config import Config
@@ -47,14 +48,14 @@ class Endpoint(object):
     def do(self, method, kwargs={}):
         '''Do the request'''
 
-        if method not in self.allowed_methods:
+        if method not in self.allowed_methods and not self.api.debug:
             raise MethodNotAllowedException('allowed methods are: ' + (', '.join(self.allowed_methods)))
 
         return self.api.do(method, kwargs)
 
     def dict(self):
         '''Return information about itself in dict format'''
-        data = {'endpoint_url': self.api.endpoint}
+        data = OrderedDict([('endpoint_url', self.api.endpoint)])
         if self.auth_applied is not None:
             data.update({'auth': self.auth_applied.auth_id})
         if self.headers_applied is not None:

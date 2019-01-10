@@ -16,8 +16,6 @@ class HeadersTest(unittest.TestCase):
 
         self.assertEqual(session.headers,
                 {'key': 'val',
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json',
                  'Custom-Header': 'demo1'})
     
     def test_apply2(self):

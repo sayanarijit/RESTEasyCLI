@@ -48,27 +48,27 @@ ls || exit 1
 echo
 
 echo '# Check auto generated sites file'
-read -sp '> cat sites.yml' x
+read -sp '> cat sites.yaml' x
 echo
-cat sites.yml || exit 1
+cat sites.yaml || exit 1
 echo
 
 echo '# Check auto generated auth file'
-read -sp '> cat auth.yml' x
+read -sp '> cat auth.yaml' x
 echo
-cat auth.yml || exit 1
+cat auth.yaml || exit 1
 echo
 
 echo '# Check auto generated headers file'
-read -sp '> cat headers.yml' x
+read -sp '> cat headers.yaml' x
 echo
-cat headers.yml || exit 1
+cat headers.yaml || exit 1
 echo
 
 echo '# Check auto generated saved requests file'
-read -sp '> cat saved.yml' x
+read -sp '> cat saved.yaml' x
 echo
-cat saved.yml || exit 1
+cat saved.yaml || exit 1
 echo
 
 echo '# Check out the help menu'
@@ -96,9 +96,9 @@ recli help list|| exit 1
 echo
 
 echo '# Do the earlier GET request with parameter "userId=1" and format the output as a table'
-read -sp '> recli list testing/t --kwargs userId=1 --fit-width' x
+read -sp '> recli list testing/t --kwargs "userId: 1" --fit-width' x
 echo
-recli list testing/t --kwargs userId=1 --fit-width || exit 1
+recli list testing/t --kwargs "userId: 1" --fit-width || exit 1
 echo
 
 echo '# Add a slug "1" to previous request and format the output as a table'
@@ -132,15 +132,15 @@ recli do remind_shopping || exit 1
 echo
 
 echo '# Fake the previous request with modified payload'
-read -sp '> recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake' x
+read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake' x
 echo
-recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake || exit 1
+recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake || exit 1
 echo
 
 echo '# Add "-s" or "--save_as" with an ID to save the request for later use'
-read -sp '> recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake --save_as my_request' x
+read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request' x
 echo
-recli redo remind_shopping --update_kwargs userId=1 "title=watch naruto" --fake --save_as my_request || exit 1
+recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request || exit 1
 echo
 
 echo '# Verify the newly saved request'
@@ -150,9 +150,9 @@ recli show-saved my_request || exit 1
 echo
 
 echo '# Check where and how it is saved'
-read -sp '> cat saved.yml' x
+read -sp '> cat saved.yaml' x
 echo
-cat saved.yml || exit 1
+cat saved.yaml || exit 1
 echo
 
 echo '# Invoke the saved request'

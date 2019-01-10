@@ -9,7 +9,7 @@ logger = logging.getLogger('test_logger')
 class AbstractReaderTest(unittest.TestCase):
 
     def test_load_reader_by_extension(self):
-        reader = Reader(logger=logger)
+        reader = Reader(logger=logger, extensions=['json', 'yml', 'yaml'])
 
         reader.load_reader_by_extension('json')
         self.assertEqual(reader.read, _read_json)
