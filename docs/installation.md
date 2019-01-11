@@ -4,7 +4,7 @@ You can install this tool using pip. Basic requirements are mentioned below.
 
 ## Requirements
 
-- Python 2.7-3.6 (Python 3.x preferred)
+- Python 3.x
 - python-pip (Python's package manager to install this tool)
 
 ## Install it globally

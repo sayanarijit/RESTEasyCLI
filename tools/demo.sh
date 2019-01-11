@@ -1,5 +1,8 @@
 #!/bin/bash
 
+which python3 > /dev/null || exit 1
+which virtualenv > /dev/null || exit 1
+
 clear
 echo '========================================='
 echo '* Starting RESTEasyCLI interactive demo *'
@@ -13,9 +16,9 @@ echo
 echo
 
 echo '# Create and activate virtual environment'
-read -sp '> virtualenv ~/recli_demo_venv' x
+read -sp '> virtualenv -p python3 ~/recli_demo_venv' x
 echo
-virtualenv ~/recli_demo_venv || exit 1
+virtualenv -p python3 ~/recli_demo_venv || exit 1
 echo
 
 read -sp '> source ~/recli_demo_venv/bin/activate' x
