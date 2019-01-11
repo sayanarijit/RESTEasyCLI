@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.6.1'  # Also change resteasycli.config.default.DefaultConfig
+VERSION = 'v0.7.0'  # Also change resteasycli.config.default.DefaultConfig
 DESCRIPTION = 'Handy REST API client on your terminal'
 
 
@@ -42,12 +42,11 @@ setup(
         'Intended Audience :: Information Technology',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        # 'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Internet',
         'Topic :: Utilities',
         'Topic :: Software Development',
