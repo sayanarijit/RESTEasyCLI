@@ -1,5 +1,8 @@
 #!/bin/bash
 
+which python3 > /dev/null || exit 1
+which virtualenv > /dev/null || exit 1
+
 clear
 echo '========================================='
 echo '* Starting RESTEasyCLI interactive demo *'
@@ -13,9 +16,9 @@ echo
 echo
 
 echo '# Create and activate virtual environment'
-read -sp '> virtualenv ~/recli_demo_venv' x
+read -sp '> virtualenv -p python3 ~/recli_demo_venv' x
 echo
-virtualenv ~/recli_demo_venv || exit 1
+virtualenv -p python3 ~/recli_demo_venv || exit 1
 echo
 
 read -sp '> source ~/recli_demo_venv/bin/activate' x
@@ -48,27 +51,27 @@ ls || exit 1
 echo
 
 echo '# Check auto generated sites file'
-read -sp '> cat sites.yml' x
+read -sp '> cat sites.yaml' x
 echo
-cat sites.yml || exit 1
+cat sites.yaml || exit 1
 echo
 
 echo '# Check auto generated auth file'
-read -sp '> cat auth.yml' x
+read -sp '> cat auth.yaml' x
 echo
-cat auth.yml || exit 1
+cat auth.yaml || exit 1
 echo
 
 echo '# Check auto generated headers file'
-read -sp '> cat headers.yml' x
+read -sp '> cat headers.yaml' x
 echo
-cat headers.yml || exit 1
+cat headers.yaml || exit 1
 echo
 
 echo '# Check auto generated saved requests file'
-read -sp '> cat saved.yml' x
+read -sp '> cat saved.yaml' x
 echo
-cat saved.yml || exit 1
+cat saved.yaml || exit 1
 echo
 
 echo '# Check out the help menu'
@@ -150,9 +153,9 @@ recli show-saved my_request || exit 1
 echo
 
 echo '# Check where and how it is saved'
-read -sp '> cat saved.yml' x
+read -sp '> cat saved.yaml' x
 echo
-cat saved.yml || exit 1
+cat saved.yaml || exit 1
 echo
 
 echo '# Invoke the saved request'

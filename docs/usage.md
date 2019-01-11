@@ -6,7 +6,7 @@ To get started as quickly as possible i.e. to get introduced to the most useful 
 
 ## Initialize workspace
 
-A workspace a directory is where you keep a group of files that contains information about your API queries such as API endpoints, request parameters, headers & authentication methods, configuration files etc.
+A workspace is a directory where you keep a group of files that contains information about your API queries such as API endpoints, request parameters, headers & authentication methods, configuration files etc.
 
 The default format of these files is [YAML](https://en.wikipedia.org/wiki/YAML) for better readability. However [JSON](https://en.wikipedia.org/wiki/JSON) is also supported.
 
