@@ -16,7 +16,7 @@ If you install it globally, anyone can use this tool by invoking `recli` command
 Enter in your shell
 
 ```bash
-sudo pip install --upgrade resteasycli
+sudo pip3 install --upgrade resteasycli
 ```
 
 ### Windows users
@@ -24,7 +24,7 @@ sudo pip install --upgrade resteasycli
 Open command prompt in administrative mode and enter
 
 ```bash
-pip install --upgrade resteasycli
+pip3 install --upgrade resteasycli
 ```
 
 ## Install it locally
@@ -32,5 +32,5 @@ pip install --upgrade resteasycli
 If you install it locally, it will be installed in your home directory and you may have to add the executable's path in your PATH variable. This installation does not require any special priviledge and only you will be able to use it.
 
 ```bash
-pip install --user --upgrade resteasycli
+pip3 install --user --upgrade resteasycli
 ```
