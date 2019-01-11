@@ -1,4 +1,4 @@
-=# Introducing RESTEasyCLI
+# Introducing RESTEasyCLI
 
 ## About RESTEasyCLI
 
