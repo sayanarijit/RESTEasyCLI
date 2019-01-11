@@ -1,6 +1,7 @@
 #!/bin/bash
 
 which python3 > /dev/null || exit 1
+which virtualenv > /dev/null || exit 1
 
 clear
 echo '========================================='
