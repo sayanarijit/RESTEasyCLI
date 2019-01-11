@@ -59,11 +59,11 @@ sh tests/units/unit_tests.sh
 python tests/e2e/execute_all_commands.py
 ```
 
-7. Run before push
+7. Run before commit
 
 ```bash
-chmod +x tools/before_push.sh
-./tools/before_push.sh
+chmod +x tools/before_commit.sh
+./tools/before_commit.sh
 ```
 
-8. Push the code and raise pull request
+8. Commit and push the code and raise pull request
