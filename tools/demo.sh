@@ -2,6 +2,17 @@
 
 clear
 echo '========================================='
+echo '* Checking python compatibility *'
+echo '========================================='
+if (which python3); then 
+    echo "Python3 is available"; 
+else 
+    echo "unable to find to python3. Make sure that python3 is installed and exported to PATH.";
+    exit 1
+fi
+echo
+
+echo '========================================='
 echo '* Starting RESTEasyCLI interactive demo *'
 echo '========================================='
 echo
@@ -13,7 +24,7 @@ echo
 echo
 
 echo '# Create and activate virtual environment'
-read -sp '> virtualenv ~/recli_demo_venv' x
+read -sp '> virtualenv --python=$(which python3) ~/recli_demo_venv' x
 echo
 virtualenv ~/recli_demo_venv || exit 1
 echo
