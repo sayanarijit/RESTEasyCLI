@@ -1,7 +1,6 @@
 import yaml
 from cliff.command import Command
 
-from resteasycli.objects import workspace
 from resteasycli.lib.request import Request
 from resteasycli.exceptions import InvalidCommandException
 
@@ -15,7 +14,7 @@ class GenericRequest(Command):
         parser = super(GenericRequest, self).get_parser(prog_name)
         parser.add_argument(
             '-m', '--method',
-            choices=workspace.config.ALL_METHODS,
+            choices=self.workspace.config.ALL_METHODS,
             help='override query method')
         parser.add_argument(
             '-k', '--kwargs',
@@ -27,22 +26,22 @@ class GenericRequest(Command):
             help='add/update key-value pairs in kwargs. format is yaml')
         parser.add_argument(
             '-a', '--auth',
-            choices=workspace.auth.keys(),
+            choices=self.workspace.auth.keys(),
             help='use alternate authentication from file',
-            default=workspace.config.DEFAULT_AUTH_ID)
+            default=self.workspace.config.DEFAULT_AUTH_ID)
         parser.add_argument(
             '-H', '--headers',
-            choices=workspace.headers.keys(),
+            choices=self.workspace.headers.keys(),
             help='use alternate set of headers from file',
-            default=workspace.config.DEFAULT_HEADERS_ID)
+            default=self.workspace.config.DEFAULT_HEADERS_ID)
         parser.add_argument(
             '-t', '--timeout',
             type=int, help='request timeout in seconds',
-            default=workspace.config.DEFAULT_TIMEOUT)
+            default=self.workspace.config.DEFAULT_TIMEOUT)
         parser.add_argument(
             '-C', '--certfile',
             help='ssl certificate file path',
-            default=workspace.config.DEFAULT_CERTFILE)
+            default=self.workspace.config.DEFAULT_CERTFILE)
         parser.add_argument(
             '-I', '--insecure',
             action='store_true',
@@ -60,10 +59,10 @@ class GenericRequest(Command):
         '''Get the request object'''
 
         # Check if endpoint extsts
-        site = workspace.get_site(site_id)
+        site = self.workspace.get_site(site_id)
         endpoint = site.get_endpoint(endpoint_id)
 
-        req = Request(workspace=workspace, method=method,
+        req = Request(workspace=self.workspace, method=method,
                       site_id=site.site_id, endpoint_id=endpoint.endpoint_id)
         self.update_request(req, args)
         return req

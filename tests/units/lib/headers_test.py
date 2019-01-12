@@ -1,6 +1,6 @@
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 
 
 class HeadersTest(unittest.TestCase):
@@ -17,7 +17,7 @@ class HeadersTest(unittest.TestCase):
         self.assertEqual(session.headers,
                 {'key': 'val',
                  'Custom-Header': 'demo1'})
-    
+
     def test_apply2(self):
 
         self.maxDiff = None

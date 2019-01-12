@@ -65,7 +65,10 @@ setup(
         'console_scripts': [
             'recli = resteasycli.cmd.main:main'
         ],
-        'cliff.recli': [
+        'cliff.recli.pre_init': [
+            'init = resteasycli.cmd.initialize:Init'
+        ],
+        'cliff.recli.post_init': [
             'init = resteasycli.cmd.initialize:Init',
 
             'get = resteasycli.cmd.requests:GET',

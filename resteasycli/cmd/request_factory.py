@@ -4,7 +4,6 @@ import yaml
 from cliff.show import ShowOne
 from cliff.lister import Lister
 
-from resteasycli.objects import workspace
 from resteasycli.exceptions import InvalidCommandException
 
 
@@ -25,7 +24,6 @@ class RequestFactory(object):
     def unformatted(parent_class):
         '''Builds and returns the class for unformatted request'''
 
-
         class UnformattedRequest(parent_class):
             '''Parent for CRUD operation with unformatted outputs'''
 
@@ -34,8 +32,8 @@ class RequestFactory(object):
                 parser = super(UnformattedRequest, self).get_parser(prog_name)
                 parser.add_argument(
                     '-f', '--format',
-                    choices=workspace.config.SUPPORTED_OUTPUT_FORMATS,
-                    default=workspace.config.DEFAULT_OUTPUT_FORMAT,
+                    choices=self.workspace.config.SUPPORTED_OUTPUT_FORMATS,
+                    default=self.workspace.config.DEFAULT_OUTPUT_FORMAT,
                     help='the output format')
                 return parser
 
@@ -64,7 +62,8 @@ class RequestFactory(object):
                 if len(resp) == 0:
                     return [[], []]
                 if isinstance(resp, dict):
-                    raise InvalidCommandException('use `show`/`redo-show` operation instead')
+                    raise InvalidCommandException(
+                            'use `show`/`redo-show` operation instead')
                 header = resp[0].keys()
                 body = [x.values() for x in resp]
                 return [header, body]
@@ -88,7 +87,8 @@ class RequestFactory(object):
                 if len(resp) == 0:
                     return [[], []]
                 if isinstance(resp, list):
-                    raise InvalidCommandException('use `list`/`redo-list` operation instead')
+                    raise InvalidCommandException(
+                            'use `list`/`redo-list` operation instead')
                 return [resp.keys(), resp.values()]
 
         return ShowOneFormattedRequest

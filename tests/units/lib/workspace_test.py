@@ -1,7 +1,6 @@
-import json
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 from resteasycli.lib.workspace import WorkspaceTemplates
 from resteasycli.lib.site import Site
 from resteasycli.lib.auth import Auth
@@ -11,6 +10,7 @@ from resteasycli.lib.saved_request import SavedRequest
 workspace.init(force=True)
 workspace.reload()
 
+
 class WorkspaceTemplatesTest(unittest.TestCase):
 
     def test_initialize(self):
@@ -18,6 +18,7 @@ class WorkspaceTemplatesTest(unittest.TestCase):
 
         for t in WorkspaceTemplates.TEMPLATE.values():
             self.assertEqual(workspace.reader.read('{}.yml'.format(t['filename'])), t['content'])
+
 
 class WorkspaceTest(unittest.TestCase):
 

@@ -1,11 +1,7 @@
-import os
-import yaml
-import logging
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 from resteasycli.exceptions import MethodNotAllowedException
-
 
 
 class EndpointTest(unittest.TestCase):
