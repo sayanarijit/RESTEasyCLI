@@ -2,36 +2,21 @@
 
 Handy REST API client on your terminal
 
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/resteasycli.svg)](https://pypi.org/project/RESTEasyCLI)
-[![PyPI version](https://img.shields.io/pypi/v/RESTEasyCLI.svg)](https://pypi.org/project/RESTEasyCLI)
+[![PyPI version](https://img.shields.io/pypi/v/RESTEasyCLI.svg?style=pop)](https://pypi.org/project/RESTEasyCLI)
 [![Build Status](https://travis-ci.org/rapidstack/RESTEasyCLI.svg?branch=master)](https://travis-ci.org/rapidstack/RESTEasyCLI)
 [![Documentation Status](https://readthedocs.org/projects/resteasycli/badge/?version=latest)](https://resteasycli.readthedocs.io/en/latest/?badge=latest)
 
+## Supported on
 
-## Get started with an interactive demo
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/resteasycli.svg?style=popout-square&logo=python)](https://pypi.org/project/RESTEasyCLI)
 
-NOTE: This demo requires supported version of python and `virtualenv` to be installed
 
-```bash
-curl -L https://raw.githubusercontent.com/rapidstack/RESTEasyCLI/master/tools/demo.sh -o demo.sh
-chmod +x demo.sh
-./demo.sh
-```
+## Usage and documentation
 
-If you have already installed this tool and don't want to create new virtual environment, run demo with `skipinstall` argument like below.
+[![Try an interactive demo](https://img.shields.io/badge/interactive-demo-443355.svg?style=for-the-badge)](https://resteasycli.readthedocs.io/en/latest/?badge=latest#try-an-interactive-demo)
+[![Read full documentation on Read the Docs](https://img.shields.io/badge/full-documentation-2980B9.svg?style=for-the-badge&logo=readthedoc)](http://resteasycli.readthedocs.io)
 
-```bash
-./tools/demo.sh skipinstall
-```
+## How to contribute
 
-## Usage
-
-[Read full documentation on Read the Docs](http://resteasycli.readthedocs.io)
-
-## TODO list
-
-[Checkout the great TODO list on project board](https://github.com/rapidstack/RESTEasyCLI/projects)
-
-## Contribution guide
-
-[Checkout the contribution guide here](https://github.com/rapidstack/RESTEasyCLI/blob/master/CONTRIBUTING.md)
+[![Checkout the great TODO list on project board](https://img.shields.io/badge/TODO-list-334455.svg?style=for-the-badge)](https://github.com/rapidstack/RESTEasyCLI/projects)
+[![Checkout the contribution guide here](https://img.shields.io/badge/contribution-guide-333333.svg?style=for-the-badge)](https://github.com/rapidstack/RESTEasyCLI/blob/master/CONTRIBUTING.md)

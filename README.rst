@@ -5,12 +5,7 @@ RESTEasyCLI
 Handy REST API client on your terminal
 
 
-.. image:: https://img.shields.io/pypi/pyversions/resteasycli.svg
-   :target: https://pypi.org/project/RESTEasyCLI
-   :alt: PyPI pyversions
-
-
-.. image:: https://img.shields.io/pypi/v/RESTEasyCLI.svg
+.. image:: https://img.shields.io/pypi/v/RESTEasyCLI.svg?style=pop
    :target: https://pypi.org/project/RESTEasyCLI
    :alt: PyPI version
 
@@ -25,34 +20,39 @@ Handy REST API client on your terminal
    :alt: Documentation Status
 
 
-Get started with an interactive demo
-------------------------------------
+Supported on
+------------
 
-NOTE: This demo requires supported version of python and ``virtualenv`` to be installed
 
-.. code-block:: bash
+.. image:: https://img.shields.io/pypi/pyversions/resteasycli.svg?style=popout-square&logo=python
+   :target: https://pypi.org/project/RESTEasyCLI
+   :alt: PyPI pyversions
 
-   curl -L https://raw.githubusercontent.com/rapidstack/RESTEasyCLI/master/tools/demo.sh -o demo.sh
-   chmod +x demo.sh
-   ./demo.sh
 
-If you have already installed this tool and don't want to create new virtual environment, run demo with ``skipinstall`` argument like below.
+Usage and documentation
+-----------------------
 
-.. code-block:: bash
 
-   ./tools/demo.sh skipinstall
+.. image:: https://img.shields.io/badge/interactive-demo-443355.svg?style=for-the-badge
+   :target: https://resteasycli.readthedocs.io/en/latest/?badge=latest#try-an-interactive-demo
+   :alt: Try an interactive demo
 
-Usage
------
 
-`Read full documentation on Read the Docs <http://resteasycli.readthedocs.io>`_
+.. image:: https://img.shields.io/badge/full-documentation-2980B9.svg?style=for-the-badge&logo=readthedoc
+   :target: http://resteasycli.readthedocs.io
+   :alt: Read full documentation on Read the Docs
 
-TODO list
----------
 
-`Checkout the great TODO list on project board <https://github.com/rapidstack/RESTEasyCLI/projects>`_
+How to contribute
+-----------------
 
-Contribution guide
-------------------
 
-`Checkout the contribution guide here <https://github.com/rapidstack/RESTEasyCLI/blob/master/CONTRIBUTING.md>`_
+.. image:: https://img.shields.io/badge/TODO-list-334455.svg?style=for-the-badge
+   :target: https://github.com/rapidstack/RESTEasyCLI/projects
+   :alt: Checkout the great TODO list on project board
+
+
+.. image:: https://img.shields.io/badge/contribution-guide-333333.svg?style=for-the-badge
+   :target: https://github.com/rapidstack/RESTEasyCLI/blob/master/CONTRIBUTING.md
+   :alt: Checkout the contribution guide here
+
