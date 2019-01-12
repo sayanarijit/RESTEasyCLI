@@ -18,6 +18,12 @@ chmod +x demo.sh
 ./demo.sh
 ```
 
+If you have already installed this tool and don't want to create new virtual environment, run demo with `skipinstall` argument like below.
+
+```bash
+./tools/demo.sh skipinstall
+```
+
 ## Usage
 
 [Read full documentation on Read the Docs](http://resteasycli.readthedocs.io)

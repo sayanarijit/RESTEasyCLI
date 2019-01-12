@@ -1,9 +1,9 @@
 import sys
 import json
-import yaml
 from cliff.show import ShowOne
 from cliff.lister import Lister
 
+from resteasycli.lib.utils import yaml, Dumper
 from resteasycli.exceptions import InvalidCommandException
 
 
@@ -17,7 +17,7 @@ class RequestFactory(object):
         if fmt == 'json':
             out = json.dumps(data, indent=2)
         else:
-            out = yaml.dump(data, default_flow_style=False)
+            out = yaml.dump(data, default_flow_style=False, Dumper=Dumper)
         sys.stdout.write(out+'\n')
 
     @staticmethod
@@ -32,8 +32,8 @@ class RequestFactory(object):
                 parser = super(UnformattedRequest, self).get_parser(prog_name)
                 parser.add_argument(
                     '-f', '--format',
-                    choices=self.workspace.config.SUPPORTED_OUTPUT_FORMATS,
-                    default=self.workspace.config.DEFAULT_OUTPUT_FORMAT,
+                    choices=self.app.workspace.config.SUPPORTED_OUTPUT_FORMATS,
+                    default=self.app.workspace.config.DEFAULT_OUTPUT_FORMAT,
                     help='the output format')
                 return parser
 
