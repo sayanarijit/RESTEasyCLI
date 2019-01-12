@@ -36,6 +36,12 @@ NOTE: This demo requires supported version of python and ``virtualenv`` to be in
    chmod +x demo.sh
    ./demo.sh
 
+If you have already installed this tool and don't want to create new virtual environment, run demo with ``skipinstall`` argument like below.
+
+.. code-block:: bash
+
+   ./tools/demo.sh skipinstall
+
 Usage
 -----
 

@@ -1,12 +1,6 @@
-try:
-    # for python newer than 2.7
-    from collections import OrderedDict
-except ImportError:
-        # use backport from pypi
-    from ordereddict import OrderedDict
-
 import yaml
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
+
 
 # try to use LibYAML bindings if possible
 try:

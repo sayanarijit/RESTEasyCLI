@@ -1,5 +1,6 @@
 import sys
 from cliff.app import App
+from cliff.help import HelpCommand
 from cliff.commandmanager import CommandManager
 
 from resteasycli.config import Config
@@ -31,7 +32,6 @@ class CLIApp(App):
             pass
 
     def prepare_to_run_command(self, cmd):
-        cmd.workspace = self.workspace
         self.LOG.debug('preparing to run command {}'.format(
             cmd.__class__.__name__))
 

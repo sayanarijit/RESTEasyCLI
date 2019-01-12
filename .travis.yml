@@ -13,5 +13,6 @@ install:
   - python setup.py install
   - recli init -f
 script:
-  - sh tests/units/unit_tests.sh
+  - ./tests/units/unit_tests.sh
+  - ./tests/e2e/run_demo.sh
   - python tests/e2e/execute_all_commands.py > /dev/null

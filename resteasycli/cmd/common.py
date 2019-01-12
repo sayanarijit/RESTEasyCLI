@@ -1,3 +1,6 @@
+from resteasycli.exceptions import InvalidCommandException
+
+
 class SiteEndpoint(object):
     '''Combination of site ID and endpoint ID and an optional slug'''
 

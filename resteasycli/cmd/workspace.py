@@ -8,7 +8,7 @@ class ListSites(Lister):
     '''List available sites in current workspace'''
 
     def take_action(self, args):
-        result = [(k, v['base_url']) for k, v in self.workspace.sites.items()]
+        result = [(k, v['base_url']) for k, v in self.app.workspace.sites.items()]
         return [['site', 'base_url'], result]
 
 
@@ -17,11 +17,11 @@ class ShowSite(ShowOne):
 
     def get_parser(self, prog_name):
         parser = super(ShowSite, self).get_parser(prog_name)
-        parser.add_argument('site_id', choices=self.workspace.sites.keys())
+        parser.add_argument('site_id', choices=self.app.workspace.sites.keys())
         return parser
 
     def take_action(self, args):
-        result = self.workspace.get_site(args.site_id).dict()
+        result = self.app.workspace.get_site(args.site_id).dict()
         return [result.keys(), result.values()]
 
 
@@ -30,7 +30,7 @@ class ListEndpoints(Lister):
 
     def take_action(self, args):
         result = []
-        for site, values in self.workspace.sites.items():
+        for site, values in self.app.workspace.sites.items():
             base_url = values['base_url']
             for endpoint, values in values['endpoints'].items():
                 result.append((
@@ -46,17 +46,17 @@ class ShowEndpoint(ShowOne):
     def get_parser(self, prog_name):
         parser = super(ShowEndpoint, self).get_parser(prog_name)
         choices = []
-        ds = self.workspace.config.DEFAULT_SITE_ID
-        dep = self.workspace.config.DEFAULT_ENDPOINT_ID
+        ds = self.app.workspace.config.DEFAULT_SITE_ID
+        dep = self.app.workspace.config.DEFAULT_ENDPOINT_ID
 
-        if ds in self.workspace.sites:
-            if dep in self.workspace.sites[ds]['endpoints']:
+        if ds in self.app.workspace.sites:
+            if dep in self.app.workspace.sites[ds]['endpoints']:
                 choices.append(SiteEndpoint('/'))
             choices += list(map(
                 lambda x: SiteEndpoint('/'+x),
-                self.workspace.sites[ds]['endpoints'].keys()))
+                self.app.workspace.sites[ds]['endpoints'].keys()))
 
-        for s, v in self.workspace.sites.items():
+        for s, v in self.app.workspace.sites.items():
             if dep in v['endpoints']:
                 choices.append(SiteEndpoint(s+'/'))
             for e in v['endpoints'].keys():
@@ -70,18 +70,18 @@ class ShowEndpoint(ShowOne):
         endpoint_id = args.target.endpoint_id
 
         if not site_id:
-            if self.workspace.config.DEFAULT_SITE_ID:
-                site_id = self.workspace.config.DEFAULT_SITE_ID
+            if self.app.workspace.config.DEFAULT_SITE_ID:
+                site_id = self.app.workspace.config.DEFAULT_SITE_ID
             else:
                 raise InvalidCommandException('default site ID is not defined')
 
         if not endpoint_id:
-            if self.workspace.config.DEFAULT_ENDPOINT_ID:
-                endpoint_id = self.workspace.config.DEFAULT_ENDPOINT_ID
+            if self.app.workspace.config.DEFAULT_ENDPOINT_ID:
+                endpoint_id = self.app.workspace.config.DEFAULT_ENDPOINT_ID
             else:
                 raise InvalidCommandException('default endpoint ID is not defined')
 
-        site = self.workspace.get_site(site_id)
+        site = self.app.workspace.get_site(site_id)
         result = site.get_endpoint(endpoint_id).dict()
         return [result.keys(), result.values()]
 
@@ -89,7 +89,7 @@ class ShowEndpoint(ShowOne):
 class ListSavedRequests(Lister):
     '''List all saved requests in current workspace'''
     def take_action(self, args):
-        result = self.workspace.saved_requests
+        result = self.app.workspace.saved_requests
         header = ['request', 'method', 'site_endpoint']
         body = []
         for k, v in result.items():
@@ -102,18 +102,18 @@ class ShowSavedRequest(ShowOne):
     '''Show a particular saved request'''
     def get_parser(self, prog_name):
         parser = super(ShowSavedRequest, self).get_parser(prog_name)
-        parser.add_argument('request_id', choices=self.workspace.saved_requests.keys())
+        parser.add_argument('request_id', choices=self.app.workspace.saved_requests.keys())
         return parser
 
     def take_action(self, args):
-        result = self.workspace.get_saved_request(args.request_id).dict()
+        result = self.app.workspace.get_saved_request(args.request_id).dict()
         return [result.keys(), result.values()]
 
 
 class ListHeaders(Lister):
     '''List all headers in current workspace'''
     def take_action(self, args):
-        result = self.workspace.headers
+        result = self.app.workspace.headers
         header = ['headers_id', 'action', 'values']
         body = []
         for k, v in result.items():
@@ -128,18 +128,18 @@ class ShowHeaders(ShowOne):
     '''Show a particular set of headers'''
     def get_parser(self, prog_name):
         parser = super(ShowHeaders, self).get_parser(prog_name)
-        parser.add_argument('headers_id', choices=self.workspace.headers.keys())
+        parser.add_argument('headers_id', choices=self.app.workspace.headers.keys())
         return parser
 
     def take_action(self, args):
-        result = self.workspace.get_headers(args.headers_id).dict()
+        result = self.app.workspace.get_headers(args.headers_id).dict()
         return [result.keys(), result.values()]
 
 
 class ListAuth(Lister):
     '''List all authentication methods in current workspace'''
     def take_action(self, args):
-        result = self.workspace.auth
+        result = self.app.workspace.auth
         header = ['auth_id', 'type']
         body = []
         for k, v in result.items():
@@ -151,10 +151,10 @@ class ShowAuth(ShowOne):
     '''Show a particular authentication method'''
     def get_parser(self, prog_name):
         parser = super(ShowAuth, self).get_parser(prog_name)
-        parser.add_argument('auth_id', choices=self.workspace.auth.keys())
+        parser.add_argument('auth_id', choices=self.app.workspace.auth.keys())
         return parser
 
     def take_action(self, args):
-        result = self.workspace.get_auth(args.auth_id).dict()
+        result = self.app.workspace.get_auth(args.auth_id).dict()
         return [result.keys(), result.values()]
 

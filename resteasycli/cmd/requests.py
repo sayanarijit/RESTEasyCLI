@@ -1,6 +1,5 @@
 import sys
 import json
-import yaml
 from cliff.show import ShowOne
 from cliff.lister import Lister
 from cliff.command import Command
@@ -20,17 +19,17 @@ class UnSavedRequest(GenericRequest):
 
         parser = super(UnSavedRequest, self).get_parser(prog_name)
         choices = []
-        ds = self.workspace.config.DEFAULT_SITE_ID
-        dep = self.workspace.config.DEFAULT_ENDPOINT_ID
+        ds = self.app.workspace.config.DEFAULT_SITE_ID
+        dep = self.app.workspace.config.DEFAULT_ENDPOINT_ID
 
-        if ds in self.workspace.sites:
-            if dep in self.workspace.sites[ds]['endpoints']:
+        if ds in self.app.workspace.sites:
+            if dep in self.app.workspace.sites[ds]['endpoints']:
                 choices.append(SiteEndpoint('/'))
             choices += list(map(
                 lambda x: SiteEndpoint('/'+x),
-                self.workspace.sites[ds]['endpoints'].keys()))
+                self.app.workspace.sites[ds]['endpoints'].keys()))
 
-        for s, v in self.workspace.sites.items():
+        for s, v in self.app.workspace.sites.items():
             if dep in v['endpoints']:
                 choices.append(SiteEndpoint(s+'/'))
             for e in v['endpoints'].keys():
@@ -48,14 +47,14 @@ class UnSavedRequest(GenericRequest):
         site_id, endpoint_id, slug = args.target.site_id, args.target.endpoint_id, args.target.slug
 
         if not site_id:
-            if self.workspace.config.DEFAULT_SITE_ID:
-                site_id = self.workspace.config.DEFAULT_SITE_ID
+            if self.app.workspace.config.DEFAULT_SITE_ID:
+                site_id = self.app.workspace.config.DEFAULT_SITE_ID
             else:
                 raise InvalidCommandException('default site ID is not defined')
 
         if not endpoint_id:
-            if self.workspace.config.DEFAULT_ENDPOINT_ID:
-                endpoint_id = self.workspace.config.DEFAULT_ENDPOINT_ID
+            if self.app.workspace.config.DEFAULT_ENDPOINT_ID:
+                endpoint_id = self.app.workspace.config.DEFAULT_ENDPOINT_ID
             else:
                 raise InvalidCommandException('default endpoint ID is not defined')
 
@@ -75,7 +74,7 @@ class SavedRequest(GenericRequest):
         parser = super(SavedRequest, self).get_parser(prog_name)
         parser.add_argument(
             'request_id',
-            choices=self.workspace.saved_requests.keys(),
+            choices=self.app.workspace.saved_requests.keys(),
             help='request ID from saved requests')
         parser.add_argument(
             '-S', '--slug',
@@ -91,7 +90,7 @@ class SavedRequest(GenericRequest):
     def get_request(self, method, args):
         '''Builds and returns the request object'''
 
-        req = self.workspace.get_saved_request(args.request_id)
+        req = self.app.workspace.get_saved_request(args.request_id)
         if method is not None:
             req.set_method(method)
         self.update_request(req, args)
