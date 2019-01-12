@@ -1,7 +1,6 @@
-import json
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 from resteasycli.lib.endpoint import Endpoint
 
 

@@ -1,12 +1,10 @@
-import os
-import yaml
-import logging
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 
 workspace.init(force=True)
 workspace.reload()
+
 
 class SavedRequestTest(unittest.TestCase):
     get_python_jobs = workspace.get_saved_request('get_python_jobs')
@@ -30,6 +28,7 @@ class SavedRequestTest(unittest.TestCase):
 
         info = workspace.get_saved_request('test_post_python_jobs')
         self.assertEqual(info.method, 'POST')
+
 
 if __name__ == '__main__':
     unittest.main()

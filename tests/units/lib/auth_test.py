@@ -1,6 +1,6 @@
 import unittest
 
-from resteasycli.objects import workspace
+from common import workspace
 
 
 class AuthTest(unittest.TestCase):
