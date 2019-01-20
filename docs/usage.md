@@ -18,10 +18,14 @@ To initialize a workspace, create an empty directory and execute below command
 recli init
 ```
 
-### To initialize workspace with JSON files
+### To initialize workspace with other file formats
 
 ```bash
+# JSON format
 recli init -e json
+
+# TOML format
+recli init -e toml
 ```
 
 ***NOTE: Normally it will skip a file if it already exists. However, you may use `-f` or `--force` option to overwrite all the files.***

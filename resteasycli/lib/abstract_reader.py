@@ -1,6 +1,7 @@
+import toml
 from codecs import open
 
-from resteasycli.lib.utils import yaml, Loader
+from resteasycli.lib.utils import yaml, Loader, OrderedDict
 from resteasycli.exceptions import FileExtensionNotSupportedException
 
 
@@ -10,10 +11,18 @@ def _read_json(filepath):
         data = yaml.load(f, Loader=Loader)
     return data
 
+
 def _read_yaml(filepath):
     '''Read yaml files'''
     with open(filepath, encoding='utf-8') as f:
         data = yaml.load(f, Loader=Loader)
+    return data
+
+
+def _read_toml(filepath):
+    '''Read TOML files'''
+    with open(filepath, encoding='utf-8') as f:
+        data = toml.load(f, _dict=OrderedDict)
     return data
 
 
@@ -37,5 +46,7 @@ class Reader(object):
 
         if ext == 'json':
             self.read = _read_json
+        elif ext == 'toml':
+            self.read = _read_toml
         else:
             self.read = _read_yaml
