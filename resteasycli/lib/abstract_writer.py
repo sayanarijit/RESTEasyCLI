@@ -1,7 +1,8 @@
 import json
+import toml
 from codecs import open
 
-from resteasycli.lib.utils import yaml, Dumper
+from resteasycli.lib.utils import yaml, Dumper, OrderedDict
 from resteasycli.exceptions import FileExtensionNotSupportedException
 
 
@@ -10,10 +11,17 @@ def _write_json(data, filepath):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
 
+
 def _write_yaml(data, filepath):
     '''Write yaml files'''
     with open(filepath, 'w', encoding='utf-8') as f:
         yaml.dump(data, f, default_flow_style=False, Dumper=Dumper)
+
+
+def _write_toml(data, filepath):
+    '''Write yaml files'''
+    with open(filepath, 'w', encoding='utf-8') as f:
+        toml.dump(data, f)
 
 
 class Writer(object):
@@ -36,5 +44,7 @@ class Writer(object):
 
         if ext == 'json':
             self.write = _write_json
+        elif ext == 'toml':
+            self.write = _write_toml
         else:
             self.write = _write_yaml

@@ -104,22 +104,27 @@ recli.cfg
 *.yml.lock
 *.yaml.lock
 *.json.lock
+*.toml.lock
 
 sites.yml
 sites.yaml
 sites.json
+sites.toml
 
 saved.yml
 saved.yaml
 saved.json
+saved.toml
 
 auth.yml
 auth.yaml
 auth.json
+auth.toml
 
 headers.yml
 headers.yaml
 headers.json
+headers.toml
 
 # IDE
 .vscode/

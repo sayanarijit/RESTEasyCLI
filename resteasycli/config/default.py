@@ -14,7 +14,7 @@ class DefaultConfig(object):
 
     SUPPORTED_FILE_FORMATS = ('v0.1', 'v1.0')
     DEFAULT_FILE_FORMAT = 'v1.0'
-    SUPPORTED_FILE_EXTENSIONS = ('json', 'yaml', 'yml')
+    SUPPORTED_FILE_EXTENSIONS = ('json', 'yaml', 'yml', 'toml')
     DEFAULT_FILE_EXTENSION = 'yaml'
 
     SITES_TEMPLATE_FILENAME = 'sites'

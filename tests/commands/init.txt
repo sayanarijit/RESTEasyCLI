@@ -4,3 +4,4 @@ recli init -f
 recli init -f -e json
 recli init -f -e yaml
 recli init -f -e yml
+recli init -f -e toml
