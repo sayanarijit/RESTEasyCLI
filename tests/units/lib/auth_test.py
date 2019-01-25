@@ -28,7 +28,11 @@ class AuthTest(unittest.TestCase):
 
         self.token_auth.apply(session)
 
-        result = {self.token_auth.credentials['header']: self.token_auth.credentials['value']}
+        result = {
+                'Authorization': '{} {}'.format(
+                    self.token_auth.credentials['token_type'],
+                    self.token_auth.credentials['token_hash'])
+        }
         result.update({'key': 'val'})
         self.assertEqual(session.headers, result)
 
