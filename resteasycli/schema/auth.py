@@ -13,8 +13,8 @@ class BasicAuthSchema(Schema):
 
 class TokenAuthSchema(Schema):
     '''Schema for token auth'''
-    header = fields.Str(required=True)
-    value = fields.Str(required=True)
+    token_type = fields.Str(required=True)
+    token_hash = fields.Str(required=True)
     class Meta:
         ordered = True
 
@@ -33,7 +33,7 @@ class AuthSchema(Schema):
         else:
             raise ValidationError('{}: invalid authentication type'.format(data['type']))
         return data
-    
+
     class Meta:
         ordered = True
 

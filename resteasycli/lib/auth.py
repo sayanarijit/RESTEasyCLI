@@ -15,8 +15,9 @@ class Auth(object):
             session.auth = (
                 self.credentials['username'], self.credentials['password'])
         elif self.type == 'token':
-            session.headers.update(
-                    {self.credentials['header']: self.credentials['value']})
+            session.headers.update({
+                'Authorization': '{} {}'.format(
+                    self.credentials['token_type'], self.credentials['token_hash'])})
 
     def dict(self):
         return OrderedDict([
