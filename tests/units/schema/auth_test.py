@@ -16,7 +16,7 @@ invalid_file_datas = [
 valid_datas = [
     {
         'type': 'token',
-        'credentials': {'header': 'abc', 'value': 'xyz'},
+        'credentials': {'token_type': 'abc', 'token_hash': 'xyz'},
     },
     {
         'type': 'basic',
@@ -45,7 +45,7 @@ invalid_datas = [
     },
     {
         'type': 'basic',
-        'credentials': {'header': 'abc', 'value': 'xyz'}
+        'credentials': {'token_type': 'abc', 'token_hash': 'xyz'}
     },
     {
         'type': 'token',
