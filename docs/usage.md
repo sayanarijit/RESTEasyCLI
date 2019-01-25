@@ -28,7 +28,7 @@ recli init -e json
 recli init -e toml
 ```
 
-***NOTE: Normally it will skip a file if it already exists. However, you may use `-f` or `--force` option to overwrite all the files.***
+> NOTE: Normally it will skip a file if it already exists. However, you may use `-f` or `--force` option to overwrite all the files.
 
 ## Workspace concept
 
@@ -152,7 +152,7 @@ recli patch $site_id/$endpoint_id/1 -k "$key: $value"
 recli delete $site_id/$endpoint_id/1
 ```
 
-***NOTE:*** *Although `$site_id/$endpoint_id/1` is not defined in any file, it will take "1" as a slug and format the URL accordingly*
+> NOTE: Although `$site_id/$endpoint_id/1` is not defined in any file, it will take "1" as a slug and format the URL accordingly
 
 
 ### Formatting the output
@@ -197,7 +197,7 @@ recli do $request_id -k "$key: $value" -a $updated_auth_id -H $updated_header_id
 
 And it can be faked and saved by adding `-F -s $updated_request_id` arguments.
 
-***NOTE:*** *`redo` is an alias to `do` command*
+> NOTE: `redo` is an alias to `do` command
 
 
 ### Table formatted outputs
@@ -219,8 +219,23 @@ recli redo-show $request_id -S 1
 
 This output can be further formatted to any supported representation using the `-f` or `--format` option.
 
-***NOTE:*** *You can also use this feature for other CRUD operations by overriding the method using `-m` or `--method` option but doing so is not recommended as result's structure may vary and formatting may fail*
+> NOTE: You can also use this feature for other CRUD operations by overriding the method using `-m` or `--method` option but doing so is not recommended as result's structure may vary and formatting may fail
 
+
+### Auto generate API documentation
+
+API documentation can be automatically generated from workspace files.
+It uses [Docify](https://github.com/rapidstack/Docify) library to create documents.
+
+e.g. to generate and dump documentation into a file named `README`, execute any of the below commands.
+
+```bash
+# To generate markdown formatted documentation
+recli doc README.md
+
+# To generate HTML (with bootstrap) formatted documentation
+recli doc README.html
+```
 
 ## Defining default command-line arguments
 
@@ -249,17 +264,4 @@ recli get another_site//1
 ```
 
 
-## Auto generate documentation
 
-API documentation can be automatically generated from workspace files.
-It uses [Docify](https://github.com/rapidstack/Docify) library to create documents.
-
-e.g. to generate and dump documentation into a file named `README`, execute any of the below commands.
-
-```bash
-# To generate markdown formatted documentation
-recli doc README.md
-
-# To generate HTML (with bootstrap) formatted documentation
-recli doc README.html
-```

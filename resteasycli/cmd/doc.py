@@ -5,7 +5,7 @@ from resteasycli.lib.doc import APIDocument
 
 
 class Generate(Command):
-    'Initialize template files in current directory'
+    'AUto generate API docs from workspace files'
 
     def get_parser(self, prog_name):
         parser = super(Generate, self).get_parser(prog_name)

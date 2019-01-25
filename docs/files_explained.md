@@ -61,7 +61,7 @@ DEFAULT_CERTFILE =
 
 As shown above, this is a flat file with key-value pairs separated with `=`. Any of the characters `#` or `;` can be used to put comments.
 
-***NOTE:*** *Do not use single or double quotes to define values and use `#` or `;` only at the starting of a line*
+> NOTE: Do not use single or double quotes to define values and use `#` or `;` only at the starting of a line
 
 
 ## 2. Sites file
@@ -203,4 +203,4 @@ Name of this file can be changed by modifying `SAVED_REQUESTS_TEMPLATE_FILENAME`
 
 To understand what the fields `kwargs`, `verify` etc. mean, check the next section *Fields Explained*.
 
-***NOTE:*** *All workspace files except the configuration file contain a version information to allow extension of currently defined format tackling incompatibility*
+> NOTE: All workspace files except the configuration file contain a version information to allow extension of currently defined format tackling incompatibility
