@@ -4,7 +4,7 @@ import os
 class DefaultConfig(object):
     '''Default configuration'''
 
-    VERSION = 'v0.8.0' # Also update setup.py
+    VERSION = 'v0.9.0' # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
 
     ALL_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')

@@ -1,5 +1,6 @@
 cliff==2.14.0
 PyYAML==4.2b1
 RESTEasy==1.0.5
-marshmallow==3.0.0rc1
+marshmallow==3.0.0rc3
 toml==0.10.0
+Docify==0.2.1
