@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.8.0'  # Also change resteasycli.config.default.DefaultConfig
+VERSION = 'v0.8.1'  # Also change resteasycli.config.default.DefaultConfig
 DESCRIPTION = 'Handy REST API client on your terminal'
 
 
@@ -95,6 +95,8 @@ setup(
             'show-headers = resteasycli.cmd.workspace:ShowHeaders',
             'list-auth = resteasycli.cmd.workspace:ListAuth',
             'show-auth = resteasycli.cmd.workspace:ShowAuth',
+
+            'doc = resteasycli.cmd.doc:Generate'
         ]
     },
     keywords='REST API client CLI tool'

@@ -126,5 +126,9 @@ headers.yaml
 headers.json
 headers.toml
 
+generated_docs
+generated_docs.md
+generated_docs.html
+
 # IDE
 .vscode/

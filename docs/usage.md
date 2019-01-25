@@ -247,3 +247,19 @@ recli get another_site/
 recli get another_site//1
 # Same as: recli get another_site/t/1
 ```
+
+
+## Auto generate documentation
+
+API documentation can be automatically generated from workspace files.
+It uses [Docify](https://github.com/rapidstack/Docify) library to create documents.
+
+e.g. to generate and dump documentation into a file named `README`, execute any of the below commands.
+
+```bash
+# To generate markdown formatted documentation
+recli doc README.md
+
+# To generate HTML (with bootstrap) formatted documentation
+recli doc README.html
+```

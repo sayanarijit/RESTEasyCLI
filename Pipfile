@@ -19,6 +19,7 @@ cliff = "*"
 marshmallow = "*"
 pyyaml = "==4.2b1"
 toml = "==0.10.0"
+docify = "*"
 
 [requires]
 python_version = "3.5"
