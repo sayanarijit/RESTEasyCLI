@@ -60,8 +60,8 @@ AUTH_TEMPLATE_CONTENT = OrderedDict([
         ('demo_token_auth', OrderedDict([
             ('type', 'token'),
             ('credentials', OrderedDict([
-                ('header', 'Authorization'),
-                ('value', 'Bearer uu6OgZqaChWj8vlTSiSBTirjeGpQqa83MycWiWHdPL2ppcrKTpDgrlegT87dhkhr')
+                ('token_type', 'Bearer'),
+                ('token_hash', 'uu6OgZqaChWj8vlTSiSBTirjeGpQqa83MycWiWHdPL2ppcrKTpDgrlegT87dhkhr')
             ]))
         ]))
     ]))

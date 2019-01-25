@@ -156,8 +156,8 @@ auth:
   $auth_id:
     type: token
     credentials:
-      header: $key
-      value: $value
+      token_type: $token_type
+      token_hash: $token_hash
 ```
 
 Name of this file can be changed by modifying `AUTH_TEMPLATE_FILENAME` field in configuration file.
