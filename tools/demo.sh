@@ -3,178 +3,140 @@
 which python3 > /dev/null || exit 1
 which virtualenv > /dev/null || exit 1
 
+
 SKIP_INSTALL=/bin/false
-echo $*|grep -q 'skipinstall' && SKIP_INSTALL=/bin/true
+echo $*|grep -wq 'skipinstall' && SKIP_INSTALL=/bin/true
+
+SKIP_SERVE=/bin/false
+echo $*|grep -wq 'skipserve' && SKIP_SERVE=/bin/true
+
+
+green() {
+    echo -en "\e[32m$1\e[0m"
+}
+
+blue() {
+    echo -en "\e[34m$1\e[0m"
+}
+
+ul() {
+    echo -en "\e[4m$1\e[0m"
+}
+
+p() {
+    echo -en "$(green "$ $1")"
+    read -s x
+    echo
+    eval "$1" || exit 1
+    echo
+}
+
+c() {
+    echo $(blue "# $1")
+}
+
 
 clear
-echo '========================================='
-echo '* Starting RESTEasyCLI interactive demo *'
-echo '========================================='
+c '====================================='
+c 'Starting RESTEasyCLI interactive demo'
+c '====================================='
 echo
-echo 'Press [ENTER] key to continue with each step'
-echo 'Press ^c to exit demo at any time'
+c 'Press [ENTER] key to continue with each step'
+c 'Press ^c to exit demo at any time'
 echo
-read -sp '> understood' x
+read -sp '> understood'
 echo
 echo
 
 if ! $SKIP_INSTALL; then
-    echo '# Create and activate virtual environment'
-    read -sp '> virtualenv -p python3 ~/recli_demo_venv' x
-    echo
-    virtualenv -p python3 ~/recli_demo_venv || exit 1
-    echo
+    c 'Create and activate virtual environment'
+    p 'virtualenv -p python3 ~/recli_demo_venv'
 
-    read -sp '> source ~/recli_demo_venv/bin/activate' x
-    echo
-    source ~/recli_demo_venv/bin/activate || exit 1
-    echo
+    p 'source ~/recli_demo_venv/bin/activate'
 
-    echo "# Install package in $VIRTUAL_ENV"
-    read -sp '> pip install -U resteasycli' x
-    echo
-    pip install -U resteasycli || exit 1
-    echo
+    c "Install package in $VIRTUAL_ENV"
+    p 'pip install -U resteasycli'
 fi
 
-echo '# Create workspace'
-read -sp '> mkdir ~/recli_demo_workspace && cd ~/recli_demo_workspace' x
-echo
-mkdir ~/recli_demo_workspace && cd ~/recli_demo_workspace || exit 1
-echo
+c 'Create workspace'
+p 'mkdir ~/recli_demo_workspace && cd ~/recli_demo_workspace'
 
-echo '# Initialize workspace'
-read -sp '> recli init' x
-echo
-recli init || exit 1
-echo
+c 'Initialize workspace'
+p 'recli init'
 
-echo '# See what did it actually do'
-read -sp '> ls' x
-echo
-ls || exit 1
-echo
+c 'See what did it actually do'
+p 'ls'
 
-echo '# Check auto generated sites file'
-read -sp '> cat sites.yaml' x
-echo
-cat sites.yaml || exit 1
-echo
+c 'Check auto generated sites file'
+p 'cat sites.yaml'
 
-echo '# Check auto generated auth file'
-read -sp '> cat auth.yaml' x
-echo
-cat auth.yaml || exit 1
-echo
+c 'Check auto generated auth file'
+p 'cat auth.yaml'
 
-echo '# Check auto generated headers file'
-read -sp '> cat headers.yaml' x
-echo
-cat headers.yaml || exit 1
-echo
+c 'Check auto generated headers file'
+p 'cat headers.yaml'
 
-echo '# Check auto generated saved requests file'
-read -sp '> cat saved.yaml' x
-echo
-cat saved.yaml || exit 1
-echo
+c 'Check auto generated saved requests file'
+p 'cat saved.yaml'
 
-echo '# Check out the help menu'
-read -sp '> recli help' x
-echo
-recli help|| exit 1
-echo
+c 'Check out the help menu'
+p 'recli help'
 
-echo '# List available endpoints from sites file'
-read -sp '> recli list-endpoints' x
-echo
-recli list-endpoints || exit 1
-echo
+c 'List available endpoints from sites file'
+p 'recli list-endpoints'
 
-echo '# Do GET request to https://jsonplaceholder.typicode.com/todos'
-read -sp '> recli get testing/t' x
-echo
-recli get testing/t || exit 1
-echo
+c "Do GET request to $(ul https://jsonplaceholder.typicode.com/todos)"
+p 'recli get testing/t'
 
-echo '# See help menu for "list" command'
-read -sp '> recli help list' x
-echo
-recli help list|| exit 1
-echo
+c 'See help menu for "list" command'
+p 'recli help list'
 
-echo '# Do the earlier GET request with parameter "userId=1" and format the output as a table'
-read -sp '> recli list testing/t --kwargs "userId: 1" --fit-width' x
-echo
-recli list testing/t --kwargs "userId: 1" --fit-width || exit 1
-echo
+c 'Do the earlier GET request with parameter "userId=1" and format the output as a table'
+p 'recli list testing/t --kwargs "userId: 1" --fit-width' x
 
-echo '# Add a slug "1" to previous request and format the output as a table'
-read -sp '> recli show testing/t/1 --fit-width' x
-echo
-recli show testing/t/1 --fit-width || exit 1
-echo
+c 'Add a slug "1" to previous request and format the output as a table'
+p 'recli show testing/t/1 --fit-width'
 
-echo '# Do DELETE request to https://jsonplaceholder.typicode.com/todos/1 (saved as testing/t1)'
-read -sp '> recli delete testing/t1' x
-echo
-recli delete testing/t1 || exit 1
-echo
+c "Do DELETE request to $(ul https://jsonplaceholder.typicode.com/todos/1) (saved as testing/t1)"
+p 'recli delete testing/t1'
 
-echo '# List saved requests from auto generated file'
-read -sp '> recli list-saved' x
-echo
-recli list-saved || exit 1
-echo
+c 'List saved requests from auto generated file'
+p 'recli list-saved'
 
-echo '# Show details of a saved request'
-read -sp '> recli show remind_shopping' x
-echo
-recli show-saved remind_shopping || exit 1
-echo
+c 'Show details of a saved request'
+p 'recli show-saved remind_shopping'
 
-echo '# Invoke this request'
-read -sp '> recli do remind_shopping' x
-echo
-recli do remind_shopping || exit 1
-echo
+c 'Invoke this request'
+p 'recli do remind_shopping'
 
-echo '# Fake the previous request with modified payload'
-read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake' x
-echo
-recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake || exit 1
-echo
+c 'Fake the previous request with modified payload'
+p 'recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake'
 
-echo '# Add "-s" or "--save_as" with an ID to save the request for later use'
-read -sp '> recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request' x
-echo
-recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request || exit 1
-echo
+c 'Add "-s" or "--save_as" with an ID to save the request for later use'
+p 'recli redo remind_shopping --update_kwargs "{userId: 1, title: watch naruto}" --fake --save_as my_request'
 
-echo '# Verify the newly saved request'
-read -sp '> recli show-saved my_request' x
-echo
-recli show-saved my_request || exit 1
-echo
+c 'Verify the newly saved request'
+p 'recli show-saved my_request'
 
-echo '# Check where and how it is saved'
-read -sp '> cat saved.yaml' x
-echo
-cat saved.yaml || exit 1
-echo
+c 'Check where and how it is saved'
+p 'cat saved.yaml'
 
-echo '# Invoke the saved request'
-read -sp '> recli do my_request' x
-echo
-recli do my_request || exit 1
-echo
+c 'Invoke the saved request'
+p 'recli do my_request'
 
-echo '==============================================================='
-echo '* CONGRATULATIONS...! you have completed the interactive demo *'
-echo '==============================================================='
+c 'Generate API documentation automatically from workspace files'
+p 'recli doc index.html --hide_cred'
+
+if ! $SKIP_SERVE; then
+    c "Serve the generated document on $(ul http://$(hostname):8080)"
+    p 'python -m http.server -b 0.0.0.0 8080 --cgi'
+fi
+
+c '==========================================================='
+c 'CONGRATULATIONS...! you have completed the interactive demo'
+c '==========================================================='
 echo
-echo 'NOTE:'
-$SKIP_INSTALL || echo '  This package currently is installed inside virtual environment: ~/recli_demo_venv'
-echo '  You can access your demo workspace here: ~/recli_demo_workspace'
-echo '  You can install this tool globally by running: sudo pip install -U resteasycli'
-echo '  Or install it locally by running: pip install -U --user resteasycli'
+$SKIP_INSTALL || c 'This package currently is installed inside virtual environment: ~/recli_demo_venv'
+c 'You can access your demo workspace here: ~/recli_demo_workspace'
+c 'You can install this tool globally by running: sudo pip install -U resteasycli'
+c 'Or install it locally by running: pip install -U --user resteasycli'

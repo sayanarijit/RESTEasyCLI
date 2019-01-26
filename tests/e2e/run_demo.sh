@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./tools/demo.sh skipinstall <<< '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+./tools/demo.sh skipinstall skipserve <<< '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'

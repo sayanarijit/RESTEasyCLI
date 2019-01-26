@@ -129,6 +129,7 @@ headers.toml
 generated_docs
 generated_docs.md
 generated_docs.html
+/index.html
 
 # IDE
 .vscode/
