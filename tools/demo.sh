@@ -129,7 +129,7 @@ p 'recli doc index.html --hide_cred'
 
 if ! $SKIP_SERVE; then
     c "Serve the generated document on $(ul http://$(hostname):8080)"
-    p 'python -m http.server -b 0.0.0.0 8080 --cgi'
+    p 'python -m http.server -b 0.0.0.0 8080'
 fi
 
 c '==========================================================='
