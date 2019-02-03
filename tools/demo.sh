@@ -8,7 +8,7 @@ export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 
-DEMO_DIR="~/recli_demorecli_demo"
+DEMO_DIR="~/recli_demo"
 
 SKIP_INSTALL=false
 echo $* | grep -wq 'skipinstall' && SKIP_INSTALL=true
