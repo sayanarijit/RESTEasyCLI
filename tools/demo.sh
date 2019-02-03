@@ -1,30 +1,34 @@
 #!/bin/bash
 
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+
 which python3 > /dev/null || exit 1
 which virtualenv > /dev/null || exit 1
 
 
-SKIP_INSTALL=/bin/false
-echo $*|grep -wq 'skipinstall' && SKIP_INSTALL=/bin/true
+SKIP_INSTALL=false
+echo $* | grep -wq 'skipinstall' && SKIP_INSTALL=true
 
-SKIP_SERVE=/bin/false
-echo $*|grep -wq 'skipserve' && SKIP_SERVE=/bin/true
+SKIP_SERVE=false
+echo $* | grep -wq 'skipserve' && SKIP_SERVE=true
 
 
 green() {
-    echo -en "\e[32m$1\e[0m"
+    printf "\e[32m$1\e[0m"
 }
 
 blue() {
-    echo -en "\e[34m$1\e[0m"
+    printf "\e[34m$1\e[0m"
 }
 
 ul() {
-    echo -en "\e[4m$1\e[0m"
+    printf "\e[4m$1\e[0m"
 }
 
 p() {
-    echo -en "$(green "$ $1")"
+    echo -n $(green "$ $1")
     read -s x
     echo
     eval "$1" || exit 1
@@ -128,7 +132,7 @@ c 'Generate API documentation automatically from workspace files'
 p 'recli doc index.html --hide_cred'
 
 if ! $SKIP_SERVE; then
-    c "Serve the generated document on $(ul http://$(hostname):8080)"
+    c "Serve the generated document on $(ul http://localhost:8080)"
     p 'python -m http.server -b 0.0.0.0 8080'
 fi
 
