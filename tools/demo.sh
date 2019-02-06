@@ -4,27 +4,33 @@ which python3 > /dev/null || exit 1
 which virtualenv > /dev/null || exit 1
 
 
-SKIP_INSTALL=/bin/false
-echo $*|grep -wq 'skipinstall' && SKIP_INSTALL=/bin/true
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
-SKIP_SERVE=/bin/false
-echo $*|grep -wq 'skipserve' && SKIP_SERVE=/bin/true
+
+DEMO_DIR="~/recli_demo"
+
+SKIP_INSTALL=false
+echo $* | grep -wq 'skipinstall' && SKIP_INSTALL=true
+
+SKIP_SERVE=false
+echo $* | grep -wq 'skipserve' && SKIP_SERVE=true
 
 
 green() {
-    echo -en "\e[32m$1\e[0m"
+    printf "\e[32m$1\e[0m"
 }
 
 blue() {
-    echo -en "\e[34m$1\e[0m"
+    printf "\e[34m$1\e[0m"
 }
 
 ul() {
-    echo -en "\e[4m$1\e[0m"
+    printf "\e[4m$1\e[0m"
 }
 
 p() {
-    echo -en "$(green "$ $1")"
+    echo -n $(green "$ $1")
     read -s x
     echo
     eval "$1" || exit 1
@@ -48,18 +54,18 @@ read -sp '> understood'
 echo
 echo
 
+c 'Create workspace'
+p "mkdir -p $DEMO_DIR/workspace && cd $DEMO_DIR/workspace"
+
 if ! $SKIP_INSTALL; then
     c 'Create and activate virtual environment'
-    p 'virtualenv -p python3 ~/recli_demo_venv'
+    p "virtualenv -p python3 $DEMO_DIR/venv"
 
-    p 'source ~/recli_demo_venv/bin/activate'
+    p "source $DEMO_DIR/venv/bin/activate"
 
     c "Install package in $VIRTUAL_ENV"
     p 'pip install -U resteasycli'
 fi
-
-c 'Create workspace'
-p 'mkdir ~/recli_demo_workspace && cd ~/recli_demo_workspace'
 
 c 'Initialize workspace'
 p 'recli init'
@@ -128,15 +134,15 @@ c 'Generate API documentation automatically from workspace files'
 p 'recli doc index.html --hide_cred'
 
 if ! $SKIP_SERVE; then
-    c "Serve the generated document on $(ul http://$(hostname):8080)"
-    p 'python -m http.server -b 0.0.0.0 8080 --cgi'
+    c "Serve the generated document on $(ul http://localhost:8080)"
+    p 'python -m http.server -b 0.0.0.0 8080'
 fi
 
 c '==========================================================='
 c 'CONGRATULATIONS...! you have completed the interactive demo'
 c '==========================================================='
 echo
-$SKIP_INSTALL || c 'This package currently is installed inside virtual environment: ~/recli_demo_venv'
-c 'You can access your demo workspace here: ~/recli_demo_workspace'
+$SKIP_INSTALL || c "This package currently is installed inside virtual environment: $DEMO_DIR/venv"
+c "You can access your demo workspace here: $DEMO_DIR/workspace"
 c 'You can install this tool globally by running: sudo pip install -U resteasycli'
 c 'Or install it locally by running: pip install -U --user resteasycli'
