@@ -1,3 +1,4 @@
+import re
 import json
 from docify import Document, components as c
 from docify.formatters.html_bootstrap import HTMLBootstrap
@@ -23,7 +24,9 @@ class APIDocument(object):
 
         doc = Document(c.H1(workspace.config.WORKSPACE_TITLE))
         if workspace.config.WORKSPACE_DESCRIPTION:
-            doc.add(c.Span(workspace.config.WORKSPACE_DESCRIPTION) + c.Br() + c.Hr())
+            doc.add(c.P(workspace.config.WORKSPACE_DESCRIPTION), c.Hr())
+        else:
+            doc.add(c.P(c.Nbsp()))
 
         for req_id in workspace.saved_requests:
             req = workspace.get_saved_request(req_id)
@@ -36,8 +39,11 @@ class APIDocument(object):
                 if 'Proxy-Authorization' in headers:
                     headers['Proxy-Authorization'] = '*****'
 
+            lnk = re.sub('[^a-zA-Z0-9-]', '-', str(req_id))
             doc.add(c.Section(
-                c.H2(c.B(req.method) + c.Nbsp() + req_id),
+                c.H2(
+                    c.B(req.method), c.Nbsp(),
+                    c.A(req_id, href='/#'+lnk), id=lnk),
                 c.H3('Endpoint'),
                 c.Pre(c.Code(api.endpoint)),
                 c.H3('Headers'),
@@ -52,13 +58,16 @@ class APIDocument(object):
 
                 doc.add(c.Section(
                     c.H3('Authentication'),
-                    c.B('Username:') + c.Nbsp() + c.Code(username),
-                    c.B('Password:') + c.Nbsp() + c.Code(password)))
+                    c.Section(
+                        c.B('Username: ') + c.Nbsp() + c.Code(username),
+                        c.Br(),
+                        c.B('Password:') + c.Nbsp() + c.Code(password))))
 
             if req.method != 'GET':
                 doc.add(c.Section(
                     c.H3('Body'),
                     c.Pre(c.Code(json.dumps(req.kwargs, indent=4)))))
+            doc.add(c.P(c.Nbsp()))
         return doc
 
     def dump(self, filepath):
