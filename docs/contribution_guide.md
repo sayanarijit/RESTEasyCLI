@@ -38,13 +38,13 @@ cd RESTEasyCLI
 ```bash
 sudo pip install pipenv
 pipenv install --dev
-pre-commit install
 ```
 
-* Activate virtualenv and add current path in Python's library search path
+* Activate virtualenv initialize pre-commit hooks and add current path in Python's library search path
 
 ```bash
 pipenv shell
+pre-commit install
 export PYTHONPATH=$PWD
 
 ## If required, install module using:
