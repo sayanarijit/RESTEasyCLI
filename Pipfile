@@ -12,6 +12,9 @@ m2r = "*"
 ipykernel = "*"
 mkdocs = "*"
 mkdocs-rtd-dropdown = "*"
+tox = "*"
+flake8 = "*"
+pre-commit = "*"
 
 [packages]
 resteasy = {version = "*",editable = true}

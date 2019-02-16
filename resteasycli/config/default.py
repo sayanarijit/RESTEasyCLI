@@ -4,7 +4,7 @@ import os
 class DefaultConfig(object):
     '''Default configuration'''
 
-    VERSION = 'v0.9.6' # Also update setup.py
+    VERSION = 'v0.9.7'  # Also update setup.py
     DESCRIPTION = 'Handy REST API client on your terminal'
 
     ALL_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')
@@ -26,7 +26,8 @@ class DefaultConfig(object):
     DEFAULT_OUTPUT_FORMAT = 'yaml'
 
     WORKSPACE_TITLE = os.path.basename(
-        os.path.basename(os.path.abspath('.')))
+        os.path.basename(os.path.abspath('.')),
+    )
     WORKSPACE_DESCRIPTION = None
 
     DEFAULT_SITE_ID = None

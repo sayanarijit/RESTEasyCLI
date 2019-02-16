@@ -24,46 +24,46 @@ Before starting with any of the following steps make sure you have Python 3 inst
 
 Steps:
 
-1. Fork this project in your personal acount
+* Fork this project in your personal acount
 
-2. Clone the project locally
+* Clone the project locally
 
 ```bash
 git clone https://github.com/{your_username}/RESTEasyCLI
 cd RESTEasyCLI
 ```
 
-3. Install Pipenv other dependencies
+* Install Pipenv other dependencies
 
 ```bash
 sudo pip install pipenv
 pipenv install --dev
+pre-commit install
 ```
 
-4. Activate virtualenv and add current path in Python's library search path
+* Activate virtualenv and add current path in Python's library search path
 
 ```bash
 pipenv shell
 export PYTHONPATH=$PWD
 
-# If required, install module using:
+## If required, install module using:
 # python setup.py install
 ```
 
-5. Do your stuff. Debug commands using `--debug` and `--verbose` options.
 
-6. Test your stuff (if applicable)
+## After setting up
 
-```bash
-sh tests/units/unit_tests.sh
-python tests/e2e/execute_all_commands.py
-```
+* Do your stuff. Debug commands using `--debug` and `--verbose` options.
 
-7. Run before commit
+* Test your stuff (if applicable)
 
 ```bash
-chmod +x tools/before_commit.sh
-./tools/before_commit.sh
+tox
+
+## Or test manually
+# sh tests/units/unit_tests.sh
+# python tests/e2e/execute_all_commands.py
 ```
 
-8. Commit and push the code and raise pull request
+* Commit and push the code and raise pull request

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.9.6'  # Also change resteasycli.config.default.DefaultConfig
+VERSION = 'v0.9.7'  # Also change resteasycli.config.default.DefaultConfig
 DESCRIPTION = 'Handy REST API client on your terminal'
 
 
@@ -27,7 +27,10 @@ setup(
     long_description=long_description,
     # long_description_content_type='text/markdown',
     url='https://github.com/rapidstack/RESTEasyCLI',
-    download_url='https://github.com/rapidstack/RESTEasyCLI/archive/{}.tar.gz'.format(VERSION),
+    download_url=(
+        'https://github.com/rapidstack/'
+        'RESTEasyCLI/archive/{}.tar.gz'
+    ).format(VERSION),
     author='Arijit Basu',
     author_email='sayanarijit@gmail.com',
     license='MIT',
@@ -53,7 +56,7 @@ setup(
         'Operating System :: MacOS',
         'Operating System :: Unix',
         'Operating System :: POSIX',
-        'Operating System :: Microsoft'
+        'Operating System :: Microsoft',
     ],
     platforms=['Any'],
 
@@ -63,10 +66,10 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'recli = resteasycli.cmd.main:main'
+            'recli = resteasycli.cmd.main:main',
         ],
         'cliff.recli.pre_init': [
-            'init = resteasycli.cmd.initialize:Init'
+            'init = resteasycli.cmd.initialize:Init',
         ],
         'cliff.recli.post_init': [
             'init = resteasycli.cmd.initialize:Init',
@@ -96,8 +99,8 @@ setup(
             'list-auth = resteasycli.cmd.workspace:ListAuth',
             'show-auth = resteasycli.cmd.workspace:ShowAuth',
 
-            'doc = resteasycli.cmd.doc:Generate'
-        ]
+            'doc = resteasycli.cmd.doc:Generate',
+        ],
     },
-    keywords='REST API client CLI tool'
+    keywords='REST API client CLI tool',
 )
