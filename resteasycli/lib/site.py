@@ -50,7 +50,7 @@ class Site(RESTEasy):
     def dict(self):
         '''Return information about itself in dict format'''
         data = OrderedDict([
-            ('base_url', self.base_url)
+            ('base_url', self.base_url),
             ('endpoints', list(self.endpoints.keys())),
         ])
         if self.auth_applied is not None:
