@@ -35,20 +35,23 @@ class Site(RESTEasy):
             self.timeout = data['timeout']
         if 'methods' in data:
             self.allowed_methods = list(
-                map(lambda x: x.upper(), data['methods']))
+                map(lambda x: x.upper(), data['methods']),
+            )
             self.allowed_methods_applied = self.allowed_methods
 
     def get_endpoint(self, endpoint_id, slug=None):
         '''Return an initialized endpoint object'''
         if endpoint_id not in self.endpoints:
-            raise EntryNotFoundException('{}: endpoint not found'.format(endpoint_id))
+            raise EntryNotFoundException(
+                '{}: endpoint not found'.format(endpoint_id),
+            )
         return Endpoint(endpoint_id=endpoint_id, site=self, slug=slug)
 
     def dict(self):
         '''Return information about itself in dict format'''
         data = OrderedDict([
-            ('endpoints', list(self.endpoints.keys())),
             ('base_url', self.base_url)
+            ('endpoints', list(self.endpoints.keys())),
         ])
         if self.auth_applied is not None:
             data.update({'auth': self.auth_applied.auth_id})
