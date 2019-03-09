@@ -1,5 +1,5 @@
 cliff==2.14.1
-PyYAML==4.2b1
+PyYAML==5.1b5
 RESTEasy==1.0.5
 marshmallow==3.0.0rc4
 toml==0.10.0
