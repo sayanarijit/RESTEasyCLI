@@ -108,7 +108,7 @@ class Request(object):
         ).open(fileinfo.path)
         data = locked_file.read()
 
-        data['saved_requests']['request_id'] = self.dict()
+        data['saved_requests'][request_id] = self.dict()
         locked_file.write(data=data)
         locked_file.close()
 
