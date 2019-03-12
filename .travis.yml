@@ -10,5 +10,4 @@ matrix:
       sudo: true
 install:
   - pip install tox-travis
-  - pip install codecov
 script: tox
