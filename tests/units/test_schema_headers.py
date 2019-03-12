@@ -10,12 +10,12 @@ invalid_file_datas = [
     {'version': 'v1.0', 'headers': 'abc'},
     {'version': 'v1.0', 'headers': 123},
     {'version': 'v1.0', 'headers': None},
-    {'version': 'v1.0'}
+    {'version': 'v1.0'},
 ]
 
 valid_datas = [
     {'action': 'update', 'values': {'a': 'x', 'b': 'y', 'c': 'z'}},
-    {'action': 'only', 'values': {}}
+    {'action': 'only', 'values': {}},
 ]
 
 invalid_datas = [
@@ -42,6 +42,7 @@ class HeadersFileSchemaTest(unittest.TestCase):
         for x in invalid_file_datas:
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
+
 class HeadersSchemaTest(unittest.TestCase):
 
     schema = HeadersSchema()
@@ -53,5 +54,5 @@ class HeadersSchemaTest(unittest.TestCase):
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

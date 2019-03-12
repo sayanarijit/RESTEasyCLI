@@ -18,8 +18,10 @@ class AbstractWriterTest(unittest.TestCase):
         writer.load_writer_by_extension('YAML')
         self.assertEqual(writer.write, _write_yaml)
 
-        self.assertRaises(FileExtensionNotSupportedException,
-                          lambda: writer.load_writer_by_extension('txt'))
+        self.assertRaises(
+            FileExtensionNotSupportedException,
+            lambda: writer.load_writer_by_extension('txt'),
+        )
 
 
 if __name__ == '__main__':

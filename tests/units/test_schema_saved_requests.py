@@ -1,7 +1,9 @@
 import unittest
 from marshmallow import ValidationError
 
-from resteasycli.schema.saved_requests import SavedRequestSchema, SavedRequestsFileSchema
+from resteasycli.schema.saved_requests import (
+    SavedRequestSchema, SavedRequestsFileSchema,
+)
 
 
 valid_file_datas = [{'version': 'v1.0', 'saved_requests': {}}]
@@ -10,7 +12,7 @@ invalid_file_datas = [
     {'version': 'v1.0', 'saved_requests': 'abc'},
     {'version': 'v1.0', 'saved_requests': 123},
     {'version': 'v1.0', 'saved_requests': None},
-    {'version': 'v1.0'}
+    {'version': 'v1.0'},
 ]
 
 valid_datas = [
@@ -24,7 +26,7 @@ valid_datas = [
         'site': 'ghjobs',
         'endpoint': 'p',
         'verify': False,
-        'slug': '1'
+        'slug': '1',
     },
     {
         'method': 'GET',
@@ -32,16 +34,16 @@ valid_datas = [
         'endpoint': 'positions',
         'headers': 'demo_headers1',
         'auth': 'demo_token_auth',
-        'verify': 'tests/units/schema/fake_certfile',
+        'verify': 'tests/units/fake_certfile',
         'kwargs': {'description': 'python', 'full_time': 1},
-        'slug': 1
+        'slug': 1,
     },
     {
         'method': 'POST',
         'site': 'ghjobs',
         'endpoint': 'p',
-        'kwargs': {}
-    }
+        'kwargs': {},
+    },
 ]
 
 invalid_datas = [
@@ -55,26 +57,26 @@ invalid_datas = [
         'method': 'GET',
         'site': 'ghjobs',
         'endpoint': 'p',
-        'kwargs': []
+        'kwargs': [],
     },
     {
         'method': 'POST',
         'site': 'ghjobs',
         'endpoint': 'p',
-        'kwargs': None
+        'kwargs': None,
     },
     {
         'method': 'GET',
         'site': 'ghjobs',
         'endpoint': 'p',
-        'headers': {'abc': 'xyz'}
+        'headers': {'abc': 'xyz'},
     },
     {
         'method': 'GET',
         'site': 'ghjobs',
         'endpoint': 'p',
-        'auth': {'abc': 'xyz'}
-    }
+        'auth': {'abc': 'xyz'},
+    },
 ]
 
 
@@ -88,6 +90,7 @@ class SavedRequestsFileSchemaTest(unittest.TestCase):
         for x in invalid_file_datas:
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
+
 class SavedRequestSchemaTest(unittest.TestCase):
 
     schema = SavedRequestSchema()
@@ -99,5 +102,5 @@ class SavedRequestSchemaTest(unittest.TestCase):
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

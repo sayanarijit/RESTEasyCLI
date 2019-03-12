@@ -1,0 +1,2 @@
+recli doc generated_docs.md
+recli doc generated_docs.html

@@ -12,5 +12,5 @@ class SiteTest(unittest.TestCase):
         self.assertIsInstance(self.site.get_endpoint('t'), Endpoint)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

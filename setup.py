@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 PROJECT = 'RESTEasyCLI'
-VERSION = 'v0.9.7'  # Also change resteasycli.config.default.DefaultConfig
+VERSION = 'v0.9.8'  # Also change resteasycli.config.default.DefaultConfig
 DESCRIPTION = 'Handy REST API client on your terminal'
 
 
@@ -13,6 +13,10 @@ here = path.abspath(path.dirname(__file__))
 # Get requirements from requirements.txt file
 with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
     requirements = f.read().splitlines()
+
+# Get dev requirements from dev/requirements.txt file
+with open(path.join(here, 'dev/requirements.txt'), encoding='utf-8') as f:
+    dev_requirements = f.read().splitlines()
 
 # Get the long description from the README file
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
@@ -61,6 +65,8 @@ setup(
     platforms=['Any'],
 
     install_requires=requirements,
+
+    extras_require={'develop': dev_requirements},
 
     packages=find_packages(),
 

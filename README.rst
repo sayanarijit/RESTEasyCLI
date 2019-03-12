@@ -20,6 +20,11 @@ Handy REST API client on your terminal
    :alt: Documentation Status
 
 
+.. image:: https://codecov.io/gh/rapidstack/RESTEasyCLI/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/rapidstack/RESTEasyCLI
+   :alt: codecov
+
+
 Supported on
 ------------
 
@@ -55,4 +60,3 @@ How to contribute
 .. image:: https://img.shields.io/badge/contribution-guide-333333.svg?style=for-the-badge
    :target: https://github.com/rapidstack/RESTEasyCLI/blob/master/CONTRIBUTING.md
    :alt: Checkout the contribution guide here
-

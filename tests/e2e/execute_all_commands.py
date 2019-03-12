@@ -3,7 +3,8 @@ from __future__ import print_function
 import os
 from subprocess import Popen
 
-CMDDIR = 'tests/commands'
+CMDDIR = 'tests/e2e/commands'
+
 
 def main():
     Popen(['recli', 'init', '-f']).wait()
@@ -19,5 +20,6 @@ def main():
             print()
         print()
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()

@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from resteasycli.config.parser import Parser
@@ -6,6 +5,7 @@ from resteasycli.config.template import ConfigTemplate
 
 
 ConfigTemplate.initialize(force=True)
+
 
 class ConfigParserTest(unittest.TestCase):
 
@@ -16,5 +16,5 @@ class ConfigParserTest(unittest.TestCase):
         self.assertEqual(parsed, {})
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

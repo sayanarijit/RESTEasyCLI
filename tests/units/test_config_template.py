@@ -11,11 +11,11 @@ class ConfigTemplatesTest(unittest.TestCase):
 
         if os.path.exists('recli.cfg'):
             os.remove('recli.cfg')
-            
+
         ConfigTemplate.initialize(force=True)
 
         self.assertTrue(os.path.isfile('recli.cfg'))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

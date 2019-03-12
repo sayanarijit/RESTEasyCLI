@@ -15,11 +15,12 @@ invalid_file_datas = [
     {'version': 'v1'},
     {'version': None},
     {'version': ''},
-    {'version': ['v1.0']}
+    {'version': ['v1.0']},
 ]
 
+
 class WorkspaceFileSchemaTest(unittest.TestCase):
-    
+
     schema = WorkspaceFileSchema()
 
     def test_validation(self):
@@ -29,5 +30,5 @@ class WorkspaceFileSchemaTest(unittest.TestCase):
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

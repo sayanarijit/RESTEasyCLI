@@ -13,10 +13,15 @@ class SavedRequestTest(unittest.TestCase):
 
     def test_get(self):
         info = self.get_python_jobs.do()
-        self.assertEqual(info['endpoint'],
-                         'https://jobs.github.com/positions.json')
-        self.assertEqual(info['kwargs'], {
-                         'description': 'python', 'full_time': 1})
+        self.assertEqual(
+            info['endpoint'],
+            'https://jobs.github.com/positions.json',
+        )
+        self.assertEqual(
+            info['kwargs'], {
+                'description': 'python', 'full_time': 1,
+            },
+        )
         self.assertEqual(info['method'], 'GET')
         self.assertEqual(info['timeout'], 10)
 

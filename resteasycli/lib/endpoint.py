@@ -1,14 +1,12 @@
-import os
-import yaml
 from collections import OrderedDict
-from resteasy import requests, APIEndpoint
+from resteasy import requests
 
-from resteasycli.config import Config
 from resteasycli.exceptions import MethodNotAllowedException
 
 
 requests.packages.urllib3.disable_warnings(
-    requests.packages.urllib3.exceptions.InsecureRequestWarning)
+    requests.packages.urllib3.exceptions.InsecureRequestWarning,
+)
 
 
 class Endpoint(object):
@@ -20,12 +18,12 @@ class Endpoint(object):
         self.site = site
         self.logger = site.logger
         self.api = self.site.route(data['route'])
-        self.auth_applied = None
-        self.headers_applied = None
-        self.timeout_applied = None
-        self.verify_applied = None
-        self.allowed_methods = Config.DEFAULT_ALLOWED_METHODS
-        self.allowed_methods_applied = None
+        self.auth_applied = site.auth_applied
+        self.headers_applied = site.headers_applied
+        self.timeout_applied = site.timeout_applied
+        self.verify_applied = site.verify_applied
+        self.allowed_methods = site.allowed_methods
+        self.allowed_methods_applied = site.allowed_methods_applied
         if slug is not None:
             self.api = self.api.route(slug)
         if 'auth' in data:
@@ -42,14 +40,17 @@ class Endpoint(object):
             self.api.session.verify = data['verify']
         if 'methods' in data:
             self.allowed_methods = list(
-                map(lambda x: x.upper(), data['methods']))
+                map(lambda x: x.upper(), data['methods']),
+            )
             self.allowed_methods_applied = self.allowed_methods
 
     def do(self, method, kwargs={}):
         '''Do the request'''
 
         if method not in self.allowed_methods and not self.api.debug:
-            raise MethodNotAllowedException('allowed methods are: ' + (', '.join(self.allowed_methods)))
+            raise MethodNotAllowedException(
+                'allowed methods are: ' + (', '.join(self.allowed_methods)),
+            )
 
         return self.api.do(method, kwargs)
 
@@ -57,13 +58,13 @@ class Endpoint(object):
         '''Return information about itself in dict format'''
         data = OrderedDict([('endpoint_url', self.api.endpoint)])
         if self.auth_applied is not None:
-            data.update({'auth': self.auth_applied.auth_id})
+            data['auth'] = self.auth_applied.auth_id
         if self.headers_applied is not None:
-            data.update({'headers': self.headers_applied.headers_id})
+            data['headers'] = self.headers_applied.headers_id
         if self.timeout_applied is not None:
-            data.update({'timeout': self.timeout_applied})
+            data['timeout'] = self.timeout_applied
         if self.verify_applied is not None:
-            data.update({'verify': self.verify_applied})
+            data['verify'] = self.verify_applied
         if self.allowed_methods_applied is not None:
-            data.update({'allowed_methods': self.allowed_methods_applied})
+            data['allowed_methods'] = self.allowed_methods_applied
         return data

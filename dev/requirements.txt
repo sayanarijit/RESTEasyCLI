@@ -1,0 +1,13 @@
+pip==19.0.3
+setuptools==40.8.0
+twine==1.13.0
+pylint==2.3.0.dev1
+autopep8==1.4.3
+m2r==0.2.1
+ipykernel==5.1.0
+mkdocs==1.0.4
+mkdocs-rtd-dropdown==1.0.2
+tox==3.7.0
+flake8==3.7.5
+pre-commit==1.14.3
+pytest-cov==2.6.1

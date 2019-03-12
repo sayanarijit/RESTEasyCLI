@@ -17,7 +17,11 @@ class WorkspaceTemplatesTest(unittest.TestCase):
         WorkspaceTemplates.initialize(force=True, extension='yml')
 
         for t in WorkspaceTemplates.TEMPLATE.values():
-            self.assertEqual(workspace.reader.read('{}.yml'.format(t['filename'])), t['content'])
+            self.assertEqual(
+                workspace.reader.read(
+                    '{}.yml'.format(t['filename']),
+                ), t['content'],
+            )
 
 
 class WorkspaceTest(unittest.TestCase):
@@ -34,9 +38,12 @@ class WorkspaceTest(unittest.TestCase):
         self.assertIsInstance(self.ws.get_headers('demo_headers1'), Headers)
 
     def test_get_saved_request(self):
-        self.assertIsInstance(self.ws.get_saved_request(
-            'remind_shopping'), SavedRequest)
+        self.assertIsInstance(
+            self.ws.get_saved_request(
+                'remind_shopping',
+            ), SavedRequest,
+        )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

@@ -54,13 +54,13 @@ class Site(RESTEasy):
             ('endpoints', list(self.endpoints.keys())),
         ])
         if self.auth_applied is not None:
-            data.update({'auth': self.auth_applied.auth_id})
+            data['auth'] = self.auth_applied.auth_id
         if self.headers_applied is not None:
-            data.update({'headers': self.headers_applied.headers_id})
+            data['headers'] = self.headers_applied.headers_id
         if self.timeout_applied is not None:
-            data.update({'timeout': self.timeout_applied})
+            data['timeout'] = self.timeout_applied
         if self.verify_applied is not None:
-            data.update({'verify': self.verify_applied})
+            data['verify'] = self.verify_applied
         if self.allowed_methods_applied is not None:
-            data.update({'allowed_methods': self.allowed_methods_applied})
+            data['allowed_methods'] = self.allowed_methods_applied
         return data

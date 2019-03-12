@@ -10,7 +10,7 @@ invalid_file_datas = [
     {'version': 'v1.0', 'auth': 'abc'},
     {'version': 'v1.0', 'auth': 123},
     {'version': 'v1.0', 'auth': None},
-    {'version': 'v1.0'}
+    {'version': 'v1.0'},
 ]
 
 valid_datas = [
@@ -20,8 +20,8 @@ valid_datas = [
     },
     {
         'type': 'basic',
-        'credentials': {'username': 'abc', 'password': 'xyz'}
-    }
+        'credentials': {'username': 'abc', 'password': 'xyz'},
+    },
 ]
 
 invalid_datas = [
@@ -33,24 +33,27 @@ invalid_datas = [
     {'credentials': {'username': 'abc', 'password': 'xyz'}},
     {
         'type': 'some_weird_type',
-        'credentials': {'username': 'abc', 'password': 'xyz'}
+        'credentials': {'username': 'abc', 'password': 'xyz'},
     },
     {
         'type': 'basic',
-        'credentials': {'weirdkey1': 'weirdvalue1', 'weirdkey2': 'weirdvalue2'}
+        'credentials': {
+            'weirdkey1': 'weirdvalue1',
+            'weirdkey2': 'weirdvalue2',
+        },
     },
     {
         'type': 'basic',
-        'credentials': {}
+        'credentials': {},
     },
     {
         'type': 'basic',
-        'credentials': {'token_type': 'abc', 'token_hash': 'xyz'}
+        'credentials': {'token_type': 'abc', 'token_hash': 'xyz'},
     },
     {
         'type': 'token',
-        'credentials': {'username': 'abc', 'password': 'xyz'}
-    }
+        'credentials': {'username': 'abc', 'password': 'xyz'},
+    },
 ]
 
 
@@ -64,6 +67,7 @@ class AuthFileSchemaTest(unittest.TestCase):
         for x in invalid_file_datas:
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
+
 class AuthSchemaTest(unittest.TestCase):
 
     schema = AuthSchema()
@@ -75,5 +79,5 @@ class AuthSchemaTest(unittest.TestCase):
             self.assertRaises(ValidationError, lambda: self.schema.load(x))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

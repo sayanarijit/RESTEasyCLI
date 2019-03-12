@@ -16,11 +16,15 @@ class GenerateTest(unittest.TestCase):
     def test_dump(self):
         doc = APIDocument(workspace)
 
-        self.assertRaises(FileExtensionNotSupportedException,
-                          lambda: doc.dump('generated_docs'))
+        self.assertRaises(
+            FileExtensionNotSupportedException,
+            lambda: doc.dump('generated_docs'),
+        )
 
-        self.assertRaises(FileExtensionNotSupportedException,
-                          lambda: doc.dump('generated_docs.abcd'))
+        self.assertRaises(
+            FileExtensionNotSupportedException,
+            lambda: doc.dump('generated_docs.abcd'),
+        )
 
         if os.path.exists('generated_docs.md'):
             os.remove('generated_docs.md')

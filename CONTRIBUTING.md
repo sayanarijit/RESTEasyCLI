@@ -5,6 +5,7 @@ This is a new born project and has lots of scope for improvements.
 If you feel that you can help with any of above TODO list or if you have a totally unique idea, feel free to jump right in.
 
 ## Some tips
+
 Here are some tips to start contributing to this project right away.
 
 - Instead of directly creating pull requests, [create a issue](https://github.com/rapidstack/RESTEasyCLI/issues/new) first to check it's relevence and save efforts. However,
@@ -33,22 +34,23 @@ git clone https://github.com/{your_username}/RESTEasyCLI
 cd RESTEasyCLI
 ```
 
-* Install Pipenv other dependencies
+* Create and activate virtual environment
 
 ```bash
-sudo pip install pipenv
-pipenv install --dev
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-* Activate virtualenv initialize pre-commit hooks and add current path in Python's library search path
+* Install recli along with development requirements keeping source files editable
 
 ```bash
-pipenv shell
-pre-commit install
-export PYTHONPATH=$PWD
+pip install -e '.[develop]'
+```
 
-## If required, install module using:
-# python setup.py install
+* Install pre-commit hooks
+
+```bash
+pre-commit install
 ```
 
 
@@ -59,11 +61,12 @@ export PYTHONPATH=$PWD
 * Test your stuff (if applicable)
 
 ```bash
-tox
+pytest --pdb --cov=resteasycli
 
-## Or test manually
-# sh tests/units/unit_tests.sh
-# python tests/e2e/execute_all_commands.py
+### Use tox if you want to test on all python platforms (see tox docs).
+# tox
 ```
+
+* If required, run `./dev/bin/last_minute_check.sh` to take care of house keeping stuffs and perform basic checks.
 
 * Commit and push the code and raise pull request

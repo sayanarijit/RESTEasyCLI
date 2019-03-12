@@ -15,9 +15,13 @@ class AuthTest(unittest.TestCase):
         session.auth = None
         self.basic_auth.apply(session)
 
-        self.assertEqual(session.auth,
-                (self.basic_auth.credentials['username'],
-                 self.basic_auth.credentials['password']))
+        self.assertEqual(
+            session.auth,
+            (
+                self.basic_auth.credentials['username'],
+                self.basic_auth.credentials['password'],
+            ),
+        )
 
     def test_apply2(self):
 
@@ -31,11 +35,12 @@ class AuthTest(unittest.TestCase):
         result = {
                 'Authorization': '{} {}'.format(
                     self.token_auth.credentials['token_type'],
-                    self.token_auth.credentials['token_hash'])
+                    self.token_auth.credentials['token_hash'],
+                ),
         }
         result.update({'key': 'val'})
         self.assertEqual(session.headers, result)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

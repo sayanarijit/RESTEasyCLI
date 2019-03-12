@@ -1,4 +1,3 @@
-import time
 from collections import OrderedDict
 
 from resteasycli.lib.locked_read_writer import LockedReadWriter
@@ -54,7 +53,8 @@ class Request(object):
         '''Override endpoints headers'''
         self.headers_applied = self.workspace.get_headers(headers_id)
         self.headers_applied.apply(
-            self.endpoint.api.session)
+            self.endpoint.api.session,
+        )
 
     def set_verify(self, verify):
         '''Override certificate verification'''
@@ -86,15 +86,15 @@ class Request(object):
             ('kwargs', self.kwargs),
         ])
         if self.auth_applied is not None:
-            request.update({'auth': self.auth_applied.auth_id})
+            request['auth'] = self.auth_applied.auth_id
         if self.headers_applied is not None:
-            request.update({'headers': self.headers_applied.headers_id})
+            request['headers'] = self.headers_applied.headers_id
         if self.timeout_applied is not None:
-            request.update({'timeout': self.timeout_applied})
+            request['timeout'] = self.timeout_applied
         if self.verify_applied is not None:
-            request.update({'verify': self.verify_applied})
+            request['verify'] = self.verify_applied
         if self.slug_applied is not None:
-            request.update({'slug': self.slug_applied})
+            request['slug'] = self.slug_applied
 
         return request
 
@@ -103,10 +103,12 @@ class Request(object):
 
         fileinfo = self.workspace.saved_requests_file
 
-        locked_file = LockedReadWriter(logger=self.workspace.logger).open(fileinfo.path)
+        locked_file = LockedReadWriter(
+            logger=self.workspace.logger,
+        ).open(fileinfo.path)
         data = locked_file.read()
 
-        data['saved_requests'].update({request_id: self.dict()})
+        data['saved_requests']['request_id'] = self.dict()
         locked_file.write(data=data)
         locked_file.close()
 
