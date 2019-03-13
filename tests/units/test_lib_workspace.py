@@ -1,6 +1,6 @@
 import unittest
 
-from common import workspace
+from .common import workspace
 from resteasycli.lib.workspace import WorkspaceTemplates
 from resteasycli.lib.site import Site
 from resteasycli.lib.auth import Auth

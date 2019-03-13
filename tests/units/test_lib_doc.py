@@ -2,7 +2,7 @@ import os
 import unittest
 from docify import Document
 
-from common import workspace
+from .common import workspace
 from resteasycli.lib.doc import APIDocument
 from resteasycli.exceptions import FileExtensionNotSupportedException
 

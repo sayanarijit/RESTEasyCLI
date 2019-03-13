@@ -1,6 +1,6 @@
 import unittest
 
-from common import workspace
+from .common import workspace
 
 
 class AuthTest(unittest.TestCase):
