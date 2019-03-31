@@ -9,6 +9,6 @@ ipykernel==5.1.0
 mkdocs==1.0.4
 mkdocs-rtd-dropdown==1.0.2
 tox==3.7.0
-pre-commit==1.14.4
+pre-commit==1.15.0
 flake8==3.7.7
 pytest-cov==2.6.1
