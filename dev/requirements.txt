@@ -5,7 +5,7 @@ twine==1.13.0
 pylint==2.3.1
 autopep8==1.4.4
 m2r==0.2.1
-ipykernel==5.1.0
+ipykernel==5.1.1
 mkdocs==1.0.4
 mkdocs-rtd-dropdown==1.0.2
 tox==3.11.1
